@@ -260,8 +260,8 @@
 .post-wrap ol,
 .post-entry dl,
 .post-wrap dl {
-  margin-top: 1.6rem;
-  margin-bottom: 1.6rem;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 .post-entry img,
 .post-wrap img,

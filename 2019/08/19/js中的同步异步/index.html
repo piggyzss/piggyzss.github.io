@@ -99,14 +99,14 @@
         <div class="content">
           <article class="post-entry">
     <div class="header">
-      <div class="title">webworker入门</div>
+      <div class="title">js中的同步异步</div>
         
         <div class="meta">
         <span>
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-fenzu4"/>
           </svg>
-          2019/08/12
+          2019/08/19
         </span>
         <span>
           <svg class="icon" aria-hidden="true">
@@ -114,10 +114,6 @@
           </svg>
           <span>
             
-              
-                
-                  <a href="/categories/code">code</a>
-                
               
             
           </span>
@@ -129,14 +125,10 @@
           <span>
             
               
-                
-                  <a href="/tags/前端">前端</a>
-                
-              
             
           </span>
         </span>
-        <span class="leancloud-visitors" id="http://yoursite.com/2019/08/12/webworker入门/" data-flag-title="webworker入门">
+        <span class="leancloud-visitors" id="http://yoursite.com/2019/08/19/js中的同步异步/" data-flag-title="js中的同步异步">
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-fenzu6"/>
           </svg>
@@ -147,39 +139,76 @@
       <div>
       </div>
     </div>
-    <p>JavaScript语言的一大特点就是单线程.</p>
-<p>作为浏览器脚本语言，JavaScript的主要用途是与用户互动，以及操作DOM。 这决定了它只能是单线程，否则会带来很复杂的同步问题。比如，假定 JavaScript同时有两个线程，一个线程在某个DOM节点上添加内容，另一个线 程删除了这个节点，这时浏览器应该以哪个线程为准? 所以，为了避免复杂性，从一诞生，JavaScript就是单线程，这已经成了这门 语言的核心特征，将来也不会改变.</p>
-<h1 id="什么是-Web-Worker"><a href="#什么是-Web-Worker" class="headerlink" title="什么是 Web Worker?"></a>什么是 Web Worker?</h1><p>HTML5 中提出了工作线程(WebWorker)的概念，并且规范出 Web Worker的三大主要特征:能够长时间运行(响应)，理想的启动性能以及理想的内存消耗。</p>
-<p>Web Worker允许开发人员编写能够长时间运行而不被用户所中断的后台程序，去执行事务或者逻辑，并同时保证页面对用户的及时响应。</p>
-<p>Web Worker其实就是在Javascript单线程执行的基础上，开启一个子线程，进行程序处理，而不影响主线程的执行，当子线程执行完毕之后再回到主线程上，在这个过程中并不影响主线程的执行过程。</p>
-<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><h3 id="主线程"><a href="#主线程" class="headerlink" title="主线程"></a>主线程</h3><p>浏览器原生提供Worker()构造函数，用来供主线程生成 Worker 线程，主Worker 线程对象的属性和方 法如下:</p>
+    <h1 id="1、进程和线程"><a href="#1、进程和线程" class="headerlink" title="1、进程和线程"></a>1、进程和线程</h1><p>进程是cpu资源分配的最小单位（是能拥有资源和独立运行的最小单位）<br>线程是cpu调度的最小单位（线程是建立在进程的基础上的一次程序运行单位，一个进程中可以有多个线程）</p>
+<p><strong>Tips：浏览器是多进程的</strong></p>
 <ul>
-<li>Worker.onerror:指定 error 事件的监听函数</li>
-<li>Worker.onmessage:指定 message 事件的监听函数，发送过来的数据在Event.data属性中</li>
-<li>Worker.onmessageerror:指定 messageerror 事件的监听函数。发送的数据⽆无法序列列化成字符串串时，会触发这个事件</li>
-<li>Worker.postMessage():向 Worker 线程发送消息</li>
-<li>Worker.terminate():终⽌止 Worker 线程(Worker 完成任务以后，主线程就可以把它关掉)</li>
+<li>浏览器是多进程的</li>
+<li>浏览器之所以能够运行，是因为系统给它的进程分配了资源（cpu、内存）</li>
+<li>简单点理解，每打开一个Tab页，就相当于创建了一个独立的浏览器进程</li>
 </ul>
-<h3 id="webworker线程"><a href="#webworker线程" class="headerlink" title="webworker线程"></a>webworker线程</h3><p>webworker 有自己的全局对象，不是主线程的window，而是一个专门为 Worker 定制的全局对象</p>
+<p>注意：浏览器应该也有自己的优化机制，有时候打开多个tab页后，可以在Chrome任务管理器中看到，有些进程被合并了（所以每一个Tab标签对应一个进程并不一定是绝对的）</p>
+<p><strong>Tips：浏览器的内核机制</strong><br>一个浏览器一般包括以下进程：</p>
 <ul>
-<li>self.name: Worker的名字。该属性只读，由构造函数指定</li>
-<li>self.onmessage: 指定message事件的监听函数</li>
-<li>self.onmessageerror: 指定messageerror事件的监听函数。发送的数据无法序列化成字符串时，会触发这个事件</li>
-<li>self.close(): 关闭 Worker 线程</li>
-<li>self.postMessage(): 向产生这个Worker线程发送消息</li>
-<li>self.importScripts(): 加载JS脚本</li>
+<li>Browser进程：浏览器的主进程（负责协调、主控），只有一个</li>
+<li>第三方插件进程：每种类型的插件对应一个进程，仅当使用该插件时才创建</li>
+<li>GPU进程：最多一个，用于3D绘制</li>
+<li>浏览器渲染进程（内核）：默认每个Tab页面一个进程，互不影响，控制页面渲染，脚本执行，事件处理等（有时候会优化，如多个空白tab会合并成一个进程）<br>进程是多线程的，它有几大类子线程：</li>
+<li>javascript引擎：是基于事件驱动单线程执行的，JS引擎一直等待着任务队列中任务的到来，然后加以处理，浏览器无论什么时候都只有一个JS线程在运行JS程序。</li>
+<li>GUI渲染线程：负责渲染浏览器界面，当界面需要重排、重绘或由于某种操作引发回流时,该线程就会执行。但需要注意 GUI渲染线程与JS引擎是互斥的，当JS引擎执行时GUI线程会被挂起，GUI更新会被保存在一个队列中等到JS引擎空闲时立即被执行。</li>
+<li>事件触发线程：当一个事件被触发时该线程会把事件添加到待处理队列的队尾，等待JS引擎的处理。这些事件可来自JavaScript引擎当前执行的代码块如setTimeOut、也可来自浏览器内核的其他线程如鼠标点击、AJAX异步请求等，但由于JS的单线程关系所有这些事件都得排队等待JS引擎处理。</li>
 </ul>
-<h2 id="可以用webworker做什么"><a href="#可以用webworker做什么" class="headerlink" title="可以用webworker做什么"></a>可以用webworker做什么</h2><ul>
-<li>需要一个js脚本进行大量的复杂计算时候，通过postMessage和onmessage进行通信</li>
-<li>功能模块化，import Scripts这个方法只能在worker线程中执行，该方法可以在worker线程中引入多个脚本，则该线程可以使用所引入脚本中的任意变量和函数</li>
-<li>通信当需要执行一个不断向后台发送更新请求的时候，可以将这个过程放到工作线程里，然后将结果返回给主线程</li>
+<h1 id="2、为什么JS是单线程"><a href="#2、为什么JS是单线程" class="headerlink" title="2、为什么JS是单线程"></a>2、为什么JS是单线程</h1><p>JavaScript的单线程，与它的用途有关。<br>引用阮一峰老师的解答：</p>
+<blockquote>
+<p>作为浏览器脚本语言，JavaScript的主要用途是与用户互动，以及操作DOM。这决定了它只能是单线程，否则会带来很复杂的同步问题。比如，假定JavaScript同时有两个线程，一个线程在某个DOM节点上添加内容，另一个线程删除了这个节点，这时浏览器应该以哪个线程为准？<br>所以，为了避免复杂性，从一诞生，JavaScript就是单线程，这已经成了这门语言的核心特征，将来也不会改变。<br>为了利用多核CPU的计算能力，HTML5提出Web Worker标准，允许JavaScript脚本创建多个线程，但是子线程完全受主线程控制，且不得操作DOM。所以，这个新标准并没有改变JavaScript单线程的本质。</p>
+</blockquote>
+<h1 id="3、单线程怎样实现异步"><a href="#3、单线程怎样实现异步" class="headerlink" title="3、单线程怎样实现异步"></a>3、单线程怎样实现异步</h1><p>单线程就意味着，浏览器只分配给js一个主线程用来执行任务（函数），但一次只能执行一个任务，这些任务形成一个任务队列排队等候执行，前一个任务结束，才会执行后一个任务，这类任务被称作同步任务。<br>但前端的某些任务是非常耗时的，比如网络请求，定时器和事件监听，如果前一个任务耗时很长，后一个任务就不得不一直等着。这样执行效率会很低，甚至导致页面的假死。<br>因此，我们需要异步任务来解决这个难题。<br>异步任务是指，不进入主线程、而进入”任务队列”（task queue）的任务，只有”任务队列”通知主线程，某个异步任务可以执行了，该任务才会进入主线程执行。</p>
+<p>这里有几个概念：</p>
+<ul>
+<li>任务队列（task queue）：“任务队列”是一个先进先出的事件队列（也可以理解成消息的队列），IO设备完成一项任务，就在”任务队列”中添加一个事件，表示相关的异步任务可以进入”执行栈”了。主线程读取”任务队列”，就是读取里面有哪些事件。<br>“任务队列”中的事件，除了IO设备的事件以外，还包括一些用户产生的事件（比如鼠标点击、页面滚动等等）。只要指定过回调函数，这些事件发生时就会进入”任务队列”，等待主线程读取。</li>
+<li>回调函数（callback）：就是那些会被主线程挂起来的代码。异步任务必须指定回调函数，当主线程开始执行异步任务，就是执行对应的回调函数。</li>
+<li>事件循环（Event Loop）：事件循环是指主线程重复从消息队列中取消息、执行的过程。由于这个过程是循环不断的，因此整个的这种运行机制称为Event Loop（事件循环）。</li>
 </ul>
-<h2 id="一些大坑"><a href="#一些大坑" class="headerlink" title="一些大坑"></a>一些大坑</h2><ul>
-<li>不能跨域加载JS</li>
-<li>worker不能访问DOM</li>
-<li>各个浏览器对Worker的实现不大一致，例如FF里允许worker中创建新的worker，而Chrome中就不行</li>
+<p>因此，任务处理过程可以总结为以下几步：<br><strong>1）</strong>所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）。<br><strong>2）</strong>主线程之外，还存在一个”任务队列”。只要异步任务有了运行结果，就在”任务队列”之中放置一个事件。<br><strong>3）</strong>一旦”执行栈”中的所有同步任务执行完毕，系统就会读取”任务队列”，看看里面有哪些事件。那些对应的异步任务结束等待状态，进入执行栈，开始执行。<br><strong>4）</strong>主线程不断重复上面的第三步（事件循环）</p>
+<p>主线程运行的时候，产生堆（heap）和栈（stack），栈中的代码调用各种外部API，它们在”任务队列”中加入各种事件（click，load，done）。只要栈中的代码执行完毕，主线程就会去读取”任务队列”，依次执行那些事件所对应的回调函数。</p>
+<h1 id="4、定时器"><a href="#4、定时器" class="headerlink" title="4、定时器"></a>4、定时器</h1><p>除了放置异步任务的事件，”任务队列”还可以放置定时事件，即指定某些代码在多少时间之后执行。这叫做”定时器”（timer）功能，也就是定时执行的代码。</p>
+<p>定时器功能主要由setTimeout()和setInterval()这两个函数来完成，它们的内部运行机制完全一样，区别在于setTimeout只执行一次，后者则为反复执行。以下主要讨论setTimeout()。</p>
+<p>setTimeout()接受两个参数，第一个是回调函数，第二个是推迟执行的毫秒数。<br>返回一个 ID（数字），这个ID作为这个定时器的唯一标识，可以传递给 clearTimeout() 来取消执行。</p>
+<pre><code class="javascript">console.log(1);
+setTimeout(function(){console.log(2);}, 0);
+console.log(3);</code></pre>
+<p>上面代码的执行结果是1，3，2，也就是说，当前代码执行完（执行栈清空）以后，立即执行（0毫秒间隔）指定的回调函数。</p>
+<p>HTML5标准规定了setTimeout()的第二个参数的最小值（最短间隔），不得低于4毫秒，如果低于这个值，就会自动增加。在此之前，老版本的浏览器都将最短间隔设为10毫秒。</p>
+<p>需要注意的是，setTimeout()只是将事件插入了”任务队列”，必须等到当前代码（执行栈）执行完，主线程才会去执行它指定的回调函数。要是当前代码耗时很长，有可能要等很久，所以并没有办法保证，回调函数一定会在setTimeout()指定的时间执行。</p>
+<h1 id="5、处理异步的几种方法"><a href="#5、处理异步的几种方法" class="headerlink" title="5、处理异步的几种方法"></a>5、处理异步的几种方法</h1><h2 id="（1）回调函数callback"><a href="#（1）回调函数callback" class="headerlink" title="（1）回调函数callback"></a>（1）回调函数callback</h2><p>A callback is a function that is passed as an argument to another function and is executed after its parent function has completed.<br>回调是一个函数被作为一个参数传递到另一个函数里，在那个函数执行完后再执行。（ 也即：B函数被作为参数传递到A函数里，在A函数执行完后再执行B ）</p>
+<pre><code class="javascript">function foo(callback){//定义函数的时候将另一个函数（回调函数）作为参数传入定义的函数中。
+    $ajax({
+        //...
+        success:callback//异步操作执行完毕后，再执行该回调函数，确保回调在异步操作之后执行。
+    });
+}
+function func(result){
+    //...
+}
+foo(func);</code></pre>
+<p>回调函数是异步编程最基本的方法<br>优点：比较容易理解<br>缺点：</p>
+<ul>
+<li>高耦合，维护困难，回调地狱</li>
+<li>每个任务只能指定一个回调函数</li>
+<li>如果几个异步操作之间并没有顺序之分，同样也要等待上一个操作执行结束再进行下一个操作。下图回调地狱</li>
 </ul>
-
+<p>tips:回调并不一定就是异步</p>
+<h2 id="（2）事件监听"><a href="#（2）事件监听" class="headerlink" title="（2）事件监听"></a>（2）事件监听</h2><p>优点：比较容易理解，可以绑定多个事件，每一个事件可以指定多个回调函数，而且可以去耦合，有利于实现模块化<br>缺点：整个程序都要变成事件驱动型，运行流程会变得不清晰</p>
+<h2 id="（3）promise"><a href="#（3）promise" class="headerlink" title="（3）promise"></a>（3）promise</h2><p>promise对象是commonJS工作组提出的一种规范，目的是为了异步编程提供统一接口<br>Promise代表了一个异步操作，可以将异步对象和回调函数脱离开来，通过.then方法在这个异步操作上绑定回调函数，Promise可以让我们通过链式调用的方法去解决回调嵌套的问题，而且由于promise.all这样的方法存在，可以让同时执行多个操作变得简单。</p>
+<p>promise对象的三个状态</p>
+<ul>
+<li>Fulfilled—has-resolution，reslove(成功时)，调用onFulfilled</li>
+<li>Rejected—has-rejection，reject(失败时)，调用Rejected</li>
+<li>Pending—unresolve，Pending，既不是resolve也不是reject状态，也就是Promise刚刚被创建后的初始化状态。<br>Promise的状态只会从Pending变为Fulfilled或者Rejected，不可逆。</li>
+</ul>
+<p>promise对象的两个重要方法：resolve/reject<br><strong>1）</strong>resolve方法可以使Promise对象的状态改变为成功，同时传递一个参数用于后续成功后的操作。<br><strong>2）</strong>reject方法可以将Promise对象的状态改变为失败，同时将错误信息传递到后续错误处理的操作。</p>
+<p>.then可以使用链式调用，原因在于：每一次执行该方法时总会返回一个Promise对象。<br>另外，在then的函数当中的返回值，可以作为后续操作的参数</p>
+<p>优点：<br>回调函数写成了链式写法，程序的流程可以看得很清楚，而且有一整套的配套方法，可以实现很多强大的功能。</p>
+<h2 id="（4）async-await"><a href="#（4）async-await" class="headerlink" title="（4）async/await"></a>（4）async/await</h2>
 
   
 
@@ -211,7 +240,7 @@
       <!--本文作者：<a href="http://yoursite.com">shanshan</a>-->
     <!--</div>-->
     <!--<div class="link">-->
-      <!--永久链接：<a href="http://yoursite.com/2019/08/12/webworker入门/">http://yoursite.com/2019/08/12/webworker入门/</a>-->
+      <!--永久链接：<a href="http://yoursite.com/2019/08/19/js中的同步异步/">http://yoursite.com/2019/08/19/js中的同步异步/</a>-->
     <!--</div>-->
     <!--<div class="declare">-->
       <!--版权声明：本文首发于<a href="http://yoursite.com">shanshan</a>的博客，转载请注明出处！-->
@@ -229,8 +258,8 @@
     <script>
         var disqus_shortname = 'shanshan';
         var disqus_config = function () {
-            this.page.url = 'http://yoursite.com/2019/08/12/webworker入门/';
-            this.page.identifier = '/2019/08/12/webworker入门/';
+            this.page.url = 'http://yoursite.com/2019/08/19/js中的同步异步/';
+            this.page.identifier = '/2019/08/19/js中的同步异步/';
         };
         (function() {
             var d = document, s = d.createElement('script');
@@ -351,7 +380,7 @@
               <span>Toc</span>
             </div>
             <div class="post-toc">
-              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#什么是-Web-Worker"><span class="toc-text">什么是 Web Worker?</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#API"><span class="toc-text">API</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#主线程"><span class="toc-text">主线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#webworker线程"><span class="toc-text">webworker线程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#可以用webworker做什么"><span class="toc-text">可以用webworker做什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一些大坑"><span class="toc-text">一些大坑</span></a></li></ol></li></ol>
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1、进程和线程"><span class="toc-text">1、进程和线程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2、为什么JS是单线程"><span class="toc-text">2、为什么JS是单线程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3、单线程怎样实现异步"><span class="toc-text">3、单线程怎样实现异步</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4、定时器"><span class="toc-text">4、定时器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5、处理异步的几种方法"><span class="toc-text">5、处理异步的几种方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#（1）回调函数callback"><span class="toc-text">（1）回调函数callback</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#（2）事件监听"><span class="toc-text">（2）事件监听</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#（3）promise"><span class="toc-text">（3）promise</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#（4）async-await"><span class="toc-text">（4）async/await</span></a></li></ol></li></ol>
             </div>
           </div>
            
