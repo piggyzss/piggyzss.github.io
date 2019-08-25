@@ -149,10 +149,10 @@
     </div>
     <p>JavaScript语言的一大特点就是单线程.</p>
 <p>作为浏览器脚本语言，JavaScript的主要用途是与用户互动，以及操作DOM。 这决定了它只能是单线程，否则会带来很复杂的同步问题。比如，假定 JavaScript同时有两个线程，一个线程在某个DOM节点上添加内容，另一个线 程删除了这个节点，这时浏览器应该以哪个线程为准? 所以，为了避免复杂性，从一诞生，JavaScript就是单线程，这已经成了这门 语言的核心特征，将来也不会改变.</p>
-<h1 id="什么是-Web-Worker"><a href="#什么是-Web-Worker" class="headerlink" title="什么是 Web Worker?"></a>什么是 Web Worker?</h1><p>HTML5 中提出了工作线程(WebWorker)的概念，并且规范出 Web Worker的三大主要特征:能够长时间运行(响应)，理想的启动性能以及理想的内存消耗。</p>
+<h1 id="1、什么是-Web-Worker"><a href="#1、什么是-Web-Worker" class="headerlink" title="1、什么是 Web Worker?"></a>1、什么是 Web Worker?</h1><p>HTML5 中提出了工作线程(WebWorker)的概念，并且规范出 Web Worker的三大主要特征:能够长时间运行(响应)，理想的启动性能以及理想的内存消耗。</p>
 <p>Web Worker允许开发人员编写能够长时间运行而不被用户所中断的后台程序，去执行事务或者逻辑，并同时保证页面对用户的及时响应。</p>
 <p>Web Worker其实就是在Javascript单线程执行的基础上，开启一个子线程，进行程序处理，而不影响主线程的执行，当子线程执行完毕之后再回到主线程上，在这个过程中并不影响主线程的执行过程。</p>
-<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><h3 id="主线程"><a href="#主线程" class="headerlink" title="主线程"></a>主线程</h3><p>浏览器原生提供Worker()构造函数，用来供主线程生成 Worker 线程，主Worker 线程对象的属性和方 法如下:</p>
+<h1 id="2、API"><a href="#2、API" class="headerlink" title="2、API"></a>2、API</h1><h2 id="主线程"><a href="#主线程" class="headerlink" title="主线程"></a>主线程</h2><p>浏览器原生提供Worker()构造函数，用来供主线程生成 Worker 线程，主Worker 线程对象的属性和方 法如下:</p>
 <ul>
 <li>Worker.onerror:指定 error 事件的监听函数</li>
 <li>Worker.onmessage:指定 message 事件的监听函数，发送过来的数据在Event.data属性中</li>
@@ -160,7 +160,7 @@
 <li>Worker.postMessage():向 Worker 线程发送消息</li>
 <li>Worker.terminate():终⽌止 Worker 线程(Worker 完成任务以后，主线程就可以把它关掉)</li>
 </ul>
-<h3 id="webworker线程"><a href="#webworker线程" class="headerlink" title="webworker线程"></a>webworker线程</h3><p>webworker 有自己的全局对象，不是主线程的window，而是一个专门为 Worker 定制的全局对象</p>
+<h2 id="webworker线程"><a href="#webworker线程" class="headerlink" title="webworker线程"></a>webworker线程</h2><p>webworker 有自己的全局对象，不是主线程的window，而是一个专门为 Worker 定制的全局对象</p>
 <ul>
 <li>self.name: Worker的名字。该属性只读，由构造函数指定</li>
 <li>self.onmessage: 指定message事件的监听函数</li>
@@ -169,12 +169,12 @@
 <li>self.postMessage(): 向产生这个Worker线程发送消息</li>
 <li>self.importScripts(): 加载JS脚本</li>
 </ul>
-<h2 id="可以用webworker做什么"><a href="#可以用webworker做什么" class="headerlink" title="可以用webworker做什么"></a>可以用webworker做什么</h2><ul>
+<h1 id="3、可以用webworker做什么"><a href="#3、可以用webworker做什么" class="headerlink" title="3、可以用webworker做什么"></a>3、可以用webworker做什么</h1><ul>
 <li>需要一个js脚本进行大量的复杂计算时候，通过postMessage和onmessage进行通信</li>
 <li>功能模块化，import Scripts这个方法只能在worker线程中执行，该方法可以在worker线程中引入多个脚本，则该线程可以使用所引入脚本中的任意变量和函数</li>
 <li>通信当需要执行一个不断向后台发送更新请求的时候，可以将这个过程放到工作线程里，然后将结果返回给主线程</li>
 </ul>
-<h2 id="一些大坑"><a href="#一些大坑" class="headerlink" title="一些大坑"></a>一些大坑</h2><ul>
+<h1 id="4、一些大坑"><a href="#4、一些大坑" class="headerlink" title="4、一些大坑"></a>4、一些大坑</h1><ul>
 <li>不能跨域加载JS</li>
 <li>worker不能访问DOM</li>
 <li>各个浏览器对Worker的实现不大一致，例如FF里允许worker中创建新的worker，而Chrome中就不行</li>
@@ -220,7 +220,6 @@
 
     <!-- Comments -->
     <div class="comments" id="zss">
-        123456
         
             <br><br>
             
@@ -351,7 +350,7 @@
               <span>Toc</span>
             </div>
             <div class="post-toc">
-              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#什么是-Web-Worker"><span class="toc-text">什么是 Web Worker?</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#API"><span class="toc-text">API</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#主线程"><span class="toc-text">主线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#webworker线程"><span class="toc-text">webworker线程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#可以用webworker做什么"><span class="toc-text">可以用webworker做什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一些大坑"><span class="toc-text">一些大坑</span></a></li></ol></li></ol>
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1、什么是-Web-Worker"><span class="toc-text">1、什么是 Web Worker?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2、API"><span class="toc-text">2、API</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#主线程"><span class="toc-text">主线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#webworker线程"><span class="toc-text">webworker线程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3、可以用webworker做什么"><span class="toc-text">3、可以用webworker做什么</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4、一些大坑"><span class="toc-text">4、一些大坑</span></a></li></ol>
             </div>
           </div>
            
@@ -378,7 +377,7 @@
               <span><a href>···</a></span>
             </div>
             <div class="tag-cloud">
-              <a href="/tags/前端/" style="font-size: 13px; color: #4a4a4a">前端</a>
+              <a href="/tags/前端/" style="font-size: 20px; color: #4a4a4a">前端</a> <a href="/tags/设计模式/" style="font-size: 13px; color: #4a4a4a">设计模式</a>
             </div>
           </div>
         </div>
