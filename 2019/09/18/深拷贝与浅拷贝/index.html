@@ -66,7 +66,7 @@
         Home
       </a>
       
-      <a href="/archives" class="current">
+      <a href="/archives" class>
         Archives
       </a>
       
@@ -97,208 +97,256 @@
           </div>
         </div>
         <div class="content">
-          <div class="archives">
-    
-    
-
-
-
-
-
-
-<section class="wrap">
-    <div class="meta">
-        <a href="/archives/2019" class="archive-meta">
-            2019
-        </a>
+          <article class="post-entry">
+    <div class="header">
+      <div class="title">深拷贝与浅拷贝</div>
+        
+        <div class="meta">
+        <span>
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-fenzu4"/>
+          </svg>
+          2019/09/18
+        </span>
+        <span>
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-fenzu14"/>
+          </svg>
+          <span>
+            
+              
+                
+                  <a href="/categories/code">code</a>
+                
+              
+            
+          </span>
+        </span>
+        <span>
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-fenzu15"/>
+          </svg>
+          <span>
+            
+              
+                
+                  <a href="/tags/前端">前端</a>
+                
+              
+            
+          </span>
+        </span>
+        <span class="leancloud-visitors" id="http://yoursite.com/2019/09/18/深拷贝与浅拷贝/" data-flag-title="深拷贝与浅拷贝">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-fenzu6"/>
+          </svg>
+          <span class="leancloud-visitors-count"></span>
+        </span>
+        </div>
+        
+      <div>
+      </div>
     </div>
-    <div class="year">
-        
-        <article class="item">
+    <p>如果给一个变量赋值一个对象，那么两者的值会是同一个引用，其中一方改变，另一方也会相应改变，可以使用浅拷贝来解决这个问题。</p>
+<h1 id="1、浅拷贝方式"><a href="#1、浅拷贝方式" class="headerlink" title="1、浅拷贝方式"></a>1、浅拷贝方式</h1><h2 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign"></a>Object.assign</h2><pre><code>let b = Object.assign({}, a)</code></pre><h2 id="通过展开运算符（…）"><a href="#通过展开运算符（…）" class="headerlink" title="通过展开运算符（…）"></a>通过展开运算符（…）</h2><pre><code></code></pre><p>通常浅拷贝就能解决大部分问题了，但是当我们遇到如下情况就需要使用到深拷贝了</p>
+<pre><code>let a = {
+    age: 1,
+    jobs: {
+        first: &#39;FE&#39;
+    }
+}
+let b = {...a}
+a.jobs.first = &#39;native&#39;
+console.log(b.jobs.first)</code></pre><p>浅拷贝只解决了第一层的问题，如果接下去的值中还有对象的话，那么就又回到刚开始的话题了，两者享有相同的引用。要解决这个问题，我们需要引入深拷贝。</p>
+<h1 id="2、深拷贝方式"><a href="#2、深拷贝方式" class="headerlink" title="2、深拷贝方式"></a>2、深拷贝方式</h1><h2 id="JSON-parse-JSON-stringify-object"><a href="#JSON-parse-JSON-stringify-object" class="headerlink" title="JSON.parse(JSON.stringify(object))"></a>JSON.parse(JSON.stringify(object))</h2><p>缺点：</p>
+<ul>
+<li>会忽略 undefined</li>
+<li>会忽略 symbol</li>
+<li>不能序列化函数</li>
+<li>不能解决循环引用的对象</li>
+<li>当然如果你的数据中含有以上几种情况下，可以使用 lodash 的深拷贝函数</li>
+</ul>
+<h1 id="3、函数解决"><a href="#3、函数解决" class="headerlink" title="3、函数解决"></a>3、函数解决</h1><h2 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h2><pre><code>function shallowCopy(src) {
+  var dst = {}
+  for(key in src){
+    if(src.hasOwnProperty(key)){
+      dst[key] = src[key]
+    }
+  }
+  return dst
+}
+浅拷贝只会对对象的各个属性依次赋值，因此会导致src.obj和dst.obj指向同一块内存地址</code></pre><h2 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h2><pre><code>function deepCopy(src){
+  if (!src | !(src instanceof Object) | (typeof src == &quot;function&quot;)) {
+    return src||undefined;
+  }
+  var constructor = src.constructor;
+  var dst = new constructor();
+  for (var key in src) {
+    if (src.hasOwnProperty(key)) {
+      dst[key] = deepCopy(src[key]);
+    }
+  }
+  return dst;
+}</code></pre><h3 id="tips-巩固知识点–数据存储方式"><a href="#tips-巩固知识点–数据存储方式" class="headerlink" title="tips: 巩固知识点–数据存储方式"></a>tips: 巩固知识点–数据存储方式</h3><h4 id="基本数据类型：number，string，boolean，null，undefined，symbol"><a href="#基本数据类型：number，string，boolean，null，undefined，symbol" class="headerlink" title="基本数据类型：number，string，boolean，null，undefined，symbol"></a>基本数据类型：number，string，boolean，null，undefined，symbol</h4><p>通过栈内存保存<br>栈</p>
+<table>
+<thead>
+<tr>
+<th align="center">变量名name</th>
+<th align="center">值value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">a</td>
+<td align="center">1</td>
+</tr>
+</tbody></table>
+<p>当你b=a复制时，栈内存会新开辟一个内存，例如这样：</p>
+<table>
+<thead>
+<tr>
+<th align="center">变量名name</th>
+<th align="center">值value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">a</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">b</td>
+<td align="center">1</td>
+</tr>
+</tbody></table>
+<h4 id="引用数据类型：object，array，function"><a href="#引用数据类型：object，array，function" class="headerlink" title="引用数据类型：object，array，function"></a>引用数据类型：object，array，function</h4><p>栈内存保存地址指针，堆内存保存数值<br>栈</p>
+<table>
+<thead>
+<tr>
+<th align="center">变量名name</th>
+<th align="center">值value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">a</td>
+<td align="center">堆地址1</td>
+</tr>
+</tbody></table>
+<p>堆</p>
+<table>
+<thead>
+<tr>
+<th align="center">堆</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">{name: ‘lily’, age: 12}</td>
+</tr>
+</tbody></table>
+<p>当b=a进行拷贝时，其实复制的是a的引用地址，而并非堆里面的值。</p>
 
-            <!-- <div class="photo">
-                <img src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/flower.jpg" alt="">
-            </div> -->
-            <div class="content">
-                <div class="title">
-                    <a href="/2019/09/18/深拷贝与浅拷贝/">
-                        深拷贝与浅拷贝
-                    </a>
-                </div>
-                <div class="date">
-                    <svg class="icon" aria-hidden="true">
-                        <use xlink:href="#icon-calendar"/>
-                    </svg>
-                    2019-09-18
-                </div>
-            </div>
-        </article>
-        
-
-
-        <article class="item">
-
-            <!-- <div class="photo">
-                <img src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/flower.jpg" alt="">
-            </div> -->
-            <div class="content">
-                <div class="title">
-                    <a href="/2019/08/25/设计模式-发布订阅模式/">
-                        设计模式-发布订阅模式
-                    </a>
-                </div>
-                <div class="date">
-                    <svg class="icon" aria-hidden="true">
-                        <use xlink:href="#icon-calendar"/>
-                    </svg>
-                    2019-08-25
-                </div>
-            </div>
-        </article>
-        
-
-
-        <article class="item">
-
-            <!-- <div class="photo">
-                <img src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/flower.jpg" alt="">
-            </div> -->
-            <div class="content">
-                <div class="title">
-                    <a href="/2019/08/22/让人头大的原型链/">
-                        让人头大的原型链
-                    </a>
-                </div>
-                <div class="date">
-                    <svg class="icon" aria-hidden="true">
-                        <use xlink:href="#icon-calendar"/>
-                    </svg>
-                    2019-08-22
-                </div>
-            </div>
-        </article>
-        
-
-
-        <article class="item">
-
-            <!-- <div class="photo">
-                <img src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/flower.jpg" alt="">
-            </div> -->
-            <div class="content">
-                <div class="title">
-                    <a href="/2019/08/19/js中的同步异步/">
-                        js中的同步异步
-                    </a>
-                </div>
-                <div class="date">
-                    <svg class="icon" aria-hidden="true">
-                        <use xlink:href="#icon-calendar"/>
-                    </svg>
-                    2019-08-19
-                </div>
-            </div>
-        </article>
-        
-
-
-        <article class="item">
-
-            <!-- <div class="photo">
-                <img src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/flower.jpg" alt="">
-            </div> -->
-            <div class="content">
-                <div class="title">
-                    <a href="/2019/08/18/canvas学习小结/">
-                        canvas学习小结
-                    </a>
-                </div>
-                <div class="date">
-                    <svg class="icon" aria-hidden="true">
-                        <use xlink:href="#icon-calendar"/>
-                    </svg>
-                    2019-08-18
-                </div>
-            </div>
-        </article>
-        
-
-
-        <article class="item">
-
-            <!-- <div class="photo">
-                <img src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/flower.jpg" alt="">
-            </div> -->
-            <div class="content">
-                <div class="title">
-                    <a href="/2019/08/16/用hexo搭建个人博客/">
-                        用hexo搭建个人博客
-                    </a>
-                </div>
-                <div class="date">
-                    <svg class="icon" aria-hidden="true">
-                        <use xlink:href="#icon-calendar"/>
-                    </svg>
-                    2019-08-16
-                </div>
-            </div>
-        </article>
-        
-
-
-        <article class="item">
-
-            <!-- <div class="photo">
-                <img src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/flower.jpg" alt="">
-            </div> -->
-            <div class="content">
-                <div class="title">
-                    <a href="/2019/08/12/webworker入门/">
-                        webworker入门
-                    </a>
-                </div>
-                <div class="date">
-                    <svg class="icon" aria-hidden="true">
-                        <use xlink:href="#icon-calendar"/>
-                    </svg>
-                    2019-08-12
-                </div>
-            </div>
-        </article>
-        
-
-
-        <article class="item">
-
-            <!-- <div class="photo">
-                <img src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/flower.jpg" alt="">
-            </div> -->
-            <div class="content">
-                <div class="title">
-                    <a href="/2019/08/12/hello-world/">
-                        Hello World
-                    </a>
-                </div>
-                <div class="date">
-                    <svg class="icon" aria-hidden="true">
-                        <use xlink:href="#icon-calendar"/>
-                    </svg>
-                    2019-08-12
-                </div>
-            </div>
-        </article>
-        
-        
-    </div>
-</section>
 
   
 
-  <div class="paginator">
-        <span class="page-number current">1</span>
-  </div>
+  <!---->
+  <!--<div class="post-reward">-->
+    <!--<div id="reward-button">请杯咖啡呗~</div>-->
+    <!--<div id="qr">-->
+      <!--<div class="wrap">-->
+          <!---->
+          <!--<div class="bg-wrap">-->
+            <!--<a href="/images/zhifubao.png" target="_block" class="bg" style="background-image:url('/images/zhifubao.png')"></a>-->
+            <!--支付宝-->
+          <!--</div>-->
+          <!---->
+          <!---->
+          <!--<div class="bg-wrap">-->
+              <!--<a href="/images/weixin.png" target="_block" class="bg" style="background-image:url('/images/weixin.png')"></a>-->
+            <!--微信-->
+          <!--</div>-->
+          <!---->
+      <!--</div>-->
+    <!--</div>-->
+    <!---->
+
+  <!--</div>-->
+
+  <!--<div class="post-copyright">-->
+    <!--<div class="auth">-->
+      <!--本文作者：<a href="http://yoursite.com">shanshan</a>-->
+    <!--</div>-->
+    <!--<div class="link">-->
+      <!--永久链接：<a href="http://yoursite.com/2019/09/18/深拷贝与浅拷贝/">http://yoursite.com/2019/09/18/深拷贝与浅拷贝/</a>-->
+    <!--</div>-->
+    <!--<div class="declare">-->
+      <!--版权声明：本文首发于<a href="http://yoursite.com">shanshan</a>的博客，转载请注明出处！-->
+    <!--</div>-->
+  <!--</div>-->
+
+    <!-- Comments -->
+    <div class="comments" id="zss">
+        
+            <br><br>
+            
+            <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_shortname = 'shanshan';
+        var disqus_config = function () {
+            this.page.url = 'http://yoursite.com/2019/09/18/深拷贝与浅拷贝/';
+            this.page.identifier = '/2019/09/18/深拷贝与浅拷贝/';
+        };
+        (function() {
+            var d = document, s = d.createElement('script');
+            s.type = 'text/javascript';
+            s.src = '//'+disqus_shortname+'.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow noopener">comments powered by Disqus.</a></noscript>
 </div>
 
+    <div id="gitment_title" class="gitment_title"></div>
+    <div id="container" style="display:none"></div>
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+      const myTheme = {
+        render(state, instance) {
+          const container = document.createElement('div');
+          container.lang = "en-US";
+          container.className = 'gitment-container gitment-root-container';
+          container.appendChild(instance.renderHeader(state, instance));
+          container.appendChild(instance.renderEditor(state, instance));
+          container.appendChild(instance.renderComments(state, instance));
+          container.appendChild(instance.renderFooter(state, instance));
+          return container;
+        }
+      }
+      function showGitment() {
+        $("#gitment_title").attr("style", "display:none");
+        $("#zss").attr("style", "").addClass("gitment_container");
+        var gitment = new Gitment({
+          id: decodeURI(window.location.pathname),
+          theme: myTheme,
+          owner: 'piggyzss',
+          repo: 'piggyzss.github.io/',
+          oauth: {
+            client_id: '09a2760e2209a8728279',
+            client_secret: '1162d7e456f9c8d3f15f164e63f5d253679445a5'
+          }
+        });
+        gitment.render('zss');
+      }
+      showGitment();
+    </script>
+
+        
+    </div>
+
+  <!--<div id="comment"></div>-->
+
+</article>
         </div>
         <footer>
           <div class="copyright">
@@ -359,7 +407,16 @@
             </a>
             
           </div>
-          
+           
+          <div class="toc-widget">
+            <div class="title">
+              <span>Toc</span>
+            </div>
+            <div class="post-toc">
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1、浅拷贝方式"><span class="toc-text">1、浅拷贝方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Object-assign"><span class="toc-text">Object.assign</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过展开运算符（…）"><span class="toc-text">通过展开运算符（…）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2、深拷贝方式"><span class="toc-text">2、深拷贝方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#JSON-parse-JSON-stringify-object"><span class="toc-text">JSON.parse(JSON.stringify(object))</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3、函数解决"><span class="toc-text">3、函数解决</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#浅拷贝"><span class="toc-text">浅拷贝</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#深拷贝"><span class="toc-text">深拷贝</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tips-巩固知识点–数据存储方式"><span class="toc-text">tips: 巩固知识点–数据存储方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基本数据类型：number，string，boolean，null，undefined，symbol"><span class="toc-text">基本数据类型：number，string，boolean，null，undefined，symbol</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#引用数据类型：object，array，function"><span class="toc-text">引用数据类型：object，array，function</span></a></li></ol></li></ol></li></ol></li></ol>
+            </div>
+          </div>
+           
           <div class="category-widget">
             <div class="title">
               <span>Categories</span>
