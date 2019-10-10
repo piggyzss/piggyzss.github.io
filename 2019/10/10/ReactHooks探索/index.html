@@ -99,14 +99,14 @@
         <div class="content">
           <article class="post-entry">
     <div class="header">
-      <div class="title">webworker入门</div>
+      <div class="title">ReactHooks探索</div>
         
         <div class="meta">
         <span>
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-fenzu4"/>
           </svg>
-          2019/08/12
+          2019/10/10
         </span>
         <span>
           <svg class="icon" aria-hidden="true">
@@ -130,13 +130,13 @@
             
               
                 
-                  <a href="/tags/前端">前端</a>
+                  <a href="/tags/React">React</a>
                 
               
             
           </span>
         </span>
-        <span class="leancloud-visitors" id="http://yoursite.com/2019/08/12/webworker入门/" data-flag-title="webworker入门">
+        <span class="leancloud-visitors" id="http://yoursite.com/2019/10/10/ReactHooks探索/" data-flag-title="ReactHooks探索">
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-fenzu6"/>
           </svg>
@@ -147,37 +147,81 @@
       <div>
       </div>
     </div>
-    <p>JavaScript语言的一大特点就是单线程.</p>
-<p>作为浏览器脚本语言，JavaScript的主要用途是与用户互动，以及操作DOM。 这决定了它只能是单线程，否则会带来很复杂的同步问题。比如，假定 JavaScript同时有两个线程，一个线程在某个DOM节点上添加内容，另一个线 程删除了这个节点，这时浏览器应该以哪个线程为准? 所以，为了避免复杂性，从一诞生，JavaScript就是单线程，这已经成了这门 语言的核心特征，将来也不会改变.</p>
-<h1 id="1、什么是-Web-Worker"><a href="#1、什么是-Web-Worker" class="headerlink" title="1、什么是 Web Worker?"></a>1、什么是 Web Worker?</h1><p>HTML5 中提出了工作线程(WebWorker)的概念，并且规范出 Web Worker的三大主要特征:能够长时间运行(响应)，理想的启动性能以及理想的内存消耗。</p>
-<p>Web Worker允许开发人员编写能够长时间运行而不被用户所中断的后台程序，去执行事务或者逻辑，并同时保证页面对用户的及时响应。</p>
-<p>Web Worker其实就是在Javascript单线程执行的基础上，开启一个子线程，进行程序处理，而不影响主线程的执行，当子线程执行完毕之后再回到主线程上，在这个过程中并不影响主线程的执行过程。</p>
-<h1 id="2、API"><a href="#2、API" class="headerlink" title="2、API"></a>2、API</h1><h2 id="主线程"><a href="#主线程" class="headerlink" title="主线程"></a>主线程</h2><p>浏览器原生提供Worker()构造函数，用来供主线程生成 Worker 线程，主Worker 线程对象的属性和方 法如下:</p>
+    <p>Hooks 是 React v16.7.0-alpha 中加入的新特性。它可以让你在 class 以外使用 state 和其他 React 特性。</p>
+<h1 id="1、useState"><a href="#1、useState" class="headerlink" title="1、useState"></a>1、useState</h1><p><strong>语法</strong></p>
+<pre><code>const [state, setState] = useState(initialState)</code></pre><p><strong>入参</strong>：initialState，即state初始值<br><strong>返回值</strong>：state：状态值, setState：修改 state值的方法</p>
+<p>与在类中使用 setState 的异同点：</p>
 <ul>
-<li>Worker.onerror:指定 error 事件的监听函数</li>
-<li>Worker.onmessage:指定 message 事件的监听函数，发送过来的数据在Event.data属性中</li>
-<li>Worker.onmessageerror:指定 messageerror 事件的监听函数。发送的数据⽆无法序列列化成字符串串时，会触发这个事件</li>
-<li>Worker.postMessage():向 Worker 线程发送消息</li>
-<li>Worker.terminate():终⽌止 Worker 线程(Worker 完成任务以后，主线程就可以把它关掉)</li>
+<li>相同点：也是异步的，例如在 onClick 事件中，调用两次 setState，数据只改变一次。</li>
+<li>不同点：类中的 setState 是合并，而函数组件中的 setState 是替换。</li>
 </ul>
-<h2 id="webworker线程"><a href="#webworker线程" class="headerlink" title="webworker线程"></a>webworker线程</h2><p>webworker 有自己的全局对象，不是主线程的window，而是一个专门为 Worker 定制的全局对象</p>
+<p>类中setState自加：</p>
+<pre><code>this.setState({ count: this.state.count + 1 })</code></pre><p>hook中使用setState自加：</p>
+<pre><code>setCount(count + 1)</code></pre><h1 id="2、useEffect"><a href="#2、useEffect" class="headerlink" title="2、useEffect"></a>2、useEffect</h1><p>在类组件中，在 componentDidMount 或者 componentDidUpdate 等生命周期中会进行一些具有副作用的操作。如网络请求，修改 UI 等，函数组件中没有生命周期函数，则可以通过useEffect来实现。<br><strong>语法</strong></p>
+<pre><code>useEffect(() =&gt; { doSomething, array });</code></pre><p><strong>入参</strong>：doSomething，是一个函数，是在第一次渲染以及之后更新渲染之后会进行的副作用。这个函数可能会有返回值，倘若有返回值，返回值也必须是一个函数，会在组件被销毁时执行。<br>           array, 是一个数组，里面放入在 useEffect 使用到的 state 值，可以用作优化，只有当数组中 state 值发生变化时，才会执行这个 useEffect。</p>
+<p><strong>eg1</strong>：</p>
+<pre><code>useEffect(() =&gt; { // 给 window 绑定点击事件 window.addEventListener(&#39;click&#39;, handleClick); return () =&gt; { // 给 window 移除点击事件 window.addEventListener(&#39;click&#39;, handleClick); } });</code></pre><p><strong>eg2</strong>：</p>
+<pre><code>useEffect(() =&gt; {
+    // 使用浏览器API更新文档标题
+    document.title = `You clicked ${count} times`;
+}, [ count ]);</code></pre><p>Tip：如果想模拟 class 组件的行为，只在 componetDidMount 时执行副作用，在 componentDidUpdate 时不执行，那么 useEffect 的第二个参数传一个 [] 即可。（但是不建议这么做，可能会由于疏漏出现错误）</p>
+<h1 id="3、useContext"><a href="#3、useContext" class="headerlink" title="3、useContext"></a>3、useContext</h1><p><strong>语法</strong></p>
+<pre><code>const value = useContext(MyContext)</code></pre><p><strong>入参</strong>：MyContext，上下文对象（从React.createContext返回的值）<br><strong>eg</strong>:</p>
+<pre><code>Parent.tsx
+import React, { createContext, Context } from &#39;react&#39;
+import Child from &#39;./Child&#39;
+export const ThemeContext: Context&lt;any&gt; = createContext(null)
+const Parent =  () =&gt; {
+    const a = {
+        name: &#39;zhaoshanshan&#39;,
+        grade: 100
+    }
+    return (
+        &lt;ThemeContext.Provider value={a}&gt;
+            &lt;Child /&gt;
+        &lt;/ThemeContext.Provider&gt;
+    )
+}
+export default Parent
+
+Child.tsx
+import React, { useContext } from &#39;react&#39;;
+import { ThemeContext } from &#39;./Parent&#39;
+
+export default () =&gt; {
+    const context = useContext(ThemeContext)
+    return (
+        &lt;div&gt;child组件：当前 context 是：{ context.name }-{context.grade}&lt;/div&gt;
+    )
+}</code></pre><h1 id="4、useReducer"><a href="#4、useReducer" class="headerlink" title="4、useReducer"></a>4、useReducer</h1><p><strong>语法</strong></p>
+<pre><code>const [state, dispatch] = useReducer(reducer, initialArg, init)</code></pre><p><strong>入参</strong>：reducer，接受类型为 (state, action) =&gt; newState 的reducer，并返回与 dispatch 方法配对的当前状态<br>           initialArg，初始状态值<br>           init，懒惰地创建初始状态，暂时没搞懂</p>
+<pre><code>import React, { useReducer } from &#39;react&#39;;
+const initialState = {count: 0};
+function reducer(state: any, action: {type: string}) {
+    switch (action.type) {
+        case &#39;increment&#39;:
+            return {count: state.count + 1};
+        case &#39;decrement&#39;:
+            return {count: state.count - 1};
+        default:
+            throw new Error();
+    }
+}
+export default () =&gt; {
+    // 使用 useReducer 函数创建状态 state 以及更新状态的 dispatch 函数
+    const [state, dispatch] = useReducer(reducer, initialState);
+    return (
+        &lt;&gt;
+            Count: {state.count}
+            &lt;br /&gt;
+            &lt;button onClick={() =&gt; dispatch({type: &#39;increment&#39;})}&gt;+&lt;/button&gt;
+            &lt;button onClick={() =&gt; dispatch({type: &#39;decrement&#39;})}&gt;-&lt;/button&gt;
+        &lt;/&gt;
+    );
+}</code></pre><p>与 useState 的区别：</p>
 <ul>
-<li>self.name: Worker的名字。该属性只读，由构造函数指定</li>
-<li>self.onmessage: 指定message事件的监听函数</li>
-<li>self.onmessageerror: 指定messageerror事件的监听函数。发送的数据无法序列化成字符串时，会触发这个事件</li>
-<li>self.close(): 关闭 Worker 线程</li>
-<li>self.postMessage(): 向产生这个Worker线程发送消息</li>
-<li>self.importScripts(): 加载JS脚本</li>
-</ul>
-<h1 id="3、可以用webworker做什么"><a href="#3、可以用webworker做什么" class="headerlink" title="3、可以用webworker做什么"></a>3、可以用webworker做什么</h1><ul>
-<li>需要一个js脚本进行大量的复杂计算时候，通过postMessage和onmessage进行通信</li>
-<li>功能模块化，import Scripts这个方法只能在worker线程中执行，该方法可以在worker线程中引入多个脚本，则该线程可以使用所引入脚本中的任意变量和函数</li>
-<li>通信当需要执行一个不断向后台发送更新请求的时候，可以将这个过程放到工作线程里，然后将结果返回给主线程</li>
-</ul>
-<h1 id="4、一些大坑"><a href="#4、一些大坑" class="headerlink" title="4、一些大坑"></a>4、一些大坑</h1><ul>
-<li>不能跨域加载JS</li>
-<li>worker不能访问DOM</li>
-<li>各个浏览器对Worker的实现不大一致，例如FF里允许worker中创建新的worker，而Chrome中就不行</li>
+<li>当 state 状态值结构比较复杂时，使用 useReducer 更有优势。</li>
+<li>使用 useState获取的setState方法更新数据时是异步的；而使用useReducer获取的dispatch方法更新数据是同步的。？</li>
 </ul>
 
 
@@ -211,7 +255,7 @@
       <!--本文作者：<a href="http://yoursite.com">shanshan</a>-->
     <!--</div>-->
     <!--<div class="link">-->
-      <!--永久链接：<a href="http://yoursite.com/2019/08/12/webworker入门/">http://yoursite.com/2019/08/12/webworker入门/</a>-->
+      <!--永久链接：<a href="http://yoursite.com/2019/10/10/ReactHooks探索/">http://yoursite.com/2019/10/10/ReactHooks探索/</a>-->
     <!--</div>-->
     <!--<div class="declare">-->
       <!--版权声明：本文首发于<a href="http://yoursite.com">shanshan</a>的博客，转载请注明出处！-->
@@ -228,8 +272,8 @@
     <script>
         var disqus_shortname = 'shanshan';
         var disqus_config = function () {
-            this.page.url = 'http://yoursite.com/2019/08/12/webworker入门/';
-            this.page.identifier = '/2019/08/12/webworker入门/';
+            this.page.url = 'http://yoursite.com/2019/10/10/ReactHooks探索/';
+            this.page.identifier = '/2019/10/10/ReactHooks探索/';
         };
         (function() {
             var d = document, s = d.createElement('script');
@@ -350,7 +394,7 @@
               <span>Toc</span>
             </div>
             <div class="post-toc">
-              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1、什么是-Web-Worker"><span class="toc-text">1、什么是 Web Worker?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2、API"><span class="toc-text">2、API</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#主线程"><span class="toc-text">主线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#webworker线程"><span class="toc-text">webworker线程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3、可以用webworker做什么"><span class="toc-text">3、可以用webworker做什么</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4、一些大坑"><span class="toc-text">4、一些大坑</span></a></li></ol>
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1、useState"><span class="toc-text">1、useState</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2、useEffect"><span class="toc-text">2、useEffect</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3、useContext"><span class="toc-text">3、useContext</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4、useReducer"><span class="toc-text">4、useReducer</span></a></li></ol>
             </div>
           </div>
            

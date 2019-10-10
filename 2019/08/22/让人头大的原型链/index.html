@@ -147,7 +147,28 @@
       <div>
       </div>
     </div>
-    <h1 id="1、prototype-amp-proto"><a href="#1、prototype-amp-proto" class="headerlink" title="1、prototype &amp; proto"></a>1、prototype &amp; <em>proto</em></h1><h2 id="prototype"><a href="#prototype" class="headerlink" title="prototype"></a>prototype</h2>
+    <h1 id="1、prototype-amp-proto"><a href="#1、prototype-amp-proto" class="headerlink" title="1、prototype &amp; proto"></a>1、prototype &amp; <em>proto</em></h1><h2 id="prototype"><a href="#prototype" class="headerlink" title="prototype"></a>prototype</h2><p>prototype是一个显式原型属性，只有函数才拥有该属性。<br>每个函数都有 prototype 属性(除了 Function.prototype.bind())，这个属性是一个指针，指向一个对象，这个对象包含可以由特定类型的所有实例共享的属性和方法。</p>
+<h2 id="proto"><a href="#proto" class="headerlink" title="proto"></a><strong>proto</strong></h2><p><strong>proto</strong>是隐式原型属性，指向了创建该对象的构造函数的原型。<br>每个对象都有 <strong>proto</strong> 属性，指向了创建该对象的构造函数的原型(也就是构造函数的prototype)。</p>
+<p>因为在 JS 中是没有类的概念的，为了实现类似继承的方式，通过 <em>proto</em> 将对象和原型联系起来组成原型链，得以让对象可以访问到不属于自己的属性。</p>
+<h3 id="实例对象中的proto"><a href="#实例对象中的proto" class="headerlink" title="实例对象中的proto"></a>实例对象中的<strong>proto</strong></h3><p><strong>tips：new做了什么</strong></p>
+<ul>
+<li>新生成了一个对象</li>
+<li>链接到原型</li>
+<li>绑定 this</li>
+<li>返回新对象</li>
+</ul>
+<pre><code>function create() {
+    // 创建一个空的对象
+    let obj = new Object()
+    // 获得构造函数
+    let Constructor = [].shift.call(arguments)
+    // 链接到原型
+    obj.__proto__ = Constructor.prototype
+    // 绑定 this，执行构造函数
+    let result = Constructor.apply(obj, arguments)
+    // 确保 new 出来的是个对象
+    return typeof result === &#39;object&#39; ? result : obj
+}</code></pre>
 
   
 
@@ -318,7 +339,7 @@
               <span>Toc</span>
             </div>
             <div class="post-toc">
-              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1、prototype-amp-proto"><span class="toc-text">1、prototype &amp; proto</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#prototype"><span class="toc-text">prototype</span></a></li></ol></li></ol>
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1、prototype-amp-proto"><span class="toc-text">1、prototype &amp; proto</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#prototype"><span class="toc-text">prototype</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#proto"><span class="toc-text">proto</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实例对象中的proto"><span class="toc-text">实例对象中的proto</span></a></li></ol></li></ol></li></ol>
             </div>
           </div>
            
@@ -345,7 +366,7 @@
               <span><a href>···</a></span>
             </div>
             <div class="tag-cloud">
-              <a href="/tags/前端/" style="font-size: 20px; color: #4a4a4a">前端</a> <a href="/tags/设计模式/" style="font-size: 13px; color: #4a4a4a">设计模式</a>
+              <a href="/tags/React/" style="font-size: 16.5px; color: #4a4a4a">React</a> <a href="/tags/前端/" style="font-size: 20px; color: #4a4a4a">前端</a> <a href="/tags/设计模式/" style="font-size: 13px; color: #4a4a4a">设计模式</a>
             </div>
           </div>
         </div>
