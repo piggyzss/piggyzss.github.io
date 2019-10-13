@@ -149,25 +149,32 @@
     </div>
     <p>Hooks 是 React v16.7.0-alpha 中加入的新特性。它可以让你在 class 以外使用 state 和其他 React 特性。</p>
 <h1 id="1、useState"><a href="#1、useState" class="headerlink" title="1、useState"></a>1、useState</h1><p><strong>语法</strong></p>
-<pre><code>const [state, setState] = useState(initialState)</code></pre><p><strong>入参</strong>：initialState，即state初始值<br><strong>返回值</strong>：state：状态值, setState：修改 state值的方法</p>
+<pre><code class="javascript">const [state, setState] = useState(initialState)</code></pre>
+<p><strong>入参</strong>：initialState，即state初始值<br><strong>返回值</strong>：state：状态值, setState：修改 state值的方法</p>
 <p>与在类中使用 setState 的异同点：</p>
 <ul>
 <li>相同点：也是异步的，例如在 onClick 事件中，调用两次 setState，数据只改变一次。</li>
 <li>不同点：类中的 setState 是合并，而函数组件中的 setState 是替换。</li>
 </ul>
 <p>类中setState自加：</p>
-<pre><code>this.setState({ count: this.state.count + 1 })</code></pre><p>hook中使用setState自加：</p>
-<pre><code>setCount(count + 1)</code></pre><h1 id="2、useEffect"><a href="#2、useEffect" class="headerlink" title="2、useEffect"></a>2、useEffect</h1><p>在类组件中，在 componentDidMount 或者 componentDidUpdate 等生命周期中会进行一些具有副作用的操作。如网络请求，修改 UI 等，函数组件中没有生命周期函数，则可以通过useEffect来实现。<br><strong>语法</strong></p>
-<pre><code>useEffect(() =&gt; { doSomething, array });</code></pre><p><strong>入参</strong>：doSomething，是一个函数，是在第一次渲染以及之后更新渲染之后会进行的副作用。这个函数可能会有返回值，倘若有返回值，返回值也必须是一个函数，会在组件被销毁时执行。<br>           array, 是一个数组，里面放入在 useEffect 使用到的 state 值，可以用作优化，只有当数组中 state 值发生变化时，才会执行这个 useEffect。</p>
+<pre><code class="javascript">this.setState({ count: this.state.count + 1 })</code></pre>
+<p>hook中使用setState自加：</p>
+<pre><code class="javascript">setCount(count + 1)</code></pre>
+<h1 id="2、useEffect"><a href="#2、useEffect" class="headerlink" title="2、useEffect"></a>2、useEffect</h1><p>在类组件中，在 componentDidMount 或者 componentDidUpdate 等生命周期中会进行一些具有副作用的操作。如网络请求，修改 UI 等，函数组件中没有生命周期函数，则可以通过useEffect来实现。<br><strong>语法</strong></p>
+<pre><code class="javascript">useEffect(() =&gt; { doSomething, array });</code></pre>
+<p><strong>入参</strong>：doSomething，是一个函数，是在第一次渲染以及之后更新渲染之后会进行的副作用。这个函数可能会有返回值，倘若有返回值，返回值也必须是一个函数，会在组件被销毁时执行。<br>           array, 是一个数组，里面放入在 useEffect 使用到的 state 值，可以用作优化，只有当数组中 state 值发生变化时，才会执行这个 useEffect。</p>
 <p><strong>eg1</strong>：</p>
-<pre><code>useEffect(() =&gt; { // 给 window 绑定点击事件 window.addEventListener(&#39;click&#39;, handleClick); return () =&gt; { // 给 window 移除点击事件 window.addEventListener(&#39;click&#39;, handleClick); } });</code></pre><p><strong>eg2</strong>：</p>
-<pre><code>useEffect(() =&gt; {
+<pre><code class="javascript">useEffect(() =&gt; { // 给 window 绑定点击事件 window.addEventListener(&#39;click&#39;, handleClick); return () =&gt; { // 给 window 移除点击事件 window.addEventListener(&#39;click&#39;, handleClick); } });</code></pre>
+<p><strong>eg2</strong>：</p>
+<pre><code class="javascript">useEffect(() =&gt; {
     // 使用浏览器API更新文档标题
     document.title = `You clicked ${count} times`;
-}, [ count ]);</code></pre><p>Tip：如果想模拟 class 组件的行为，只在 componetDidMount 时执行副作用，在 componentDidUpdate 时不执行，那么 useEffect 的第二个参数传一个 [] 即可。（但是不建议这么做，可能会由于疏漏出现错误）</p>
+}, [ count ]);</code></pre>
+<p>Tip：如果想模拟 class 组件的行为，只在 componetDidMount 时执行副作用，在 componentDidUpdate 时不执行，那么 useEffect 的第二个参数传一个 [] 即可。（但是不建议这么做，可能会由于疏漏出现错误）</p>
 <h1 id="3、useContext"><a href="#3、useContext" class="headerlink" title="3、useContext"></a>3、useContext</h1><p><strong>语法</strong></p>
-<pre><code>const value = useContext(MyContext)</code></pre><p><strong>入参</strong>：MyContext，上下文对象（从React.createContext返回的值）<br><strong>eg</strong>:</p>
-<pre><code>Parent.tsx
+<pre><code class="javascript">const value = useContext(MyContext)</code></pre>
+<p><strong>入参</strong>：MyContext，上下文对象（从React.createContext返回的值）<br><strong>eg</strong>:</p>
+<pre><code class="javascript">Parent.tsx
 import React, { createContext, Context } from &#39;react&#39;
 import Child from &#39;./Child&#39;
 export const ThemeContext: Context&lt;any&gt; = createContext(null)
@@ -193,9 +200,11 @@ export default () =&gt; {
     return (
         &lt;div&gt;child组件：当前 context 是：{ context.name }-{context.grade}&lt;/div&gt;
     )
-}</code></pre><h1 id="4、useReducer"><a href="#4、useReducer" class="headerlink" title="4、useReducer"></a>4、useReducer</h1><p><strong>语法</strong></p>
-<pre><code>const [state, dispatch] = useReducer(reducer, initialArg, init)</code></pre><p><strong>入参</strong>：reducer，接受类型为 (state, action) =&gt; newState 的reducer，并返回与 dispatch 方法配对的当前状态<br>           initialArg，初始状态值<br>           init，懒惰地创建初始状态，暂时没搞懂</p>
-<pre><code>import React, { useReducer } from &#39;react&#39;;
+}</code></pre>
+<h1 id="4、useReducer"><a href="#4、useReducer" class="headerlink" title="4、useReducer"></a>4、useReducer</h1><p><strong>语法</strong></p>
+<pre><code class="javascript">const [state, dispatch] = useReducer(reducer, initialArg, init)</code></pre>
+<p><strong>入参</strong>：reducer，接受类型为 (state, action) =&gt; newState 的reducer，并返回与 dispatch 方法配对的当前状态<br>           initialArg，初始状态值<br>           init，懒惰地创建初始状态，暂时没搞懂</p>
+<pre><code class="javascript">import React, { useReducer } from &#39;react&#39;;
 const initialState = {count: 0};
 function reducer(state: any, action: {type: string}) {
     switch (action.type) {
@@ -218,12 +227,217 @@ export default () =&gt; {
             &lt;button onClick={() =&gt; dispatch({type: &#39;decrement&#39;})}&gt;-&lt;/button&gt;
         &lt;/&gt;
     );
-}</code></pre><p>与 useState 的区别：</p>
+}</code></pre>
+<p>与 useState 的区别：</p>
 <ul>
 <li>当 state 状态值结构比较复杂时，使用 useReducer 更有优势。</li>
-<li>使用 useState获取的setState方法更新数据时是异步的；而使用useReducer获取的dispatch方法更新数据是同步的。？</li>
+<li>使用 useState获取的setState方法更新数据时是异步的；而使用useReducer获取的dispatch方法更新数据是同步的。</li>
 </ul>
+<p><strong>eg</strong>:<br><strong>useState</strong></p>
+<pre><code class="javascript">import React, { useState } from &#39;react&#39;
 
+function Example() {
+    // 声明一个名为“count”的新状态变量
+    const [count, setCount] = useState(0)
+
+    return (
+        &lt;div&gt;
+            &lt;p&gt;You clicked {count} times&lt;/p&gt;
+            &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
+                Click me
+            &lt;/button&gt;
+            &lt;button onClick={() =&gt; {
+                setCount(count + 1)
+                setCount(count + 1)
+            }}&gt;
+                测试能否连加两次
+            &lt;/button&gt;
+        &lt;/div&gt;
+    );
+}
+
+export default Example</code></pre>
+<p><strong>useReducer</strong><br>刚刚的例子可以修改成这样：</p>
+<pre><code class="javascript">export default () =&gt; {
+    // 使用 useReducer 函数创建状态 state 以及更新状态的 dispatch 函数
+    const [state, dispatch] = useReducer(reducer, initialState)
+    return (
+        &lt;&gt;
+            Count: {state.count}
+            &lt;br /&gt;
+            &lt;button onClick={() =&gt; dispatch({type: &#39;increment&#39;})}&gt;+&lt;/button&gt;
+            &lt;button onClick={() =&gt; dispatch({type: &#39;decrement&#39;})}&gt;-&lt;/button&gt;
+            &lt;button onClick={() =&gt; {
+                dispatch({type: &#39;increment&#39;})
+                dispatch({type: &#39;increment&#39;})
+            }}&gt;
+                测试能否连加两次
+            &lt;/button&gt;
+        &lt;/&gt;
+    )
+}</code></pre>
+<p>点击测试能否连加两次按钮，会发现点击一次，count 增加了2，由此可见，每次dispatch一个 action就会更新一次数据，useReducer确实是同步更新数据</p>
+<h1 id="5、useMemo"><a href="#5、useMemo" class="headerlink" title="5、useMemo"></a>5、useMemo</h1><p><strong>语法</strong></p>
+<pre><code class="javascript">const memoizedValue = useMemo(() =&gt; computeExpensiveValue(a, b), [a, b])</code></pre>
+<p>返回一个memoized值。 传递“创建”函数和依赖项数组。useMemo只会在其中一个依赖项发生更改时重新计算memoized值。此优化有助于避免在每个渲染上进行昂贵的计算。</p>
+<p><strong>eg1:</strong></p>
+<pre><code class="javascript">import React, { useState } from &#39;react&#39;
+export default () =&gt; {
+    const [count, setCount] = useState(1)
+    const [val, setValue] = useState(&#39;&#39;)
+
+    const compute = () =&gt; {
+        console.log(&#39;compute&#39;)
+        let sum = 0
+        for (let i = 0; i &lt; count * 100; i++) {
+            sum += i
+        }
+        return sum
+    }
+
+    return (&lt;div&gt;
+        &lt;h4&gt;{count}-{val}-{compute()}&lt;/h4&gt;
+        &lt;div&gt;
+            &lt;button onClick={() =&gt; setCount(count + 1)}&gt;add count&lt;/button&gt;
+            &lt;input value={val} onChange={event =&gt; setValue(event.target.value)}/&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;)
+}
+//  无论是修改count还是val，由于组件的重新渲染，都会触发compute的执行
+// 但是这里的昂贵计算只依赖于count的值，在val修改的时候，是没有必要再次计算的
+// 在这种情况下，我们就可以使用useMemo，只在count的值修改时，执行compute计算</code></pre>
+<p>优化后：</p>
+<pre><code class="javascript">import React, { useState, useMemo } from &#39;react&#39;
+
+export default () =&gt; {
+    const [count, setCount] = useState(1)
+    const [val, setValue] = useState(&#39;&#39;)
+
+    const compute = useMemo(() =&gt; {
+        console.log(&#39;compute&#39;)
+        let sum = 0
+        for (let i = 0; i &lt; count * 100; i++) {
+            sum += i
+        }
+        return sum
+    }, [count])
+
+    return (&lt;div&gt;
+        &lt;h4&gt;{count}-{val}-{compute}&lt;/h4&gt;
+        &lt;div&gt;
+            &lt;button onClick={() =&gt; setCount(count + 1)}&gt;add count&lt;/button&gt;
+            &lt;input value={val} onChange={event =&gt; setValue(event.target.value)}/&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;)
+}</code></pre>
+<p><strong>eg2:</strong><br>useMemo 可以帮助我们优化子组件的渲染，比如这种场景： 在 A 组件中有两个子组件 B 和 C，当 A 组件中传给 B 的 props 发生变化时，A 组件状态会改变，重新渲染。此时 B 和 C 也都会重新渲染。其实这种情况是比较浪费资源的，现在我们就可以使用 useMemo 进行优化，B 组件用到的 props 变化时，只有 B 发生改变，而 C 却不会重新渲染。<br>ExampleA.tsx</p>
+<pre><code class="javascript">import React from &#39;react&#39;
+export default ({ text }:{ text: string}) =&gt; {
+  console.log(&#39;Example A：&#39;, &#39;render&#39;)
+  return &lt;div&gt;Example A 组件：{ text }&lt;/div&gt;
+}
+ExampleB.tsx
+import React from &#39;react&#39;
+export default ({ text }:{ text: string}) =&gt; {
+  console.log(&#39;Example B：&#39;, &#39;render&#39;)
+  return &lt;div&gt;Example B 组件：{ text }&lt;/div&gt;
+}
+Main.tsx
+import React, { useState } from &#39;react&#39;
+import ExampleA from &#39;./ExampleA&#39;
+import ExampleB from &#39;./ExampleB&#39;
+
+export default () =&gt; {
+    const [a, setA] = useState(&#39;ExampleA&#39;)
+    const [b, setB] = useState(&#39;ExampleB&#39;)
+
+    return (
+        &lt;div&gt;
+            &lt;ExampleA text={a} /&gt;
+            &lt;ExampleB text={b} /&gt;
+            &lt;br /&gt;
+            &lt;button onClick={ () =&gt; setA(&#39;修改后的 ExampleA&#39;) }&gt;修改传给 ExampleA 的属性&lt;/button&gt;
+            &lt;button onClick={ () =&gt; setB(&#39;修改后的 ExampleB&#39;) }&gt;修改传给 ExampleB 的属性&lt;/button&gt;
+        &lt;/div&gt;
+    )
+}
+// 点击任意一个按钮，A 和 B 组件都会被重新渲染</code></pre>
+<p>优化后：</p>
+<pre><code class="javascript">import React, { useState, useMemo } from &#39;react&#39;
+
+import ExampleA from &#39;./ExampleA&#39;
+import ExampleB from &#39;./ExampleB&#39;
+
+export default () =&gt; {
+    const [a, setA] = useState(&#39;ExampleA&#39;)
+    const [b, setB] = useState(&#39;ExampleB&#39;)
+
+    const exampleA = useMemo(() =&gt; &lt;ExampleA text={a} /&gt;, [a])
+    const exampleB = useMemo(() =&gt; &lt;ExampleB text={b} /&gt;, [b])
+
+    return (
+        &lt;div&gt;
+            { exampleA }
+            { exampleB }
+            &lt;br /&gt;
+            &lt;button onClick={ () =&gt; setA(&#39;修改后的 ExampleA&#39;) }&gt;修改传给 ExampleA 的属性&lt;/button&gt;
+            &lt;button onClick={ () =&gt; setB(&#39;修改后的 ExampleB&#39;) }&gt;修改传给 ExampleB 的属性&lt;/button&gt;
+        &lt;/div&gt;
+    )
+}</code></pre>
+<p>注意：useMemo是返回执行结果</p>
+<p><strong>ps：小知识</strong><br>Memoization是JavaScript中的一种技术，用于提高应用程序的性能，通过缓存结果并在下一个操作中重新使用缓存来加速查找费时的操作。<br>Understanding Memoization in JavaScript to Improve Performance<br>现版本(16.6.3)有两个memo,一个是React.memo,还有一个是React.useMemo, 我们这里说的是useMemo)，关注react动态的都知道useMemo是新出来的hooks api，并且这个api是作用于function组件，官方文档写的是这个可以优化用以优化每次渲染的耗时工作。<br><strong>React.memo的使用：</strong><br>React.memo 为高阶组件。它与React.PureComponent非常相似，但它适用于函数组件，但不适用于 class 组件。<br>默认情况下其只会对复杂对象做浅层对比，如果你想要控制对比过程，那么请将自定义的比较函数通过第二个参数传入来实现。这与shouldComponentUpdate 方法的返回值相反。</p>
+<pre><code class="javascript">import React, { useState } from &#39;react&#39;
+const Child = (props: any) =&gt; {
+    console.log(&#39;渲染子组件&#39;)
+    return(
+        &lt;div&gt;我是一个子组件: {props.num}&lt;/div&gt;
+    );
+}
+const areEqual = (prevProps: any, nextProps: any) =&gt; {
+    if(prevProps.num === nextProps.num) {
+        return true
+    }
+    return false
+}
+const ChildMemo = React.memo(Child, areEqual)
+
+export default (props: any) =&gt; {
+    const [count, setCount] = useState(0)
+    const [num, setNum] = useState(0)
+    return (
+        &lt;&gt;
+            &lt;button onClick={(e) =&gt; { setCount(count+1) }}&gt;count加1: {count}&lt;/button&gt;
+            &lt;button onClick={(e) =&gt; { setNum(num+1) }}&gt;num加1: {num}&lt;/button&gt;
+            &lt;ChildMemo num={num} /&gt;
+        &lt;/&gt;
+    )
+}</code></pre>
+<h1 id="6、useCallback"><a href="#6、useCallback" class="headerlink" title="6、useCallback"></a>6、useCallback</h1><p>useCallback跟useMemo比较类似，但它返回的是缓存的函数.<br>useCallback(fn, deps) is equivalent to useMemo(() =&gt; fn, deps).<br><strong>语法</strong></p>
+<pre><code>const memoizedFn = useCallback(fn, [a])</code></pre><p>useCallback会将我们传递给它的函数fn返回，并且将这个结果缓存；当依赖a变更时，会返回新的函数。</p>
+<h1 id="7、useRef"><a href="#7、useRef" class="headerlink" title="7、useRef"></a>7、useRef</h1><p><strong>语法</strong></p>
+<pre><code>const refContainer = useRef(initialValue)</code></pre><p>useRef 返回一个可变的 ref 对象，其 .current 属性被初始化为传递的参数（initialValue）。返回的对象将存留在整个组件的生命周期中。</p>
+<pre><code>eg：
+import React, { useRef, useState, useEffect } from &#39;react&#39;;
+
+export default () =&gt; {
+    // 使用 useRef 创建 textRef
+    const textRef: any = useRef()
+    const [text, updateText] = useState(&#39;&#39;)
+
+    useEffect(() =&gt; {
+        // 将 text 值存入 textRef.current 中
+        textRef.current.innerHTML = text
+        console.log(&#39;textRef.current：&#39;, textRef.current)
+    })
+
+    return (
+        &lt;&gt;
+            &lt;input value={text} onChange={e =&gt; updateText(e.target.value)} /&gt;
+            &lt;span ref={textRef} /&gt;
+        &lt;/&gt;
+    )
+}</code></pre>
 
   
 
@@ -394,7 +608,7 @@ export default () =&gt; {
               <span>Toc</span>
             </div>
             <div class="post-toc">
-              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1、useState"><span class="toc-text">1、useState</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2、useEffect"><span class="toc-text">2、useEffect</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3、useContext"><span class="toc-text">3、useContext</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4、useReducer"><span class="toc-text">4、useReducer</span></a></li></ol>
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1、useState"><span class="toc-text">1、useState</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2、useEffect"><span class="toc-text">2、useEffect</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3、useContext"><span class="toc-text">3、useContext</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4、useReducer"><span class="toc-text">4、useReducer</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5、useMemo"><span class="toc-text">5、useMemo</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6、useCallback"><span class="toc-text">6、useCallback</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7、useRef"><span class="toc-text">7、useRef</span></a></li></ol>
             </div>
           </div>
            
@@ -435,7 +649,7 @@ export default () =&gt; {
   
 </html>
 <script type="text/javascript">
-  window.THEME_CONFIG = JSON.parse('{"title":"Hexo","subtitle":null,"description":null,"author":"shanshan","language":"en","timezone":null,"url":"http://yoursite.com","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":true,"relative_link":false,"future":true,"highlight":{"enable":false,"auto_detect":false,"line_number":true,"tab_replace":null},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"hexo-theme-huhu","deploy":{"type":"git","repository":"https://github.com/piggyzss/piggyzss.github.io.git","branch":"master"},"ignore":[],"keywords":null,"highlight_theme":"normal","index_generator":{"per_page":10,"order_by":"-date","path":""},"gitment":{"enable":true,"mint":true,"count":true,"lazy":false,"cleanly":false,"language":null,"github_user":"piggyzss","github_repo":"piggyzss.github.io/","client_id":"09a2760e2209a8728279","client_secret":"1162d7e456f9c8d3f15f164e63f5d253679445a5","proxy_gateway":null,"redirect_protocol":null},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"tag_generator":{"per_page":10},"server":{"port":4000,"log":false,"compress":false,"header":true},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"menu":{"home":"/","archives":"/archives","about":"/about","music":"/music"},"logo":"/images/logo.png","categories_max":5,"tags_max":10,"favicon":"/images/favicon.ico","site_search":true,"rss":"/atom.xml","follow":{"github":"https://github.com/shixiaohu2206","facebook":"https://www.facebook.com/shi.xiaohu.5","instagram":"https://www.instagram.com/shi_xiaohu/"},"search_url":"/search.xml","site_icp":"","site_friends":{"房间里的小猫咪":"http://baidu.com"},"changyan":{"appid":"","conf":""},"valine":{"API_ID":"FjXColpwTL0BsrjJIN8Pmnn0-gzGzoHsz","API_KEY":"Ar7tucPRn3KV7UOidQxESoys"},"busuanzi":true,"share":["weibo","weixin","qqkongjian","QQ","douban","facebook","twitter","google"],"cdn_module":{"av_min":"https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min","jquery":"https://cdn.bootcss.com/jquery/3.4.1/jquery.min","busuanzi":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini","confirm":"https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min","fancybox":"https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"},"google_site_verification":"VQowHv5lAVVWJxjKI9bnAWT7NGdOrfS5KnLF07-B7w0","gtm_id":"GTM-WJ7P5KL","baidu_push":true,"reward":{"weixin":"images/weixin.png","zhifubao":"images/zhifubao.png"},"disqus":{"shortname":"shanshan"},"post":{"date_format":"dddd, MMMM Do YYYY, h:mm a","comments":{"enable":true,"type":"disqus"}}}')
+  window.THEME_CONFIG = JSON.parse('{"title":"Hexo","subtitle":null,"description":null,"author":"shanshan","language":"en","timezone":null,"url":"http://yoursite.com","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":true,"relative_link":false,"future":true,"highlight":{"enable":false,"auto_detect":false,"line_number":true,"tab_replace":null},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"hexo-theme-huhu","deploy":{"type":"git","repository":"https://github.com/piggyzss/piggyzss.github.io.git","branch":"master"},"ignore":[],"keywords":null,"highlight_theme":"normal","index_generator":{"per_page":10,"order_by":"-date","path":""},"gitment":{"enable":true,"mint":true,"count":true,"lazy":false,"cleanly":false,"language":null,"github_user":"piggyzss","github_repo":"piggyzss.github.io/","client_id":"09a2760e2209a8728279","client_secret":"1162d7e456f9c8d3f15f164e63f5d253679445a5","proxy_gateway":null,"redirect_protocol":null},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"tag_generator":{"per_page":10},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"server":{"port":4000,"log":false,"compress":false,"header":true},"menu":{"home":"/","archives":"/archives","about":"/about","music":"/music"},"logo":"/images/logo.png","categories_max":5,"tags_max":10,"favicon":"/images/favicon.ico","site_search":true,"rss":"/atom.xml","follow":{"github":"https://github.com/shixiaohu2206","facebook":"https://www.facebook.com/shi.xiaohu.5","instagram":"https://www.instagram.com/shi_xiaohu/"},"search_url":"/search.xml","site_icp":"","site_friends":{"房间里的小猫咪":"http://baidu.com"},"changyan":{"appid":"","conf":""},"valine":{"API_ID":"FjXColpwTL0BsrjJIN8Pmnn0-gzGzoHsz","API_KEY":"Ar7tucPRn3KV7UOidQxESoys"},"busuanzi":true,"share":["weibo","weixin","qqkongjian","QQ","douban","facebook","twitter","google"],"cdn_module":{"av_min":"https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min","jquery":"https://cdn.bootcss.com/jquery/3.4.1/jquery.min","busuanzi":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini","confirm":"https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min","fancybox":"https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"},"google_site_verification":"VQowHv5lAVVWJxjKI9bnAWT7NGdOrfS5KnLF07-B7w0","gtm_id":"GTM-WJ7P5KL","baidu_push":true,"reward":{"weixin":"images/weixin.png","zhifubao":"images/zhifubao.png"},"disqus":{"shortname":"shanshan"},"post":{"date_format":"dddd, MMMM Do YYYY, h:mm a","comments":{"enable":true,"type":"disqus"}}}')
   window.loadJs = function(d, m, a) {
     var c = document.getElementsByTagName('head')[0] || document.head || document.documentElement
     var b = document.createElement('script')
