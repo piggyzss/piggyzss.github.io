@@ -69,7 +69,7 @@
         Home
       </a>
       
-      <a href="/archives" class="current">
+      <a href="/archives" class>
         Archives
       </a>
       
@@ -100,54 +100,274 @@
           </div>
         </div>
         <div class="content">
-          <div class="archives">
-    
-    
-
-
-
-
-
-
-<section class="wrap">
-    <div class="meta">
-        <a href="/archives/2019" class="archive-meta">
-            2019
-        </a>
+          <article class="post-entry">
+    <div class="header">
+      <div class="title">一些TS小技巧</div>
+        
+        <div class="meta">
+        <span>
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-fenzu4"/>
+          </svg>
+          2021/01/17
+        </span>
+        <span>
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-fenzu14"/>
+          </svg>
+          <span>
+            
+              
+            
+          </span>
+        </span>
+        <span>
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-fenzu15"/>
+          </svg>
+          <span>
+            
+              
+            
+          </span>
+        </span>
+        <span class="leancloud-visitors" id="http://yoursite.com/2021/01/17/一些TS小技巧/" data-flag-title="一些TS小技巧">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-fenzu6"/>
+          </svg>
+          <span class="leancloud-visitors-count"></span>
+        </span>
+        </div>
+        
+         
+      <div>
+      </div>
     </div>
-    <div class="year">
-        
-        <article class="item">
+    <h1 id="1、keyof"><a href="#1、keyof" class="headerlink" title="1、keyof"></a>1、keyof</h1><p>keyof 与 Object.keys 略有相似，只不过 keyof 取 interface 的键</p>
+<pre><code class="typescript">interface Point {
+    x: number;
+    y: number;
+}
+// type keys = &quot;x&quot; | &quot;y&quot;
+type keys = keyof Point;</code></pre>
+<p>栗子：</p>
+<p>假设有一个 object 如下所示，我们需要使用 typescript 实现一个 get 函数来获取它的属性值：</p>
+<pre><code class="typescript">const data = {
+  id: 1,
+  score: 100,
+  tag: &#39;A&#39;,
+}
 
-            <!-- <div class="photo">
-                <img src="https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/thumbnails/flower.jpg" alt="">
-            </div> -->
-            <div class="content">
-                <div class="title">
-                    <a href="/2019/08/12/hello-world/">
-                        Hello World
-                    </a>
-                </div>
-                <div class="date">
-                    <svg class="icon" aria-hidden="true">
-                        <use xlink:href="#icon-calendar"/>
-                    </svg>
-                    2019-08-12
-                </div>
-            </div>
-        </article>
-        
-        
-    </div>
-</section>
+function get(o: object, name: string) {
+  return o[name]
+}</code></pre>
+<p>我们刚开始可能会这么写，不过它有很多缺点</p>
+<p>无法确认返回类型：这将损失 ts 最大的类型校验功能</p>
+<p>无法对 key 做约束：可能会犯拼写错误的问题</p>
+<p>这时可以使用 keyof 来加强 get 函数的类型功能：</p>
+<pre><code class="typescript">function get&lt;T extends object, K extends keyof T&gt;(o: T, name: K): T[K] {
+  return o[name]
+}</code></pre>
+<h1 id="2、Partial"><a href="#2、Partial" class="headerlink" title="2、Partial"></a>2、Partial</h1><p>Partial 作用是将传入的属性变为可选项</p>
+<p>Partial 源码：</p>
+<pre><code class="typescript">type Partial&lt;T&gt; = { [P in keyof T]?: T[P] };</code></pre>
+<p>栗子：</p>
+<pre><code class="typescript">interface Params {
+  id: number;
+  score: number;
+  tag: string;
+}
+
+// Partial&lt;Params&gt;
+// { id?: number; score?: number; tag?: string; }
+
+const initData = (payload: Partial&lt;Params&gt;): Params =&gt; merge({
+  id: 1,
+  score: 100,
+  tag: &#39;A&#39;,
+})
+
+initData({id: 2})</code></pre>
+<h1 id="3、Pick"><a href="#3、Pick" class="headerlink" title="3、Pick"></a>3、Pick</h1><p>Pick 的作用是从 T 中取出一系列 K 的属性</p>
+<p>Pick 源码：</p>
+<pre><code class="typescript">type Pick&lt;T, K extends keyof T&gt; = { [P in K]: T[P] };</code></pre>
+<p>栗子：</p>
+<pre><code class="typescript">// 相当于: type PickParams = { id: number; tag: string; }
+type PickParams = Pick&lt;Params, &#39;id&#39; | &#39;tag&#39;&gt;</code></pre>
+<h1 id="4、Required"><a href="#4、Required" class="headerlink" title="4、Required"></a>4、Required</h1><p>Required的作用是将传入的属性变为必选项.</p>
+<p>Required 源码：</p>
+<pre><code class="javascript">type Required&lt;T&gt; = { [P in keyof T]-?: T[P] };</code></pre>
+<h1 id="5、Readonly"><a href="#5、Readonly" class="headerlink" title="5、Readonly"></a>5、Readonly</h1><p>Readonly的作用是将传入的属性变为只读选项</p>
+<p>Readonly 源码：</p>
+<pre><code class="javascript">type Readonly&lt;T&gt; = { readonly [P in keyof T]: T[P] };</code></pre>
+<h1 id="6、Record"><a href="#6、Record" class="headerlink" title="6、Record"></a>6、Record</h1><p>Record的作用是将 K 中所有的属性的值转化为 T 类型</p>
+<p>K可以是联合类型、对象、枚举…</p>
+<p>Record源码：</p>
+<pre><code class="typescript">type Record&lt;K extends keyof any, T&gt; = { [P in K]: T };</code></pre>
+<p>栗子：</p>
+<pre><code class="typescript">type petsGroup = &#39;dog&#39; | &#39;cat&#39;;
+interface PetInfo {
+    name:string,
+    age:number,
+}
+type Pets = Record&lt;petsGroup, PetInfo&gt;;
+
+const animalsInfo:Pets = {
+    dog:{
+        name:&#39;dogName&#39;,
+        age:2
+    },
+    cat:{
+        name:&#39;catName&#39;,
+        age:3
+    },
+}</code></pre>
+<h1 id="7、Omit"><a href="#7、Omit" class="headerlink" title="7、Omit"></a>7、Omit</h1><p>Omit的作用是未包含</p>
+<p>Omit源码</p>
+<pre><code class="typescript">type Omit = Pick&lt;T, Exclude&lt;keyof T, K&gt;&gt;</code></pre>
+<p>栗子：</p>
+<pre><code class="typescript">interface Params {
+  id: number;
+  score: number;
+  tag: string;
+}
+type OmitParams = Omit&lt; Params, &quot;id&quot;&gt;
+// 相当于: type OmitParams = { score: number; tag: string; }</code></pre>
+<h1 id="8、infer"><a href="#8、infer" class="headerlink" title="8、infer"></a>8、infer</h1><p>infer的作用是表示在 extends 条件语句中待推断的类型变量</p>
+<p>栗子</p>
+<pre><code class="typescript">type ParamType&lt;T&gt; = T extends (param: infer P) =&gt; any ? P : T;</code></pre>
+<p>如果 T 能赋值给 (param: infer P) =&gt; any，则结果是 (param: infer P) =&gt; any 类型中的参数 P，否则返回为 T。</p>
+<pre><code class="typescript">interface User {
+  name: string;
+  age: number;
+}
+
+type Func = (user: User) =&gt; void;
+
+type Param = ParamType&lt;Func&gt;; // Param = User
+type OtherParam = ParamType&lt;string&gt;; // string</code></pre>
+<h1 id="9、ReturnType"><a href="#9、ReturnType" class="headerlink" title="9、ReturnType"></a>9、ReturnType</h1><p>ReturnType的作用是获取返回类型</p>
+<p>ReturnType源码</p>
+<pre><code class="typescript">type ReturnType&lt;T&gt; = T extends (
+  ...args: any[]
+) =&gt; infer R
+  ? R
+  : any;</code></pre>
+<p>栗子</p>
+<pre><code class="typescript">const mapStateToProps = state =&gt; ({
+  ***
+})
+
+export type Props = {
+  ***
+}
+&amp; { dispatch: Dispatch }
+&amp; ReturnType&lt;typeof mapStateToProps&gt;</code></pre>
+
 
   
 
-  <div class="paginator">
-        <a class="page-number" href="/archives/2019/">1</a><span class="page-number current">2</span>
-  </div>
+  <!---->
+  <!--<div class="post-reward">-->
+    <!--<div id="reward-button">请杯咖啡呗~</div>-->
+    <!--<div id="qr">-->
+      <!--<div class="wrap">-->
+          <!---->
+          <!--<div class="bg-wrap">-->
+            <!--<a href="/images/zhifubao.png" target="_block" class="bg" style="background-image:url('/images/zhifubao.png')"></a>-->
+            <!--支付宝-->
+          <!--</div>-->
+          <!---->
+          <!---->
+          <!--<div class="bg-wrap">-->
+              <!--<a href="/images/weixin.png" target="_block" class="bg" style="background-image:url('/images/weixin.png')"></a>-->
+            <!--微信-->
+          <!--</div>-->
+          <!---->
+      <!--</div>-->
+    <!--</div>-->
+    <!---->
+
+  <!--</div>-->
+
+  <!--<div class="post-copyright">-->
+    <!--<div class="auth">-->
+      <!--本文作者：<a href="http://yoursite.com">shanshan</a>-->
+    <!--</div>-->
+    <!--<div class="link">-->
+      <!--永久链接：<a href="http://yoursite.com/2021/01/17/一些TS小技巧/">http://yoursite.com/2021/01/17/一些TS小技巧/</a>-->
+    <!--</div>-->
+    <!--<div class="declare">-->
+      <!--版权声明：本文首发于<a href="http://yoursite.com">shanshan</a>的博客，转载请注明出处！-->
+    <!--</div>-->
+  <!--</div>-->
+
+    <!-- Comments -->
+    <div class="comments" id="zss">
+        
+            <br><br>
+            
+            <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_shortname = 'shanshan';
+        var disqus_config = function () {
+            this.page.url = 'http://yoursite.com/2021/01/17/一些TS小技巧/';
+            this.page.identifier = '/2021/01/17/一些TS小技巧/';
+        };
+        (function() {
+            var d = document, s = d.createElement('script');
+            s.type = 'text/javascript';
+            s.src = '//'+disqus_shortname+'.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow noopener">comments powered by Disqus.</a></noscript>
 </div>
 
+    <div id="gitment_title" class="gitment_title"></div>
+    <div id="container" style="display:none"></div>
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+      const myTheme = {
+        render(state, instance) {
+          const container = document.createElement('div');
+          container.lang = "en-US";
+          container.className = 'gitment-container gitment-root-container';
+          container.appendChild(instance.renderHeader(state, instance));
+          container.appendChild(instance.renderEditor(state, instance));
+          container.appendChild(instance.renderComments(state, instance));
+          container.appendChild(instance.renderFooter(state, instance));
+          return container;
+        }
+      }
+      function showGitment() {
+        $("#gitment_title").attr("style", "display:none");
+        $("#zss").attr("style", "").addClass("gitment_container");
+        var gitment = new Gitment({
+          id: decodeURI(window.location.pathname),
+          theme: myTheme,
+          owner: 'piggyzss',
+          repo: 'piggyzss.github.io/',
+          oauth: {
+            client_id: '09a2760e2209a8728279',
+            client_secret: '1162d7e456f9c8d3f15f164e63f5d253679445a5'
+          }
+        });
+        gitment.render('zss');
+      }
+      showGitment();
+    </script>
+
+        
+    </div>
+
+  <!--<div id="comment"></div>-->
+
+</article>
         </div>
         <footer>
           <div class="copyright">
@@ -208,7 +428,16 @@
             </a>
             
           </div>
-          
+           
+          <div class="toc-widget">
+            <div class="title">
+              <span>Toc</span>
+            </div>
+            <div class="post-toc">
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1、keyof"><span class="toc-text">1、keyof</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2、Partial"><span class="toc-text">2、Partial</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3、Pick"><span class="toc-text">3、Pick</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4、Required"><span class="toc-text">4、Required</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5、Readonly"><span class="toc-text">5、Readonly</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6、Record"><span class="toc-text">6、Record</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7、Omit"><span class="toc-text">7、Omit</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8、infer"><span class="toc-text">8、infer</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9、ReturnType"><span class="toc-text">9、ReturnType</span></a></li></ol>
+            </div>
+          </div>
+           
           <div class="category-widget">
             <div class="title">
               <span>Categories</span>

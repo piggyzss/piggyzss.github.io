@@ -48,6 +48,9 @@
       <script>
         hljs.initHighlightingOnLoad();
       </script>
+      <script type="text/javascript" src="https://unpkg.com/minigrid@3.1.1/dist/minigrid.min.js"></script>
+      <link rel="stylesheet" href="../source/photos/photos.css">
+      <script type="text/javascript" src="../source/photos/photo.js"></script>
   </head>
   <body>
     <div id="fixed-menu">
@@ -136,6 +139,7 @@
         </span>
         </div>
         
+         
       <div>
       </div>
     </div>
@@ -196,7 +200,7 @@ const b = []
 for(let i = 0; i &lt; a.length; i++) {
   b.push(a[i] * 2)
 }</code></pre><p>使用高阶：</p>
-<pre><code>const c = a.map((item) =&gt; item*2)</code></pre><p>###（2）filter<br>得到一个新数组，包含所有通过校验的元素<br>不使用高阶：</p>
+<pre><code>const c = a.map((item) =&gt; item*2)</code></pre><h3 id="（2）filter"><a href="#（2）filter" class="headerlink" title="（2）filter"></a>（2）filter</h3><p>得到一个新数组，包含所有通过校验的元素<br>不使用高阶：</p>
 <pre><code>const fruit = [
   {name: &#39;apple&#39;, count: 18},
   {name: &#39;banana&#39;, count: 14},
@@ -209,7 +213,7 @@ for(let i = 0; i &lt; fruit.length; i++) {
     fruitFilter.push(fruit[i])
   }
 }</code></pre><p>使用高阶：</p>
-<pre><code>const fruitFilter = fruit.filter(ele =&gt; ele.count &gt; 14)</code></pre><p>###（3）reduce<br>得到一个输出，该输出是对数组每个成员执行相应处理函数的值的累积<br>如计算阶乘<br>不使用高阶：</p>
+<pre><code>const fruitFilter = fruit.filter(ele =&gt; ele.count &gt; 14)</code></pre><h3 id="（3）reduce"><a href="#（3）reduce" class="headerlink" title="（3）reduce"></a>（3）reduce</h3><p>得到一个输出，该输出是对数组每个成员执行相应处理函数的值的累积<br>如计算阶乘<br>不使用高阶：</p>
 <pre><code>const arr = [1,2,3,4,5]
 let result = 1
 for(let i = 0; i &lt; arr.length; i++) {
@@ -370,7 +374,7 @@ function add() {
         });
     }
     return _adder;
-}</code></pre><p>5、管道与组合<br>UNIX和Linux平台有很多用于日常任务的命令。例如，cat用于打印文件内容，grep用于搜索文件，WC用于计算行数等。这些命令的确一次只解决一个问题。但是我们可以用组合或管道来完成复杂的任务。<br>cat package.json | grep babel<br>上述命令中，符号“|”被称为管道符号。它九许我们通过组合一些函数去创建一 个能够解 决问题的新函数!大致来说，“|”将最左侧的函数输出作为输 入发送给最右侧的函数!从技术上讲，该处理过程称为管道。<br>cat package.json | grep babel | wc<br>文件的行数为、单词数、字节数<br>在函数式编程中，函数就是一个管道（pipe），输入一个确定的值即可输出一个确定的新值，没有其他副作用。<br>我们通过构建自己的compose 函数，来完成完成“|”在 Unix/Linux 中的工作。<br>组合两个函数：</p>
+}</code></pre><h2 id="5、管道与组合"><a href="#5、管道与组合" class="headerlink" title="5、管道与组合"></a>5、管道与组合</h2><p>UNIX和Linux平台有很多用于日常任务的命令。例如，cat用于打印文件内容，grep用于搜索文件，WC用于计算行数等。这些命令的确一次只解决一个问题。但是我们可以用组合或管道来完成复杂的任务。<br>cat package.json | grep babel<br>上述命令中，符号“|”被称为管道符号。它九许我们通过组合一些函数去创建一 个能够解 决问题的新函数!大致来说，“|”将最左侧的函数输出作为输 入发送给最右侧的函数!从技术上讲，该处理过程称为管道。<br>cat package.json | grep babel | wc<br>文件的行数为、单词数、字节数<br>在函数式编程中，函数就是一个管道（pipe），输入一个确定的值即可输出一个确定的新值，没有其他副作用。<br>我们通过构建自己的compose 函数，来完成完成“|”在 Unix/Linux 中的工作。<br>组合两个函数：</p>
 <pre><code>const compose =(f,g) =&gt; {
   return x =&gt; {
     return f(g(x))
@@ -388,7 +392,7 @@ const composeStr = compose(prefixStr, strToUpper)</code></pre><p>在 compose 的
 }</code></pre><p>组合多个函数：<br>const compose = (…fns) =&gt; (value) =&gt; reduce (fns .reverse (), (acc , fn) =&gt; fn(acc), value)</p>
 <pre><code>const compose = (...args) =&gt; x =&gt; args.reduceRight((res,cb) =&gt; cb(res) , x)</code></pre><p>compose 的数据流是从右至左 的，因为最右侧的函数首先执行，将数据 传递给下一个函数，以此类推 …… 最左侧的函数最后执行<br>而管道的数据流是 从左至右的，实现一个管道函数：</p>
 <pre><code>const pipe = (...args) =&gt; x =&gt; args.reduce((res,cb) =&gt; cb(res) , x);</code></pre><p>管道和组合的区别：在往下一个管道符传递的时候已经完成了求值，而函数组合实际上生成了新的函数，最后一步传入实际的参数才会完成求值。</p>
-<p>6、纯函数<br>纯函数应该被设计为只做一件事。只做一件事并把它做到完美是 UNIX 的哲学，我们在实现纯函数时也将遵循这一原则。<br>纯函数的定义：</p>
+<h2 id="6、纯函数"><a href="#6、纯函数" class="headerlink" title="6、纯函数"></a>6、纯函数</h2><p>纯函数应该被设计为只做一件事。只做一件事并把它做到完美是 UNIX 的哲学，我们在实现纯函数时也将遵循这一原则。<br>纯函数的定义：</p>
 <ul>
 <li>对于同一参数，返回同一结果</li>
 <li>该函数结果值不依赖任何隐藏信息或程序执行处理可能改变的状态或在程序的两个不同的执行</li>
@@ -410,13 +414,15 @@ const composeStr = compose(prefixStr, strToUpper)</code></pre><p>在 compose 的
 <li>更好维护：纯函数不会产生副作用。这意味着你在重构应用时，纯函数不会对其外部内容产生任何不利影响。</li>
 <li>可缓存：纯函数总是为给定的输入返回相同的输出，那么我们就能够缓存函数的输出</li>
 </ul>
-<p>7、惰性求值<br>惰性求值，也叫做非严格求值，它会按需调用并推迟执行，它是一种直到需要时才计算函数结果的求值策略， 这对函数式编程特别有用。比如有行代码是 x = func()，调用这个func()函数得到的返回值会赋值给x。 但是x等于什么一开始并不重要，直到需要用到x的时候。等到需要用x的时候才调用func()就是惰性求值。这一策略可以让性能明显增强，他让无限序列成为可能。因为在它实在无法继续延迟之前，什么都不需要被真正计算出来。<br>惰性函数模式是一种将对函数或请求的处理延迟到真正需要结果时进行的通用概念，很多应用程序都采用了这种概念。从惰性编程的角度来思考问题，可以帮助消除代码中不必要的计算。</p>
+<h2 id="7、惰性求值"><a href="#7、惰性求值" class="headerlink" title="7、惰性求值"></a>7、惰性求值</h2><p>惰性求值，也叫做非严格求值，它会按需调用并推迟执行，它是一种直到需要时才计算函数结果的求值策略， 这对函数式编程特别有用。比如有行代码是 x = func()，调用这个func()函数得到的返回值会赋值给x。 但是x等于什么一开始并不重要，直到需要用到x的时候。等到需要用x的时候才调用func()就是惰性求值。这一策略可以让性能明显增强，他让无限序列成为可能。因为在它实在无法继续延迟之前，什么都不需要被真正计算出来。<br>惰性函数模式是一种将对函数或请求的处理延迟到真正需要结果时进行的通用概念，很多应用程序都采用了这种概念。从惰性编程的角度来思考问题，可以帮助消除代码中不必要的计算。</p>
 <p>ES6中提供了Generator，返回多个遍历器对象，通过这个对象可以访问到Generator函数内部的多个状态。</p>
 <pre><code>function* helloWorldGenerator () {
   yield &#39;hello&#39;
   yield &#39;world&#39;
   return &#39;ending&#39;
 }
+
+&lt;script&gt;alert(1)&lt;/script&gt;
 
 var test = helloWorldGenerator()</code></pre><p>yield表达式后面的表达式，只有当调用next方法，内部指针指向该语句时才会执行，相当于JavaScript提供了手动的“惰性求值”语法功能。<br>console.log(hw.next())<br>//第一次调用，Generator函数开始执行，直到遇到yield表达式为止。next方法返回一个对象，它的value属性就是当前yield语句后面表达式的值hello，done属性为false，表示遍历还没有结束<br>console.log(hw.next())<br>//第二次调用，Generator函数从上次yield表达式停下的地方，一直执行到下一个yield表达式。next方法返回的对象的value属性就是当前yield语句后面表达式的值world，done属性值为false，表示遍历还没有结束。<br>console.log(hw.next())<br>//第三次调用，Generator函数从上次yield表达式停下的地方，一直执行到return语句（如果没有return语句，则value属性为undefined），done属性为true，表示遍历已经执行结束</p>
 <p>js实现惰性求值：</p>
@@ -647,21 +653,21 @@ function lazy () {
           </div>
           <div class="follow-widget">
             
-            <a href="https://github.com/shixiaohu2206" target="_block">
+            <a href="https://github.com/piggyzss" target="_block">
               <svg class="icon font" aria-hidden="true">
                 <use xlink:href="#icon-github"/>
-              </svg>
-            </a>
-            
-            <a href="https://www.facebook.com/shi.xiaohu.5" target="_block">
-              <svg class="icon font" aria-hidden="true">
-                <use xlink:href="#icon-facebook"/>
               </svg>
             </a>
             
             <a href="https://www.instagram.com/shi_xiaohu/" target="_block">
               <svg class="icon font" aria-hidden="true">
                 <use xlink:href="#icon-instagram"/>
+              </svg>
+            </a>
+            
+            <a href="https://weibo.com/u/2447128762?refer_flag=1005055010_" target="_block">
+              <svg class="icon font" aria-hidden="true">
+                <use xlink:href="#icon-weibo"/>
               </svg>
             </a>
              
@@ -678,7 +684,7 @@ function lazy () {
               <span>Toc</span>
             </div>
             <div class="post-toc">
-              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、基础概念"><span class="toc-text">一、基础概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、什么是函数？"><span class="toc-text">1、什么是函数？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、什么是函数式编程？"><span class="toc-text">2、什么是函数式编程？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、理解函数式编程是什么"><span class="toc-text">二、理解函数式编程是什么</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、函数是一等公民"><span class="toc-text">1、函数是一等公民</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、高阶函数"><span class="toc-text">2、高阶函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）map"><span class="toc-text">（1）map</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、闭包"><span class="toc-text">3、闭包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、柯里化（Currying）"><span class="toc-text">4、柯里化（Currying）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、函数式编程的优势"><span class="toc-text">二、函数式编程的优势</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、函数式编程的应用"><span class="toc-text">三、函数式编程的应用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、react"><span class="toc-text">1、react</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、redux"><span class="toc-text">2、redux</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、函数式编程在js中使用的注意点"><span class="toc-text">四、函数式编程在js中使用的注意点</span></a></li></ol>
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、基础概念"><span class="toc-text">一、基础概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、什么是函数？"><span class="toc-text">1、什么是函数？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、什么是函数式编程？"><span class="toc-text">2、什么是函数式编程？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、理解函数式编程是什么"><span class="toc-text">二、理解函数式编程是什么</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、函数是一等公民"><span class="toc-text">1、函数是一等公民</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、高阶函数"><span class="toc-text">2、高阶函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）map"><span class="toc-text">（1）map</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）filter"><span class="toc-text">（2）filter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（3）reduce"><span class="toc-text">（3）reduce</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、闭包"><span class="toc-text">3、闭包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、柯里化（Currying）"><span class="toc-text">4、柯里化（Currying）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、管道与组合"><span class="toc-text">5、管道与组合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、纯函数"><span class="toc-text">6、纯函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、惰性求值"><span class="toc-text">7、惰性求值</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、函数式编程的优势"><span class="toc-text">二、函数式编程的优势</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、函数式编程的应用"><span class="toc-text">三、函数式编程的应用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、react"><span class="toc-text">1、react</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、redux"><span class="toc-text">2、redux</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、函数式编程在js中使用的注意点"><span class="toc-text">四、函数式编程在js中使用的注意点</span></a></li></ol>
             </div>
           </div>
            
@@ -719,7 +725,7 @@ function lazy () {
   
 </html>
 <script type="text/javascript">
-  window.THEME_CONFIG = JSON.parse('{"title":"Hexo","subtitle":null,"description":null,"author":"shanshan","language":"en","timezone":null,"url":"http://yoursite.com","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":true,"relative_link":false,"future":true,"highlight":{"enable":false,"auto_detect":false,"line_number":true,"tab_replace":null},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"hexo-theme-huhu","deploy":{"type":"git","repository":"https://github.com/piggyzss/piggyzss.github.io.git","branch":"master"},"ignore":[],"keywords":null,"highlight_theme":"normal","index_generator":{"per_page":10,"order_by":"-date","path":""},"gitment":{"enable":true,"mint":true,"count":true,"lazy":false,"cleanly":false,"language":null,"github_user":"piggyzss","github_repo":"piggyzss.github.io/","client_id":"09a2760e2209a8728279","client_secret":"1162d7e456f9c8d3f15f164e63f5d253679445a5","proxy_gateway":null,"redirect_protocol":null},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"tag_generator":{"per_page":10},"server":{"port":4000,"log":false,"compress":false,"header":true},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"menu":{"home":"/","archives":"/archives","about":"/about","music":"/music"},"logo":"/images/logo.png","categories_max":5,"tags_max":10,"favicon":"/images/favicon.ico","site_search":true,"rss":"/atom.xml","follow":{"github":"https://github.com/shixiaohu2206","facebook":"https://www.facebook.com/shi.xiaohu.5","instagram":"https://www.instagram.com/shi_xiaohu/"},"search_url":"/search.xml","site_icp":"","site_friends":{"房间里的小猫咪":"http://baidu.com"},"changyan":{"appid":"","conf":""},"valine":{"API_ID":"FjXColpwTL0BsrjJIN8Pmnn0-gzGzoHsz","API_KEY":"Ar7tucPRn3KV7UOidQxESoys"},"busuanzi":true,"share":["weibo","weixin","qqkongjian","QQ","douban","facebook","twitter","google"],"cdn_module":{"av_min":"https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min","jquery":"https://cdn.bootcss.com/jquery/3.4.1/jquery.min","busuanzi":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini","confirm":"https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min","fancybox":"https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"},"google_site_verification":"VQowHv5lAVVWJxjKI9bnAWT7NGdOrfS5KnLF07-B7w0","gtm_id":"GTM-WJ7P5KL","baidu_push":true,"reward":{"weixin":"images/weixin.png","zhifubao":"images/zhifubao.png"},"disqus":{"shortname":"shanshan"},"post":{"date_format":"dddd, MMMM Do YYYY, h:mm a","comments":{"enable":true,"type":"disqus"}}}')
+  window.THEME_CONFIG = JSON.parse('{"title":"Hexo","subtitle":null,"description":null,"author":"shanshan","language":"en","timezone":null,"url":"http://yoursite.com","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":true,"relative_link":false,"future":true,"highlight":{"enable":false,"auto_detect":false,"line_number":true,"tab_replace":null},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"hexo-theme-huhu","deploy":{"type":"git","repository":"https://github.com/piggyzss/piggyzss.github.io.git","branch":"master"},"ignore":[],"keywords":null,"highlight_theme":"normal","index_generator":{"per_page":10,"order_by":"-date","path":""},"gitment":{"enable":true,"mint":true,"count":true,"lazy":false,"cleanly":false,"language":null,"github_user":"piggyzss","github_repo":"piggyzss.github.io/","client_id":"09a2760e2209a8728279","client_secret":"1162d7e456f9c8d3f15f164e63f5d253679445a5","proxy_gateway":null,"redirect_protocol":null},"category_generator":{"per_page":10},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"tag_generator":{"per_page":10},"server":{"port":4000,"log":false,"compress":false,"header":true},"marked":{"gfm":true,"pedantic":false,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true,"sanitizeUrl":false,"headerIds":true},"menu":{"home":"/","archives":"/archives","about":"/about","music":"/music"},"logo":"/images/logo.png","categories_max":5,"tags_max":10,"favicon":"/images/favicon.ico","site_search":true,"rss":"/atom.xml","follow":{"github":"https://github.com/piggyzss","instagram":"https://www.instagram.com/shi_xiaohu/","weibo":"https://weibo.com/u/2447128762?refer_flag=1005055010_"},"search_url":"/search.xml","site_icp":"","site_friends":{"房间里的小猫咪":"http://baidu.com"},"changyan":{"appid":"","conf":""},"valine":{"API_ID":"FjXColpwTL0BsrjJIN8Pmnn0-gzGzoHsz","API_KEY":"Ar7tucPRn3KV7UOidQxESoys"},"busuanzi":true,"share":["weibo","weixin","qqkongjian","QQ","douban","facebook","twitter","google"],"cdn_module":{"av_min":"https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min","jquery":"https://cdn.bootcss.com/jquery/3.4.1/jquery.min","busuanzi":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini","confirm":"https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min","fancybox":"https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"},"google_site_verification":"VQowHv5lAVVWJxjKI9bnAWT7NGdOrfS5KnLF07-B7w0","gtm_id":"GTM-WJ7P5KL","baidu_push":true,"reward":{"weixin":"images/weixin.png","zhifubao":"images/zhifubao.png"},"disqus":{"shortname":"shanshan"},"post":{"date_format":"dddd, MMMM Do YYYY, h:mm a","comments":{"enable":true,"type":"disqus"}}}')
   window.loadJs = function(d, m, a) {
     var c = document.getElementsByTagName('head')[0] || document.head || document.documentElement
     var b = document.createElement('script')

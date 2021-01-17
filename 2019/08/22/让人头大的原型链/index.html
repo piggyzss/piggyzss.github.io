@@ -48,6 +48,9 @@
       <script>
         hljs.initHighlightingOnLoad();
       </script>
+      <script type="text/javascript" src="https://unpkg.com/minigrid@3.1.1/dist/minigrid.min.js"></script>
+      <link rel="stylesheet" href="../source/photos/photos.css">
+      <script type="text/javascript" src="../source/photos/photo.js"></script>
   </head>
   <body>
     <div id="fixed-menu">
@@ -144,13 +147,24 @@
         </span>
         </div>
         
+         
       <div>
       </div>
     </div>
-    <h1 id="1、prototype-amp-proto"><a href="#1、prototype-amp-proto" class="headerlink" title="1、prototype &amp; proto"></a>1、prototype &amp; <em>proto</em></h1><h2 id="prototype"><a href="#prototype" class="headerlink" title="prototype"></a>prototype</h2><p>prototype是一个显式原型属性，只有函数才拥有该属性。<br>每个函数都有 prototype 属性(除了 Function.prototype.bind())，这个属性是一个指针，指向一个对象，这个对象包含可以由特定类型的所有实例共享的属性和方法。</p>
-<h2 id="proto"><a href="#proto" class="headerlink" title="proto"></a><strong>proto</strong></h2><p><strong>proto</strong>是隐式原型属性，指向了创建该对象的构造函数的原型。<br>每个对象都有 <strong>proto</strong> 属性，指向了创建该对象的构造函数的原型(也就是构造函数的prototype)。</p>
-<p>因为在 JS 中是没有类的概念的，为了实现类似继承的方式，通过 <em>proto</em> 将对象和原型联系起来组成原型链，得以让对象可以访问到不属于自己的属性。</p>
-<h3 id="实例对象中的proto"><a href="#实例对象中的proto" class="headerlink" title="实例对象中的proto"></a>实例对象中的<strong>proto</strong></h3><p><strong>tips：new做了什么</strong></p>
+    <h1 id="一、prototype-amp-proto"><a href="#一、prototype-amp-proto" class="headerlink" title="一、prototype &amp; proto"></a>一、prototype &amp; <em>proto</em></h1><h2 id="1、几个概念"><a href="#1、几个概念" class="headerlink" title="1、几个概念"></a>1、几个概念</h2><ul>
+<li>构造函数：用来初始化新建对象的函数</li>
+<li>实例对象：通过构造函数的new操作符创建的对象</li>
+</ul>
+<h2 id="2、prototype"><a href="#2、prototype" class="headerlink" title="2、prototype"></a>2、prototype</h2><p>prototype是一个显式原型属性，只有函数才拥有该属性。<br>每个函数都有 prototype 属性(除了 Function.prototype.bind())，这个属性是一个指针，指向一个对象，这个对象包含可以由特定类型的所有实例共享的属性和方法。</p>
+<p>当声明一个函数时，这个属性就自动被创建了</p>
+<pre><code>function Fn() {}</code></pre><p>这个prototype属性的值时一个对象，在没有认为往prototype上挂载其他方法时，该属性只有一个值constructor(指向这个函数本身)</p>
+<pre><code>Fn.prototype // {constructor: ƒ}
+Fn.prototype.constructor === Fn // true</code></pre><p>此时，我们可以通过这样的方式对原型对象做扩展：<br>demo1</p>
+<pre><code>Fn.prototype.getInfo = function () {
+  ...
+}</code></pre><h2 id="3、proto"><a href="#3、proto" class="headerlink" title="3、proto"></a>3、<strong>proto</strong></h2><p><strong>proto</strong>是隐式原型属性，指向了创建该对象的构造函数的原型。<br>每个对象都有<strong>proto</strong>属性，指向了创建该对象的构造函数的原型(也就是构造函数的prototype)。</p>
+<p>因为在JS中是没有类的概念的，为了实现类似继承的方式，通过<strong>proto</strong>将对象和原型联系起来组成原型链，得以让对象可以访问到不属于自己的属性。</p>
+<h3 id="实例对象中的proto"><a href="#实例对象中的proto" class="headerlink" title="实例对象中的proto"></a>实例对象中的<strong>proto</strong></h3><p>当使用new操作符时，生成的实例对象拥有了<strong>proto</strong>属性<br><strong>tips：new做了什么</strong></p>
 <ul>
 <li>新生成了一个对象</li>
 <li>链接到原型</li>
@@ -168,7 +182,44 @@
     let result = Constructor.apply(obj, arguments)
     // 确保 new 出来的是个对象
     return typeof result === &#39;object&#39; ? result : obj
-}</code></pre>
+}</code></pre><h2 id="4、原型链"><a href="#4、原型链" class="headerlink" title="4、原型链"></a>4、原型链</h2><p>js中每个函数对象都有一个prototype属性（显式原型属性），称之为原型<br>而原型的值也是一个对象，因此它也有自己的原型（<strong>proto</strong>），这样就串联起一条原型链，原型链的链头是object，它的prototype比较特殊，值为null</p>
+<pre><code>function Fn() {}
+var f = new Fn()
+f.__proto__ === Fn.prototype // true
+Fn.prototype.__proto__ === Object.prototype // true
+Object.prototype.__proto__ // null 已经到原型链的链头了</code></pre><p>原型链的作用是用来作对象继承，当一个函数被用作构造函数来创建实例时，该函数的原型属性将被作为原型赋值给所有对象实例。</p>
+<p>当访问一个对象的属性（方法）时，首先从对象本身查找，找到则返回该属性；若未找到，则继续查找其原型对象的属性，如果还找不到，则会沿着原型链一直向上查找，一直到根。</p>
+<p>因此，原型对象的用途就是就是为每个实例对象存储共享的方法和属性</p>
+<h1 id="二、继承"><a href="#二、继承" class="headerlink" title="二、继承"></a>二、继承</h1><p>既然原型对象能为每个实例对象存储共享的方法和属性，我们就可以通过原型对象来实现继承</p>
+<h2 id="1、原型链继承"><a href="#1、原型链继承" class="headerlink" title="1、原型链继承"></a>1、原型链继承</h2><p>通过原型链实现继承关系，具体来说，就是将父类的实例作为子类的原型</p>
+<pre><code>function parent(name) {
+  this.name = name || &#39;father&#39;
+  this.getName = function () {
+    console.log(&#39;name&#39;, this.name)
+  }
+  this.feature = []
+}
+
+parent.prototype.action = function () {
+  console.log(&#39;action&#39;)
+}
+
+function child() {}
+child.prototype = new parent(&#39;son&#39;)
+child.getName() // child.getName is not a function
+child.action() // &#39;action&#39;</code></pre><p>特点：</p>
+<ul>
+<li>纯粹的继承关系，实例是子类的实例，也是父类的实例</li>
+<li>父类新增的原型方法或属性，子类都能访问</li>
+<li>简单易实现</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>来自父类对象的引用属性是所有子类实例共享的，如feature就是所有实例共享</li>
+<li>创建子类实例时，无法向父类构造函数传参</li>
+<li>无法实现实例多继承</li>
+</ul>
+<h2 id="2、原型链继承"><a href="#2、原型链继承" class="headerlink" title="2、原型链继承"></a>2、原型链继承</h2>
 
   
 
@@ -308,21 +359,21 @@
           </div>
           <div class="follow-widget">
             
-            <a href="https://github.com/shixiaohu2206" target="_block">
+            <a href="https://github.com/piggyzss" target="_block">
               <svg class="icon font" aria-hidden="true">
                 <use xlink:href="#icon-github"/>
-              </svg>
-            </a>
-            
-            <a href="https://www.facebook.com/shi.xiaohu.5" target="_block">
-              <svg class="icon font" aria-hidden="true">
-                <use xlink:href="#icon-facebook"/>
               </svg>
             </a>
             
             <a href="https://www.instagram.com/shi_xiaohu/" target="_block">
               <svg class="icon font" aria-hidden="true">
                 <use xlink:href="#icon-instagram"/>
+              </svg>
+            </a>
+            
+            <a href="https://weibo.com/u/2447128762?refer_flag=1005055010_" target="_block">
+              <svg class="icon font" aria-hidden="true">
+                <use xlink:href="#icon-weibo"/>
               </svg>
             </a>
              
@@ -339,7 +390,7 @@
               <span>Toc</span>
             </div>
             <div class="post-toc">
-              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1、prototype-amp-proto"><span class="toc-text">1、prototype &amp; proto</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#prototype"><span class="toc-text">prototype</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#proto"><span class="toc-text">proto</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实例对象中的proto"><span class="toc-text">实例对象中的proto</span></a></li></ol></li></ol></li></ol>
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、prototype-amp-proto"><span class="toc-text">一、prototype &amp; proto</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、几个概念"><span class="toc-text">1、几个概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、prototype"><span class="toc-text">2、prototype</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、proto"><span class="toc-text">3、proto</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实例对象中的proto"><span class="toc-text">实例对象中的proto</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、原型链"><span class="toc-text">4、原型链</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、继承"><span class="toc-text">二、继承</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、原型链继承"><span class="toc-text">1、原型链继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、原型链继承"><span class="toc-text">2、原型链继承</span></a></li></ol></li></ol>
             </div>
           </div>
            
@@ -380,7 +431,7 @@
   
 </html>
 <script type="text/javascript">
-  window.THEME_CONFIG = JSON.parse('{"title":"Hexo","subtitle":null,"description":null,"author":"shanshan","language":"en","timezone":null,"url":"http://yoursite.com","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":true,"relative_link":false,"future":true,"highlight":{"enable":false,"auto_detect":false,"line_number":true,"tab_replace":null},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"hexo-theme-huhu","deploy":{"type":"git","repository":"https://github.com/piggyzss/piggyzss.github.io.git","branch":"master"},"ignore":[],"keywords":null,"highlight_theme":"normal","index_generator":{"per_page":10,"order_by":"-date","path":""},"gitment":{"enable":true,"mint":true,"count":true,"lazy":false,"cleanly":false,"language":null,"github_user":"piggyzss","github_repo":"piggyzss.github.io/","client_id":"09a2760e2209a8728279","client_secret":"1162d7e456f9c8d3f15f164e63f5d253679445a5","proxy_gateway":null,"redirect_protocol":null},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"tag_generator":{"per_page":10},"server":{"port":4000,"log":false,"compress":false,"header":true},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"menu":{"home":"/","archives":"/archives","about":"/about","music":"/music"},"logo":"/images/logo.png","categories_max":5,"tags_max":10,"favicon":"/images/favicon.ico","site_search":true,"rss":"/atom.xml","follow":{"github":"https://github.com/shixiaohu2206","facebook":"https://www.facebook.com/shi.xiaohu.5","instagram":"https://www.instagram.com/shi_xiaohu/"},"search_url":"/search.xml","site_icp":"","site_friends":{"房间里的小猫咪":"http://baidu.com"},"changyan":{"appid":"","conf":""},"valine":{"API_ID":"FjXColpwTL0BsrjJIN8Pmnn0-gzGzoHsz","API_KEY":"Ar7tucPRn3KV7UOidQxESoys"},"busuanzi":true,"share":["weibo","weixin","qqkongjian","QQ","douban","facebook","twitter","google"],"cdn_module":{"av_min":"https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min","jquery":"https://cdn.bootcss.com/jquery/3.4.1/jquery.min","busuanzi":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini","confirm":"https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min","fancybox":"https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"},"google_site_verification":"VQowHv5lAVVWJxjKI9bnAWT7NGdOrfS5KnLF07-B7w0","gtm_id":"GTM-WJ7P5KL","baidu_push":true,"reward":{"weixin":"images/weixin.png","zhifubao":"images/zhifubao.png"},"disqus":{"shortname":"shanshan"},"post":{"date_format":"dddd, MMMM Do YYYY, h:mm a","comments":{"enable":true,"type":"disqus"}}}')
+  window.THEME_CONFIG = JSON.parse('{"title":"Hexo","subtitle":null,"description":null,"author":"shanshan","language":"en","timezone":null,"url":"http://yoursite.com","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":true,"relative_link":false,"future":true,"highlight":{"enable":false,"auto_detect":false,"line_number":true,"tab_replace":null},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"hexo-theme-huhu","deploy":{"type":"git","repository":"https://github.com/piggyzss/piggyzss.github.io.git","branch":"master"},"ignore":[],"keywords":null,"highlight_theme":"normal","index_generator":{"per_page":10,"order_by":"-date","path":""},"gitment":{"enable":true,"mint":true,"count":true,"lazy":false,"cleanly":false,"language":null,"github_user":"piggyzss","github_repo":"piggyzss.github.io/","client_id":"09a2760e2209a8728279","client_secret":"1162d7e456f9c8d3f15f164e63f5d253679445a5","proxy_gateway":null,"redirect_protocol":null},"category_generator":{"per_page":10},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"tag_generator":{"per_page":10},"server":{"port":4000,"log":false,"compress":false,"header":true},"marked":{"gfm":true,"pedantic":false,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true,"sanitizeUrl":false,"headerIds":true},"menu":{"home":"/","archives":"/archives","about":"/about","music":"/music"},"logo":"/images/logo.png","categories_max":5,"tags_max":10,"favicon":"/images/favicon.ico","site_search":true,"rss":"/atom.xml","follow":{"github":"https://github.com/piggyzss","instagram":"https://www.instagram.com/shi_xiaohu/","weibo":"https://weibo.com/u/2447128762?refer_flag=1005055010_"},"search_url":"/search.xml","site_icp":"","site_friends":{"房间里的小猫咪":"http://baidu.com"},"changyan":{"appid":"","conf":""},"valine":{"API_ID":"FjXColpwTL0BsrjJIN8Pmnn0-gzGzoHsz","API_KEY":"Ar7tucPRn3KV7UOidQxESoys"},"busuanzi":true,"share":["weibo","weixin","qqkongjian","QQ","douban","facebook","twitter","google"],"cdn_module":{"av_min":"https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min","jquery":"https://cdn.bootcss.com/jquery/3.4.1/jquery.min","busuanzi":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini","confirm":"https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min","fancybox":"https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"},"google_site_verification":"VQowHv5lAVVWJxjKI9bnAWT7NGdOrfS5KnLF07-B7w0","gtm_id":"GTM-WJ7P5KL","baidu_push":true,"reward":{"weixin":"images/weixin.png","zhifubao":"images/zhifubao.png"},"disqus":{"shortname":"shanshan"},"post":{"date_format":"dddd, MMMM Do YYYY, h:mm a","comments":{"enable":true,"type":"disqus"}}}')
   window.loadJs = function(d, m, a) {
     var c = document.getElementsByTagName('head')[0] || document.head || document.documentElement
     var b = document.createElement('script')
