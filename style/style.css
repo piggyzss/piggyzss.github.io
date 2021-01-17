@@ -227,6 +227,7 @@ a:hover {
 .post-entry h6,
 .post-wrap h6 {
   margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid #eaecef;
   font-weight: bold;
@@ -304,7 +305,7 @@ a:hover {
 .post-entry dl,
 .post-wrap dl {
   font-size: 0.875rem;
-  margin: 0 20px;
+  margin: 0.2rem 20px;
   line-height: 1.6rem;
 }
 .post-entry ul ul,
@@ -480,7 +481,7 @@ a:hover {
 .post-wrap table {
   font-size: 0.875rem;
   line-height: 1.6rem;
-  margin: 0.2rem 0;
+  margin: 0.4rem 0;
 }
 .post-entry ul,
 .post-wrap ul,
@@ -488,8 +489,8 @@ a:hover {
 .post-wrap ol,
 .post-entry dl,
 .post-wrap dl {
-  margin-top: 1.6rem;
-  margin-bottom: 1.6rem;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 .post-entry img,
 .post-wrap img,
