@@ -102,14 +102,14 @@
         <div class="content">
           <article class="post-entry">
     <div class="header">
-      <div class="title">ReactHooks探索</div>
+      <div class="title">NPM知识自查小地图</div>
         
         <div class="meta">
         <span>
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-fenzu4"/>
           </svg>
-          2019/10/10
+          2021/03/07
         </span>
         <span>
           <svg class="icon" aria-hidden="true">
@@ -117,10 +117,6 @@
           </svg>
           <span>
             
-              
-                
-                  <a href="/categories/code">code</a>
-                
               
             
           </span>
@@ -132,14 +128,10 @@
           <span>
             
               
-                
-                  <a href="/tags/React">React</a>
-                
-              
             
           </span>
         </span>
-        <span class="leancloud-visitors" id="http://yoursite.com/2019/10/10/ReactHooks探索/" data-flag-title="ReactHooks探索">
+        <span class="leancloud-visitors" id="http://yoursite.com/2021/03/07/NPM知识自查小地图/" data-flag-title="NPM知识自查小地图">
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-fenzu6"/>
           </svg>
@@ -151,297 +143,126 @@
       <div>
       </div>
     </div>
-    <p>Hooks 是 React v16.7.0-alpha 中加入的新特性。它可以让你在 class 以外使用 state 和其他 React 特性。</p>
-<h1 id="1、useState"><a href="#1、useState" class="headerlink" title="1、useState"></a>1、useState</h1><p><strong>语法</strong></p>
-<pre><code class="javascript">const [state, setState] = useState(initialState)</code></pre>
-<p><strong>入参</strong>：initialState，即state初始值<br><strong>返回值</strong>：state：状态值, setState：修改 state值的方法</p>
-<p>与在类中使用 setState 的异同点：</p>
-<ul>
-<li>相同点：也是异步的，例如在 onClick 事件中，调用两次 setState，数据只改变一次。</li>
-<li>不同点：类中的 setState 是合并，而函数组件中的 setState 是替换。</li>
+    <h1 id="1、npm-init"><a href="#1、npm-init" class="headerlink" title="1、npm init"></a>1、npm init</h1><p>npm init 命令用来初始化一个简单的 package.json 文件，执行该命令后终端会依次询问 name, version, description 等字段。</p>
+<p>定制 npm init 命令的实现方式也很简单，在 Home 目录创建一个 .npm-init.js 即可，该文件的 module.exports 即为 package.json 配置内容，需要获取用户输入时候，使用 prompt() 方法即可。</p>
+<p>例如： ~/.npm-init.js</p>
+<pre><code class="typescript">const desc = prompt(&#39;description?&#39;, &#39;A new package...&#39;)
+const author = prompt(&#39;author?&#39;, &#39;shanshan&#39;)
+const license = prompt(&#39;license?&#39;, &#39;ISC&#39;)
+module.exports = {
+  key: &#39;value&#39;,
+  foo: {
+    author: author,
+    license: license
+  },
+  name: prompt(&#39;name?&#39;, process.cwd().split(&#39;/&#39;).pop()),
+  version: prompt(&#39;version?&#39;, &#39;0.1.0&#39;),
+  description: desc,
+  main: &#39;index.js&#39;,
+}</code></pre>
+<h1 id="2、npm-install"><a href="#2、npm-install" class="headerlink" title="2、npm install"></a>2、npm install</h1><p>npm install 命令用来安装依赖包</p>
+<h2 id="2-1、安装过程"><a href="#2-1、安装过程" class="headerlink" title="2-1、安装过程"></a>2-1、安装过程</h2><ul>
+<li><p><strong>执行工程自身 preinstall</strong></p>
+</li>
+<li><p><strong>确定首层依赖模块</strong><br>首先需要做的是确定工程中的首层依赖，也就是 dependencies 和 devDependencies 属性中直接指定的模块（假设此时没有添加 npm install 参数）。<br>工程本身是整棵依赖树的根节点，每个首层依赖模块都是根节点下面的一棵子树，npm 会开启多进程从每个首层依赖模块开始逐步寻找更深层级的节点。</p>
+</li>
+<li><p><strong>获取模块</strong><br>获取模块是一个递归的过程，分为以下几步：</p>
+<ol>
+<li><p>获取模块信息。在下载一个模块之前，首先要确定其版本，这是因为 package.json 中往往是 semantic version（semver，语义化版本）。此时如果版本描述文件（npm-shrinkwrap.json 或 package-lock.json）中有该模块信息直接拿即可，如果没有则从仓库获取。如 packaeg.json 中某个包的版本是 ^1.1.0，npm 就会去仓库中获取符合 1.x.x 形式的最新版本。</p>
+</li>
+<li><p>获取模块实体。上一步会获取到模块的压缩包地址（resolved 字段），npm 会用此地址检查本地缓存，缓存中有就直接拿，如果没有则从仓库下载。</p>
+</li>
+<li><p>查找该模块依赖，如果有依赖则回到第1步，如果没有则停止。</p>
+</li>
+</ol>
+</li>
+<li><p><strong>模块扁平化</strong><br>上一步获取到的是一棵完整的依赖树，其中可能包含大量重复模块。比如 A 模块依赖于 loadsh，B 模块同样依赖于 lodash。在 npm3 以前会严格按照依赖树的结构进行安装，因此会造成模块冗余。<br>从 npm3 开始默认加入了一个 npm dedupe 的过程。它会遍历所有节点，逐个将模块放在根节点下面，也就是 node-modules 的第一层。当发现有重复模块时，则将其丢弃。<br>这里需要对重复模块进行一个定义，它指的是模块名相同且 semver 兼容。每个 semver 都对应一段版本允许范围，如果两个模块的版本允许范围存在交集，那么就可以得到一个兼容版本，而不必版本号完全一致，这可以使更多冗余模块在 dedupe 过程中被去掉。</p>
+</li>
+<li><p><strong>安装模块</strong><br>这一步将会更新工程中的 node_modules，并执行模块中的生命周期函数（按照 preinstall、install、postinstall 的顺序）。</p>
+</li>
+<li><p><strong>执行工程自身生命周期</strong><br>当前 npm 工程如果定义了钩子此时会被执行（按照 install、postinstall、prepublish、prepare 的顺序）。</p>
+</li>
 </ul>
-<p>类中setState自加：</p>
-<pre><code class="javascript">this.setState({ count: this.state.count + 1 })</code></pre>
-<p>hook中使用setState自加：</p>
-<pre><code class="javascript">setCount(count + 1)</code></pre>
-<h1 id="2、useEffect"><a href="#2、useEffect" class="headerlink" title="2、useEffect"></a>2、useEffect</h1><p>在类组件中，在 componentDidMount 或者 componentDidUpdate 等生命周期中会进行一些具有副作用的操作。如网络请求，修改 UI 等，函数组件中没有生命周期函数，则可以通过useEffect来实现。<br><strong>语法</strong></p>
-<pre><code class="javascript">useEffect(() =&gt; { doSomething, array });</code></pre>
-<p><strong>入参</strong>：doSomething，是一个函数，是在第一次渲染以及之后更新渲染之后会进行的副作用。这个函数可能会有返回值，倘若有返回值，返回值也必须是一个函数，会在组件被销毁时执行。<br>           array, 是一个数组，里面放入在 useEffect 使用到的 state 值，可以用作优化，只有当数组中 state 值发生变化时，才会执行这个 useEffect。</p>
-<p><strong>eg1</strong>：</p>
-<pre><code class="javascript">useEffect(() =&gt; { // 给 window 绑定点击事件 window.addEventListener(&#39;click&#39;, handleClick); return () =&gt; { // 给 window 移除点击事件 window.addEventListener(&#39;click&#39;, handleClick); } });</code></pre>
-<p><strong>eg2</strong>：</p>
-<pre><code class="javascript">useEffect(() =&gt; {
-    // 使用浏览器API更新文档标题
-    document.title = `You clicked ${count} times`;
-}, [ count ]);</code></pre>
-<p>Tip：如果想模拟 class 组件的行为，只在 componetDidMount 时执行副作用，在 componentDidUpdate 时不执行，那么 useEffect 的第二个参数传一个 [] 即可。（但是不建议这么做，可能会由于疏漏出现错误）</p>
-<h1 id="3、useContext"><a href="#3、useContext" class="headerlink" title="3、useContext"></a>3、useContext</h1><p><strong>语法</strong></p>
-<pre><code class="javascript">const value = useContext(MyContext)</code></pre>
-<p><strong>入参</strong>：MyContext，上下文对象（从React.createContext返回的值）<br><strong>eg</strong>:</p>
-<pre><code class="javascript">Parent.tsx
-import React, { createContext, Context } from &#39;react&#39;
-import Child from &#39;./Child&#39;
-export const ThemeContext: Context&lt;any&gt; = createContext(null)
-const Parent =  () =&gt; {
-    const a = {
-        name: &#39;zhaoshanshan&#39;,
-        grade: 100
-    }
-    return (
-        &lt;ThemeContext.Provider value={a}&gt;
-            &lt;Child /&gt;
-        &lt;/ThemeContext.Provider&gt;
-    )
-}
-export default Parent
-
-Child.tsx
-import React, { useContext } from &#39;react&#39;;
-import { ThemeContext } from &#39;./Parent&#39;
-
-export default () =&gt; {
-    const context = useContext(ThemeContext)
-    return (
-        &lt;div&gt;child组件：当前 context 是：{ context.name }-{context.grade}&lt;/div&gt;
-    )
-}</code></pre>
-<h1 id="4、useReducer"><a href="#4、useReducer" class="headerlink" title="4、useReducer"></a>4、useReducer</h1><p><strong>语法</strong></p>
-<pre><code class="javascript">const [state, dispatch] = useReducer(reducer, initialArg, init)</code></pre>
-<p><strong>入参</strong>：reducer，接受类型为 (state, action) =&gt; newState 的reducer，并返回与 dispatch 方法配对的当前状态<br>           initialArg，初始状态值<br>           init，懒惰地创建初始状态，暂时没搞懂</p>
-<pre><code class="javascript">import React, { useReducer } from &#39;react&#39;;
-const initialState = {count: 0};
-function reducer(state: any, action: {type: string}) {
-    switch (action.type) {
-        case &#39;increment&#39;:
-            return {count: state.count + 1};
-        case &#39;decrement&#39;:
-            return {count: state.count - 1};
-        default:
-            throw new Error();
-    }
-}
-export default () =&gt; {
-    // 使用 useReducer 函数创建状态 state 以及更新状态的 dispatch 函数
-    const [state, dispatch] = useReducer(reducer, initialState);
-    return (
-        &lt;&gt;
-            Count: {state.count}
-            &lt;br /&gt;
-            &lt;button onClick={() =&gt; dispatch({type: &#39;increment&#39;})}&gt;+&lt;/button&gt;
-            &lt;button onClick={() =&gt; dispatch({type: &#39;decrement&#39;})}&gt;-&lt;/button&gt;
-        &lt;/&gt;
-    );
-}</code></pre>
-<p>与 useState 的区别：</p>
-<ul>
-<li>当 state 状态值结构比较复杂时，使用 useReducer 更有优势。</li>
-<li>使用 useState获取的setState方法更新数据时是异步的；而使用useReducer获取的dispatch方法更新数据是同步的。</li>
+<p>最后一步是生成或更新版本描述文件，npm install 过程完成。</p>
+<h2 id="2-2、dependenices-和-devDependenices"><a href="#2-2、dependenices-和-devDependenices" class="headerlink" title="2-2、dependenices 和 devDependenices"></a>2-2、dependenices 和 devDependenices</h2><ul>
+<li><strong>dependenices</strong></li>
 </ul>
-<p><strong>eg</strong>:<br><strong>useState</strong></p>
-<pre><code class="javascript">import React, { useState } from &#39;react&#39;
+<p>通过命令npm install/i -S/–save packageName把包装在此依赖项里。</p>
+<p>如果没有指定版本，直接写一个包的名字，则安装当前npm仓库中这个包的最新版本。如果要指定版本的，可以把版本号写在包名后面，比如npm install –save <a href="mailto:react@16.0.0" target="_blank" rel="noopener">react@16.0.0</a>。</p>
+<p>从npm 5.x开始，可以不用手动添加-S/–save指令，直接执行npm i packageName把依赖包添加到dependencies中去。</p>
+<ul>
+<li><strong>devDependenices</strong></li>
+</ul>
+<p>有一些包有可能你只是在开发环境中用到，例如你用于检测代码规范的 eslint，用于进行测试的 jest ，用户使用你的包时即使不安装这些依赖也可以正常运行，反而安装他们会耗费更多的时间和资源。</p>
+<p>可以把这些依赖添加到 devDependencies 中，这些依赖照样会在你本地进行 npm install/i -D/–save-dev  packageName时被安装和管理，但是不会被安装到生产环境。</p>
+<h1 id="3、package-json"><a href="#3、package-json" class="headerlink" title="3、package.json"></a>3、package.json</h1><h2 id="3-1、dependenices-amp-devDependenices"><a href="#3-1、dependenices-amp-devDependenices" class="headerlink" title="3-1、dependenices &amp; devDependenices"></a>3-1、dependenices &amp; devDependenices</h2><p>分别对应通过-S和-D安装的包列表</p>
+<h2 id="3-2、bin"><a href="#3-2、bin" class="headerlink" title="3-2、bin"></a>3-2、bin</h2><p>bin 字段指定了各个内部命令对应的可执行文件的位置。如果全局安装模块包，npm 会使用符号链接把可执行文件链接到 /usr/local/bin，如果项目中安装，会链接到 ./node_modules/.bin/。</p>
+<h2 id="3-3、npm-scripts"><a href="#3-3、npm-scripts" class="headerlink" title="3-3、npm scripts"></a>3-3、npm scripts</h2><p>在生成的 package.json 文件中，有一个 scripts 对象，在这个对象中，npm 允许使用 scripts 字段定义脚本命令。</p>
+<p><strong>【原理】</strong></p>
+<p>每次在运行 scripts 中的一个属性时候，实际系统都会自动新建一个shell(一般是Bash)，在这个shell里面执行指定的脚本命令。</p>
+<p>通过 npm 启动的脚本，会默认把 node_modules/.bin 加到 PATH 环境变量中；执行结束后，再将 PATH 变量恢复原样。</p>
+<p>举个栗子：<br><code>&quot;test&quot;: &quot;jest&quot;</code><br>而不用写成下面这样：<br><code>&quot;test&quot;: &quot;./node_modules/.bin/jest&quot;</code></p>
+<p><strong>【脚本默认值】</strong></p>
+<p>正常情况下，npm 脚本是用户自己定义。但是 npm 本身对两个脚本提供了默认值，这两个脚本不用在 script 属性中定义，可以直接使用</p>
+<pre><code class="typescript">&quot;start&quot;: &quot;node server.js&quot;
+&quot;install&quot;: &quot;node-gyp rebuild&quot;</code></pre>
+<p><strong>【钩子】</strong></p>
+<p>npm 脚本有两个钩子，pre 和 post。</p>
+<p>比如，当执行start脚本时候，start 的钩子就是 prestart 和 poststart。<br>当执行 npm run start 的时候，npm 实际上是按照下面的顺序执行：</p>
+<pre><code>npm run prestart &amp;&amp; npm run start &amp;&amp; npm run poststart</code></pre><p><strong>【脚本参数】</strong></p>
+<p>前面说过，项目中安装模块会链接到 ./node_modules/.bin/。<br>随便拉个node_module路径下  .bin/umi脚本感受一下：</p>
+<pre><code class="typescript">#!/usr/bin/env node
 
-function Example() {
-    // 声明一个名为“count”的新状态变量
-    const [count, setCount] = useState(0)
+const resolveCwd = require(&#39;resolve-cwd&#39;);
+const { name, bin } = require(&#39;../package.json&#39;);
 
-    return (
-        &lt;div&gt;
-            &lt;p&gt;You clicked {count} times&lt;/p&gt;
-            &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
-                Click me
-            &lt;/button&gt;
-            &lt;button onClick={() =&gt; {
-                setCount(count + 1)
-                setCount(count + 1)
-            }}&gt;
-                测试能否连加两次
-            &lt;/button&gt;
-        &lt;/div&gt;
-    );
-}
-
-export default Example</code></pre>
-<p><strong>useReducer</strong><br>刚刚的例子可以修改成这样：</p>
-<pre><code class="javascript">export default () =&gt; {
-    // 使用 useReducer 函数创建状态 state 以及更新状态的 dispatch 函数
-    const [state, dispatch] = useReducer(reducer, initialState)
-    return (
-        &lt;&gt;
-            Count: {state.count}
-            &lt;br /&gt;
-            &lt;button onClick={() =&gt; dispatch({type: &#39;increment&#39;})}&gt;+&lt;/button&gt;
-            &lt;button onClick={() =&gt; dispatch({type: &#39;decrement&#39;})}&gt;-&lt;/button&gt;
-            &lt;button onClick={() =&gt; {
-                dispatch({type: &#39;increment&#39;})
-                dispatch({type: &#39;increment&#39;})
-            }}&gt;
-                测试能否连加两次
-            &lt;/button&gt;
-        &lt;/&gt;
-    )
+const localCLI = resolveCwd.silent(`${name}/${bin[&#39;umi&#39;]}`);
+if (!process.env.USE_GLOBAL_UMI &amp;&amp; localCLI &amp;&amp; localCLI !== __filename) {
+  const debug = require(&#39;@umijs/utils&#39;).createDebug(&#39;umi:cli&#39;);
+  debug(&#39;Using local install of umi&#39;);
+  require(localCLI);
+} else {
+  require(&#39;../lib/cli&#39;);
 }</code></pre>
-<p>点击测试能否连加两次按钮，会发现点击一次，count 增加了2，由此可见，每次dispatch一个 action就会更新一次数据，useReducer确实是同步更新数据</p>
-<h1 id="5、useMemo"><a href="#5、useMemo" class="headerlink" title="5、useMemo"></a>5、useMemo</h1><p><strong>语法</strong></p>
-<pre><code class="javascript">const memoizedValue = useMemo(() =&gt; computeExpensiveValue(a, b), [a, b])</code></pre>
-<p>返回一个memoized值。 传递“创建”函数和依赖项数组。useMemo只会在其中一个依赖项发生更改时重新计算memoized值。此优化有助于避免在每个渲染上进行昂贵的计算。</p>
-<p><strong>eg1:</strong></p>
-<pre><code class="javascript">import React, { useState } from &#39;react&#39;
-export default () =&gt; {
-    const [count, setCount] = useState(1)
-    const [val, setValue] = useState(&#39;&#39;)
-
-    const compute = () =&gt; {
-        console.log(&#39;compute&#39;)
-        let sum = 0
-        for (let i = 0; i &lt; count * 100; i++) {
-            sum += i
-        }
-        return sum
-    }
-
-    return (&lt;div&gt;
-        &lt;h4&gt;{count}-{val}-{compute()}&lt;/h4&gt;
-        &lt;div&gt;
-            &lt;button onClick={() =&gt; setCount(count + 1)}&gt;add count&lt;/button&gt;
-            &lt;input value={val} onChange={event =&gt; setValue(event.target.value)}/&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;)
-}
-//  无论是修改count还是val，由于组件的重新渲染，都会触发compute的执行
-// 但是这里的昂贵计算只依赖于count的值，在val修改的时候，是没有必要再次计算的
-// 在这种情况下，我们就可以使用useMemo，只在count的值修改时，执行compute计算</code></pre>
-<p>优化后：</p>
-<pre><code class="javascript">import React, { useState, useMemo } from &#39;react&#39;
-
-export default () =&gt; {
-    const [count, setCount] = useState(1)
-    const [val, setValue] = useState(&#39;&#39;)
-
-    const compute = useMemo(() =&gt; {
-        console.log(&#39;compute&#39;)
-        let sum = 0
-        for (let i = 0; i &lt; count * 100; i++) {
-            sum += i
-        }
-        return sum
-    }, [count])
-
-    return (&lt;div&gt;
-        &lt;h4&gt;{count}-{val}-{compute}&lt;/h4&gt;
-        &lt;div&gt;
-            &lt;button onClick={() =&gt; setCount(count + 1)}&gt;add count&lt;/button&gt;
-            &lt;input value={val} onChange={event =&gt; setValue(event.target.value)}/&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;)
+<p>node 处理 scripts 中的参数，除了属性后面的第一个命令，以空格分割的任何字符串(除特别shell语法)都是参数，并且都能通过 process.argv 属性访问。</p>
+<p>process.argv 属性返回一个数组，数组包含了启动 node 进程时的命令行参数。第一个元素为启动 node 进程的可执行文件的绝对路径名 process.execPath，第二个元素为当前执行的 javascript 文件路径；剩余的元素为其他命令行参数。</p>
+<p>例如：package.json/scripts中定义：</p>
+<pre><code class="typescript">&quot;scripts&quot;: {
+  &quot;start&quot;: &quot;umi dev&quot;,
 }</code></pre>
-<p><strong>eg2:</strong><br>useMemo 可以帮助我们优化子组件的渲染，比如这种场景： 在 A 组件中有两个子组件 B 和 C，当 A 组件中传给 B 的 props 发生变化时，A 组件状态会改变，重新渲染。此时 B 和 C 也都会重新渲染。其实这种情况是比较浪费资源的，现在我们就可以使用 useMemo 进行优化，B 组件用到的 props 变化时，只有 B 发生改变，而 C 却不会重新渲染。<br>ExampleA.tsx</p>
-<pre><code class="javascript">import React from &#39;react&#39;
-export default ({ text }:{ text: string}) =&gt; {
-  console.log(&#39;Example A：&#39;, &#39;render&#39;)
-  return &lt;div&gt;Example A 组件：{ text }&lt;/div&gt;
-}
-ExampleB.tsx
-import React from &#39;react&#39;
-export default ({ text }:{ text: string}) =&gt; {
-  console.log(&#39;Example B：&#39;, &#39;render&#39;)
-  return &lt;div&gt;Example B 组件：{ text }&lt;/div&gt;
-}
-Main.tsx
-import React, { useState } from &#39;react&#39;
-import ExampleA from &#39;./ExampleA&#39;
-import ExampleB from &#39;./ExampleB&#39;
+<p>当执行 npm run start 命令的时候，process.argv 的具体内容为：</p>
+<pre><code class="typescript">[
+  &#39;/usr/local/bin/node&#39;,
+  &#39;/Users/bytedance/shanshan/practice/demo/node_modules/.bin/umi&#39;,
+  &#39;dev&#39;,
+]</code></pre>
+<p>几个传参方式：</p>
+<pre><code>npm run serve --params  // 参数params将转化成process.env.npm_config_params = true
+npm run serve --params=123 // 参数params将转化成process.env.npm_config_params = 123
+npm run serve -params  // 等同于--params参数
 
-export default () =&gt; {
-    const [a, setA] = useState(&#39;ExampleA&#39;)
-    const [b, setB] = useState(&#39;ExampleB&#39;)
+npm run serve -- --params  // 将--params参数添加到process.env.argv数组中
+npm run serve params  // 将params参数添加到process.env.argv数组中
+npm run serve -- params  // 将params参数添加到process.env.argv数组中</code></pre><p><strong>【执行顺序】</strong></p>
+<p>npm 脚本执行多任务分为两种情况</p>
+<p>并行任务(同时的平行执行)，使用&amp;符号<br><code>$ npm run script1.js &amp; npm run script2.js</code></p>
+<p>串行任务(前一个任务成功，才执行下一个任务)，使用 &amp;&amp; 符号<br><code>$ npm run script1.js &amp;&amp; npm run script2.js</code></p>
+<h1 id="4、npm配置"><a href="#4、npm配置" class="headerlink" title="4、npm配置"></a>4、npm配置</h1><p><strong>【npm config】</strong></p>
+<p>可以通过npm config 命令进行 npm 相关配置，通过 npm config ls -l 可查看 npm 的所有配置，包括默认配置。</p>
+<p>常用的配置：</p>
+<ul>
+<li>proxy, https-proxy：指定 npm 使用的代理</li>
+<li>registry： 指定 npm 下载安装包时的源，默认为 <a href="https://registry.npmjs.org/" target="_blank" rel="noopener">https://registry.npmjs.org/</a> 可以指定为私有 Registry 源<br>例如，npm太慢需要置换为淘宝镜像：<br>npm config set registry <a href="https://registry.npm.taobao.org" target="_blank" rel="noopener">https://registry.npm.taobao.org</a><br>恢复使用之前的 npm：<br>npm config set registry <a href="https://registry.npmjs.org" target="_blank" rel="noopener">https://registry.npmjs.org</a></li>
+<li>package-lock ：指定是否默认生成 package-lock 文件，建议保持默认 true</li>
+</ul>
+<p><strong>【env 环境变量】</strong></p>
+<p>如果env环境变量中存在以npm_config_为前缀的环境变量，则会被识别为npm的配置属性。</p>
+<p>比如在env环境变量中设置npm_config_package_lock变量：<br><code>export npm_config_package_lock=false //修改的是内存中的变量，只对当前终端有效</code><br>这时候执行npm install，npm会从环境变量中读取到这个配置项，从而不会生成package-lock.json文件。</p>
+<p>查看某个环境变量：<br><code>echo $NODE_ENV</code></p>
+<p>删除某个环境变量：<br><code>unset NODE_ENV</code></p>
+<p><strong>【npmrc 文件】</strong><br>npmrc 文件也可以修改配置。</p>
+<p>更多内容可参考：<a href="https://docs.npmjs.com/cli/v6/configuring-npm/npmrc" target="_blank" rel="noopener">https://docs.npmjs.com/cli/v6/configuring-npm/npmrc</a></p>
 
-    return (
-        &lt;div&gt;
-            &lt;ExampleA text={a} /&gt;
-            &lt;ExampleB text={b} /&gt;
-            &lt;br /&gt;
-            &lt;button onClick={ () =&gt; setA(&#39;修改后的 ExampleA&#39;) }&gt;修改传给 ExampleA 的属性&lt;/button&gt;
-            &lt;button onClick={ () =&gt; setB(&#39;修改后的 ExampleB&#39;) }&gt;修改传给 ExampleB 的属性&lt;/button&gt;
-        &lt;/div&gt;
-    )
-}
-// 点击任意一个按钮，A 和 B 组件都会被重新渲染</code></pre>
-<p>优化后：</p>
-<pre><code class="javascript">import React, { useState, useMemo } from &#39;react&#39;
-
-import ExampleA from &#39;./ExampleA&#39;
-import ExampleB from &#39;./ExampleB&#39;
-
-export default () =&gt; {
-    const [a, setA] = useState(&#39;ExampleA&#39;)
-    const [b, setB] = useState(&#39;ExampleB&#39;)
-
-    const exampleA = useMemo(() =&gt; &lt;ExampleA text={a} /&gt;, [a])
-    const exampleB = useMemo(() =&gt; &lt;ExampleB text={b} /&gt;, [b])
-
-    return (
-        &lt;div&gt;
-            { exampleA }
-            { exampleB }
-            &lt;br /&gt;
-            &lt;button onClick={ () =&gt; setA(&#39;修改后的 ExampleA&#39;) }&gt;修改传给 ExampleA 的属性&lt;/button&gt;
-            &lt;button onClick={ () =&gt; setB(&#39;修改后的 ExampleB&#39;) }&gt;修改传给 ExampleB 的属性&lt;/button&gt;
-        &lt;/div&gt;
-    )
-}</code></pre>
-<p>注意：useMemo是返回执行结果</p>
-<p><strong>ps：小知识</strong><br>Memoization是JavaScript中的一种技术，用于提高应用程序的性能，通过缓存结果并在下一个操作中重新使用缓存来加速查找费时的操作。<br>Understanding Memoization in JavaScript to Improve Performance<br>现版本(16.6.3)有两个memo,一个是React.memo,还有一个是React.useMemo, 我们这里说的是useMemo)，关注react动态的都知道useMemo是新出来的hooks api，并且这个api是作用于function组件，官方文档写的是这个可以优化用以优化每次渲染的耗时工作。<br><strong>React.memo的使用：</strong><br>React.memo 为高阶组件。它与React.PureComponent非常相似，但它适用于函数组件，但不适用于 class 组件。<br>默认情况下其只会对复杂对象做浅层对比，如果你想要控制对比过程，那么请将自定义的比较函数通过第二个参数传入来实现。这与shouldComponentUpdate 方法的返回值相反。</p>
-<pre><code class="javascript">import React, { useState } from &#39;react&#39;
-const Child = (props: any) =&gt; {
-    console.log(&#39;渲染子组件&#39;)
-    return(
-        &lt;div&gt;我是一个子组件: {props.num}&lt;/div&gt;
-    );
-}
-const areEqual = (prevProps: any, nextProps: any) =&gt; {
-    if(prevProps.num === nextProps.num) {
-        return true
-    }
-    return false
-}
-const ChildMemo = React.memo(Child, areEqual)
-
-export default (props: any) =&gt; {
-    const [count, setCount] = useState(0)
-    const [num, setNum] = useState(0)
-    return (
-        &lt;&gt;
-            &lt;button onClick={(e) =&gt; { setCount(count+1) }}&gt;count加1: {count}&lt;/button&gt;
-            &lt;button onClick={(e) =&gt; { setNum(num+1) }}&gt;num加1: {num}&lt;/button&gt;
-            &lt;ChildMemo num={num} /&gt;
-        &lt;/&gt;
-    )
-}</code></pre>
-<h1 id="6、useCallback"><a href="#6、useCallback" class="headerlink" title="6、useCallback"></a>6、useCallback</h1><p>useCallback跟useMemo比较类似，但它返回的是缓存的函数.<br>useCallback(fn, deps) is equivalent to useMemo(() =&gt; fn, deps).<br><strong>语法</strong></p>
-<pre><code>const memoizedFn = useCallback(fn, [a])</code></pre><p>useCallback会将我们传递给它的函数fn返回，并且将这个结果缓存；当依赖a变更时，会返回新的函数。</p>
-<h1 id="7、useRef"><a href="#7、useRef" class="headerlink" title="7、useRef"></a>7、useRef</h1><p><strong>语法</strong></p>
-<pre><code>const refContainer = useRef(initialValue)</code></pre><p>useRef 返回一个可变的 ref 对象，其 .current 属性被初始化为传递的参数（initialValue）。返回的对象将存留在整个组件的生命周期中。</p>
-<pre><code>eg：
-import React, { useRef, useState, useEffect } from &#39;react&#39;;
-
-export default () =&gt; {
-    // 使用 useRef 创建 textRef
-    const textRef: any = useRef()
-    const [text, updateText] = useState(&#39;&#39;)
-
-    useEffect(() =&gt; {
-        // 将 text 值存入 textRef.current 中
-        textRef.current.innerHTML = text
-        console.log(&#39;textRef.current：&#39;, textRef.current)
-    })
-
-    return (
-        &lt;&gt;
-            &lt;input value={text} onChange={e =&gt; updateText(e.target.value)} /&gt;
-            &lt;span ref={textRef} /&gt;
-        &lt;/&gt;
-    )
-}</code></pre>
 
   
 
@@ -473,7 +294,7 @@ export default () =&gt; {
       <!--本文作者：<a href="http://yoursite.com">shanshan</a>-->
     <!--</div>-->
     <!--<div class="link">-->
-      <!--永久链接：<a href="http://yoursite.com/2019/10/10/ReactHooks探索/">http://yoursite.com/2019/10/10/ReactHooks探索/</a>-->
+      <!--永久链接：<a href="http://yoursite.com/2021/03/07/NPM知识自查小地图/">http://yoursite.com/2021/03/07/NPM知识自查小地图/</a>-->
     <!--</div>-->
     <!--<div class="declare">-->
       <!--版权声明：本文首发于<a href="http://yoursite.com">shanshan</a>的博客，转载请注明出处！-->
@@ -490,8 +311,8 @@ export default () =&gt; {
     <script>
         var disqus_shortname = 'shanshan';
         var disqus_config = function () {
-            this.page.url = 'http://yoursite.com/2019/10/10/ReactHooks探索/';
-            this.page.identifier = '/2019/10/10/ReactHooks探索/';
+            this.page.url = 'http://yoursite.com/2021/03/07/NPM知识自查小地图/';
+            this.page.identifier = '/2021/03/07/NPM知识自查小地图/';
         };
         (function() {
             var d = document, s = d.createElement('script');
@@ -612,7 +433,7 @@ export default () =&gt; {
               <span>Toc</span>
             </div>
             <div class="post-toc">
-              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1、useState"><span class="toc-text">1、useState</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2、useEffect"><span class="toc-text">2、useEffect</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3、useContext"><span class="toc-text">3、useContext</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4、useReducer"><span class="toc-text">4、useReducer</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5、useMemo"><span class="toc-text">5、useMemo</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6、useCallback"><span class="toc-text">6、useCallback</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7、useRef"><span class="toc-text">7、useRef</span></a></li></ol>
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1、npm-init"><span class="toc-text">1、npm init</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2、npm-install"><span class="toc-text">2、npm install</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1、安装过程"><span class="toc-text">2-1、安装过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2、dependenices-和-devDependenices"><span class="toc-text">2-2、dependenices 和 devDependenices</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3、package-json"><span class="toc-text">3、package.json</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1、dependenices-amp-devDependenices"><span class="toc-text">3-1、dependenices &amp; devDependenices</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2、bin"><span class="toc-text">3-2、bin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3、npm-scripts"><span class="toc-text">3-3、npm scripts</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4、npm配置"><span class="toc-text">4、npm配置</span></a></li></ol>
             </div>
           </div>
            
