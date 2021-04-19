@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+    <!-- Google Tag Manager -->
+    <script>
+      ;(function(w, d, s, l, i) {
+        w[l] = w[l] || []
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' })
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : ''
+        j.async = true
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl
+        f.parentNode.insertBefore(j, f)
+      })(window, document, 'script', 'dataLayer', 'GTM-WJ7P5KL')
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <!-- 百度统计 -->
+    <script>
+      var _hmt = _hmt || []
+      ;(function() {
+        var hm = document.createElement('script')
+        hm.src = 'https://hm.baidu.com/hm.js?5a0acc897fd96474a2c8f4deac84611a'
+        var s = document.getElementsByTagName('script')[0]
+        s.parentNode.insertBefore(hm, s)
+      })()
+    </script>
+    <!-- 百度统计 -->
+
+    
+    <meta charset="utf-8">
+    <meta name="baidu-site-verification" content="vvVgSQUzPU">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content>
+    
+    <meta name="google-site-verification" content="VQowHv5lAVVWJxjKI9bnAWT7NGdOrfS5KnLF07-B7w0">
+    
+    <meta name="description" content>
+    <title>Hexo - </title>
+
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/style/style.css"><link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+      <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+      <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+      <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+      <script>
+        hljs.initHighlightingOnLoad();
+      </script>
+      <script type="text/javascript" src="https://unpkg.com/minigrid@3.1.1/dist/minigrid.min.js"></script>
+      <link rel="stylesheet" href="../source/photos/photos.css">
+      <script type="text/javascript" src="../source/photos/photo.js"></script>
+  </head>
+  <body>
+    <div id="fixed-menu">
+      <div class="up">
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-fenzu7"/>
+        </svg>
+      </div>
+    </div>
+    <div id="progress">
+      <div class="line"></div>
+    </div>
+    <div id="head">
+      
+      <a href="/" class>
+        Home
+      </a>
+      
+      <a href="/archives" class>
+        Archives
+      </a>
+      
+      <a href="/about" class>
+        About
+      </a>
+      
+      <a href="/music" class>
+        music
+      </a>
+      
+    </div>
+    <div id="container">
+      <div id="main">
+        <div class="navbar">
+          <div class="toggle">
+            <svg class="icon toggle-icon" aria-hidden="true">
+              <use xlink:href="#icon-fenzu3"/>
+            </svg>
+          </div>
+          <div class="search">
+            <div class="input-warp">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-fenzu"/>
+              </svg>
+              <input type="text" name id placeholder="Search Keys">
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <article class="post-entry">
+    <div class="header">
+      <div class="title">Monaco不完全使用手册</div>
+        
+        <div class="meta">
+        <span>
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-fenzu4"/>
+          </svg>
+          2021/04/18
+        </span>
+        <span>
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-fenzu14"/>
+          </svg>
+          <span>
+            
+              
+            
+          </span>
+        </span>
+        <span>
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-fenzu15"/>
+          </svg>
+          <span>
+            
+              
+                
+                  <a href="/tags/编辑器">编辑器</a>
+                
+              
+            
+          </span>
+        </span>
+        <span class="leancloud-visitors" id="http://yoursite.com/2021/04/18/Monaco不完全使用手册/" data-flag-title="Monaco不完全使用手册">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-fenzu6"/>
+          </svg>
+          <span class="leancloud-visitors-count"></span>
+        </span>
+        </div>
+        
+         
+      <div>
+      </div>
+    </div>
+    <p>Monaco Editor是为VS Code提供支持的代码编辑器，目前很多浏览器上的编辑器”都是基于 monaco-editor 来做的。这里以monaco editor的react版本为例，介绍Monaco的一些基本使用。</p>
+<p>官网：<a href="https://microsoft.github.io/monaco-editor" target="_blank" rel="noopener">https://microsoft.github.io/monaco-editor</a></p>
+<h1 id="1、安装"><a href="#1、安装" class="headerlink" title="1、安装"></a>1、安装</h1><pre><code>npm install react-monaco-editor
+npm install monaco-editor-webpack-plugin // 依赖插件</code></pre><p>插件安装好后修改修改 webpack配置文件，注入新的 plugin：</p>
+<pre><code>const MonacoWebpackPlugin = require(&#39;monaco-editor-webpack-plugin&#39;);
+
+module.exports = {
+  plugins: [
+  // 根据项目实际需要自行配置
+    new MonacoWebpackPlugin({
+        filename: &#39;[name].worker.[contenthash].js&#39;,
+        languages: [&#39;sql&#39;, &#39;json&#39;, &#39;javascript&#39;],
+        features: [
+          &#39;comment&#39;,
+          &#39;format&#39;,
+          &#39;fontZoom&#39;,
+          &#39;folding&#39;,
+          &#39;codelens&#39;,
+          &#39;suggest&#39;,
+          &#39;wordOperations&#39;,
+          &#39;wordPartOperations&#39;,
+          &#39;wordHighlighter&#39;,
+          &#39;parameterHints&#39;,
+          &#39;bracketMatching&#39;,
+          &#39;find&#39;,
+          &#39;linesOperations&#39;, // cmd + del 等快捷键操作
+        ],
+      }),
+  ]
+};</code></pre><h1 id="2、基本使用"><a href="#2、基本使用" class="headerlink" title="2、基本使用"></a>2、基本使用</h1><pre><code>import MonacoEditor from &#39;react-monaco-editor&#39;
+
+import * as monacoEditor from &quot;monaco-editor/esm/vs/editor/editor.api&quot;
+
+const App: React.FunctionComponent = (props: AppProps) =&gt; {
+  const handleChange = () =&gt; {
+  }
+
+  const editorDidMount = (editor: monacoEditor.editor.IStandaloneCodeEditor, monaco: typeof monacoEditor) =&gt; {
+    editor.focus()
+    // 常用API在下面列出
+  }
+
+  return (
+    &lt;&gt;
+      &lt;MonacoEditor
+        language=&quot;sql&quot;
+        editorDidMount={editorDidMount}
+        onChange={handleChange}
+      /&gt;
+    &lt;/&gt;
+  )
+}</code></pre><p>这样就可以构建一个最简单的编辑器啦~</p>
+<p>editor实例常用的API：</p>
+<pre><code>// editor为editorDidMount中获取到的实例
+editor.getValue();           // 获取编辑器当前文本内容
+editor.setValue();           // 设置编辑器文本内容
+editor.getSelection();       // 获取选中的行信息
+editor.getModel().getLineContent(1);      // 获取某一行信息
+editor.getModel().getLinesContent();      // 获取每一行信息
+editor.onDidChangeModelContent(e =&gt; {     // 内容改变事件
+    e.changes[0].rangeOffset;     // 光标位置
+    e.changes[0].text;            // 输入的文本
+    ...
+});
+
+editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S, () =&gt; {  
+    // 添加按键监听
+    monaco.KeyMod  // 特殊键 ctrl alt shift win
+    monaco.KeyCode  // 键盘其他键
+});
+
+editor.editor.setTheme(&#39;vs-dark&#39;);          // 设置主题</code></pre><p>MonacoEditor常用的配置属性：</p>
+<pre><code>const monacoEditorProps = 
+{
+    theme: &#39;vs&#39;,
+    language: &#39;sql&#39;,
+    lineHeight: 24,
+    fontSize: 12,
+    fontFamily: &#39;Monaco, Menlo, &quot;Ubuntu Mono&quot;, Consolas, source-code-pro, monospace&#39;,
+    lineNumbersMinChars: 3,
+    wordWrap: &#39;on&#39;,
+    renderLineHighlight: &#39;all&#39;,
+    minimap: {
+      enabled: false // 编辑器右侧的缩略图
+    },
+    contextmenu: false,
+    automaticLayout: true,
+    scrollBeyondLastLine: false,
+    folding: true,
+    rulers: [100] // 代码分割线
+    autoFocus: true,
+    readOnly: false,
+}
+
+...
+
+&lt;MonacoEditor
+  {... monacoEditorProps}
+/&gt;</code></pre><h1 id="3、主题"><a href="#3、主题" class="headerlink" title="3、主题"></a>3、主题</h1><p>monaco支持的原生主题有vs、vs-dark等：</p>
+<pre><code>&lt;MonacoEditor
+  {...props}
+  theme=&#39;vs-dark&#39;
+/&gt;</code></pre><p>也可以自己基于原生主题进行定制：</p>
+<pre><code>import * as monaco from &#39;monaco-editor/esm/vs/editor/editor.api&#39;
+
+const BG        = &#39;#252A33&#39;
+const ORANGE    = &#39;#FFB86C&#39;
+const RED       = &#39;#FF5555&#39;
+const BLUE      = &#39;#1E90FF&#39;
+
+monaco.editor.defineTheme(&#39;vs-moonlight&#39;, {
+    base: &#39;vs-dark&#39;,
+    inherit: true,
+    rules: [],
+    colors: {
+      &#39;editor.background&#39;: BG,
+    },
+  })</code></pre><h1 id="4、自定义高亮"><a href="#4、自定义高亮" class="headerlink" title="4、自定义高亮"></a>4、自定义高亮</h1><p>Monarch 是 Monaco Editor 自带的一个语法高亮库，通过它，我们可以用类似 Json 的语法来实现<strong>自定义语言</strong>的<strong>语法高亮功能</strong>。</p>
+<h2 id="4-1、基本语法"><a href="#4-1、基本语法" class="headerlink" title="4-1、基本语法"></a>4-1、基本语法</h2><p>如果是自定义的语言需要先注册自定义语言名称，再设置高亮规则；如果是已有语言高亮则不需要第一步直接设置高亮规则就可以。</p>
+<pre><code>// 注册自定义语言名称
+monaco.languages.register({ id: &#39;myLanguages&#39; })
+// 设置高亮规则
+monaco.languages.setMonarchTokensProvider(
+  &#39;myLanguages&#39;, 
+  monarchObj
+)</code></pre><h2 id="4-2、-Monarch"><a href="#4-2、-Monarch" class="headerlink" title="4-2、 Monarch"></a>4-2、 Monarch</h2><p>Monarch 由一系列 Json 键值对组成，他有许多属性，其中最重要的就是 tokenizer 属性，我们描述语法的代码就写在这里面。</p>
+<h3 id="4-2-1、-rule-action"><a href="#4-2-1、-rule-action" class="headerlink" title="4-2-1、 rule-action"></a>4-2-1、 rule-action</h3><p>来看一个简单的栗子：</p>
+<pre><code>  monaco.editor.defineTheme(&#39;vs-moonlight&#39;, {
+    base: &#39;vs-dark&#39;,
+    inherit: true,
+    rules: [
+      ...
+      { token: &#39;custom-info&#39;, foreground: BLUE },
+      { token: &#39;custom-error&#39;, foreground: RED, fontStyle: &#39;bold&#39; },
+      { token: &#39;custom-warning&#39;, foreground: ORANGE }
+    ],
+    colors: {
+      &#39;editor.background&#39;: BG,
+    },
+  })
+
+monaco.languages.setMonarchTokensProvider(&#39;myLanguages&#39;, {
+    tokenizer: {
+      root: [
+        [/^[error]/, { token: &quot;custom-error&quot; }],
+        [/^[info]/, { token: &quot;custom-info&quot; }],
+        [/^[warning]/, { token: &quot;custom-warning&quot; }]
+      ]
+    },
+  })</code></pre><p>我们在 tokenizer 中定义了一个 <strong>root</strong> 属性，<strong>root</strong> 是 <strong>tokenizer</strong> 中的一个 <strong>state</strong> , 这就是我们用来编写解析规则（<strong>rule</strong>）的地方，在 <strong>rule</strong> 中，我们可以编写匹配文本的<strong>正则表达式</strong>，然后再给匹配到的文本设置一个执行动作的 <strong>action</strong> ，在 <strong>action</strong> 中，我们可以给匹配到的文本设置 <strong>token class</strong> 。</p>
+<p>在上面的栗子中，分别写了三个rule，用来匹配[error]、[info]、[warning]，匹配成功后就接着执行对应的 action ；在 action 中，我们设置了匹配文本的 token class : custom-error、custom-info和custom-warning。</p>
+<p>效果如下：</p>
+<p><img src="https://tech-proxy.bytedance.net/tos/images/1617785396110_e3f498e9aa28d0de4834c883342128d9" alt></p>
+<h3 id="4-2-2、-token-class"><a href="#4-2-2、-token-class" class="headerlink" title="4-2-2、 token class"></a>4-2-2、 token class</h3><p>本质上，token class 其实就是设置 css 中的 class ，不过Monarch 中转换成一层对应关系，查看elements可以看到：</p>
+<p><img src="https://tech-proxy.bytedance.net/tos/images/1617785396007_611377d7098612f0323915e6b0a95295" alt></p>
+<p>error对应class为mtk9，warning对应class为mtk11，info对应class为mtk10。</p>
+<p>Monarch 中内置了以下几种 token class：</p>
+<pre><code>identifier         entity           constructor
+operators          tag              namespace
+keyword            info-token       type
+string             warn-token       predefined
+string.escape      error-token      invalid
+comment            debug-token
+comment.doc        regexp
+constant           attribute
+delimiter .[curly,square,parenthesis,angle,array,bracket]
+number    .[hex,octal,binary,float]
+variable  .[name,value]
+meta      .[content]</code></pre><p>例如keyword：</p>
+<pre><code>monaco.languages.setMonarchTokensProvider(&#39;myLanguages&#39;, {
+    keywords: [
+      &#39;for&#39;, &#39;new&#39;, &#39;switch&#39;, &#39;goto&#39;, &#39;do&#39;, &#39;if&#39;, &#39;private&#39;, &#39;this&#39;, &#39;break&#39;, &#39;protected&#39;, &#39;throw&#39;, &#39;else&#39;, &#39;public&#39;,
+      &#39;return&#39;, &#39;catch&#39;, &#39;try&#39;, &#39;interface&#39;, &#39;static&#39;, &#39;class&#39;, &#39;finally&#39;, &#39;const&#39;, &#39;super&#39;, &#39;while&#39;
+    ],
+    tokenizer: {
+      root: [
+        [/[a-z_$][\w$]*/, { 
+          cases: { 
+            &#39;@keywords&#39;: &#39;keyword&#39;,
+          }
+        }],
+      ],
+    },
+  })</code></pre><p>被列入keywords中的文本将作为关键字高亮展示。</p>
+<h3 id="4-2-3、-cases-guard"><a href="#4-2-3、-cases-guard" class="headerlink" title="4-2-3、 cases-guard"></a>4-2-3、 cases-guard</h3><p>在上面栗子中，我们一共写了三个rule，分别用来匹配[error]、[info]、[warning]，但这些rule其实很相似，因此可以将他们进行合并：</p>
+<pre><code>monaco.languages.setMonarchTokensProvider(&#39;myLanguages&#39;, {
+    tokenizer: {
+      root: [
+        [/^[(\w+)]/, { token: &quot;custom-$1&quot; }],
+      ],
+    },
+})</code></pre><p>这里用一个美元符号<code>$</code>来代表取正则表达式第几个匹配项，<code>$0</code>代表取所有的匹配项（例：[error]），<code>$1</code>代表取第一个匹配项（例：error）。</p>
+<p>上述代码将类型（error/info/warning等）作为参数传入了<code>token class</code>，与 <code>custom-</code>做拼接，从而组成了最终的<code>token class</code>，例如<code>custom-error</code>。</p>
+<p>但如果新增其他类型（比如debug），但此时不希望匹配到debug，则需要利用cases做一些处理。</p>
+<p><code>cases</code>和普通的<code>if /else if</code>语法一样，可以写多个判断条件（<code>guard</code>），然后根据不同<code>guard</code>去执行对应的<code>action</code>。</p>
+<p><code>guard</code>和正则表达式类似，功能是用来匹配文本，当他不以<code>@</code>或<code>$</code>开头时，他就是一个普通的正则表达式，不过，当他以<code>@</code>或<code>$</code>开头时，他才是一个真正意义上的 guard。</p>
+<p>语法：</p>
+<pre><code>{ cases: { guard1: action1, ..., guardN: actionN } }</code></pre><p><code>guard</code>有固定的结构 <code>[pat][op]match</code>，<code>pat</code>代表匹配的文本，<code>op</code>代表一个比较符，<code>match</code>则是要比较的内容。</p>
+<p><strong>pat</strong> 以<code>$</code>开头，和我们上文正则表达式使用的<code>$1</code>含义是一样的，不过这边<code>$#</code>代表全部匹配文本，而正则表达式是使用<code>$0</code>代表全部匹配文本。另外，我们还可以用 <code>$Sn</code>来获取当前state的名字，例如在root state下<code>$S0</code>就代表root。</p>
+<p><strong>op</strong> 和 <strong>match</strong> 稍微复杂点，可以是这几个内容：</p>
+<ul>
+<li><strong><del>regex or !</del>regex</strong> ：匹配/不匹配一个正则</li>
+<li><strong>@attribute or !@attribute</strong> ：匹配/不匹配一个属性，属性定义在 Monarch 的根层级下，可以是数组、字符串、正则。</li>
+<li><strong>==str or !=str</strong> ：匹配/不匹配一个字符串</li>
+<li><strong>@default</strong> ：匹配默认情况</li>
+<li><strong>@eos</strong> ： 一行结束，则匹配成功</li>
+</ul>
+<p>因此，之前的代码可以简化为：</p>
+<pre><code>{
+    keywords: [&#39;error&#39;, &#39;info&#39;, &#39;warning&#39;],
+    tokenizer: {
+        root: [
+            [/^[(\w+)]/, {
+                cases: {
+                    &quot;$1@keywords&quot;: { token: &#39;custom-$1&#39; },
+                    &quot;@default&quot;: { token: &quot;string&quot; }
+                }
+            }]
+        ]
+    }
+}</code></pre><p>有了cases-guard，我们就可以随心所欲的定制自己需要的高亮规则啦：</p>
+<pre><code>  monaco.editor.defineTheme(&#39;vs-moonlight&#39;, {
+    base: &#39;vs-dark&#39;,
+    inherit: true,
+    rules: [
+      { token: &#39;shanshan&#39;, foreground: PINK }
+    ],
+    colors: {...},
+  })
+
+  monaco.languages.register({ id: &#39;myLanguages&#39; })
+}
+
+monaco.languages.setMonarchTokensProvider(&#39;myLanguages&#39;, {
+    customFields: [&#39;shanshan&#39;, &#39;hello&#39;, &#39;world&#39;],
+    tokenizer: {
+      root: [
+          [/[\w$]+/, {
+            cases: {
+              &#39;@customFields&#39;: &#39;shanshan&#39;
+            }
+          }]
+      ]
+    }
+  })</code></pre><p>效果如下：</p>
+<p><img src="https://tech-proxy.bytedance.net/tos/images/1617785396067_bde39f6d5ffc657d198545056fc282c1" alt></p>
+<h1 id="5、自动联想补齐"><a href="#5、自动联想补齐" class="headerlink" title="5、自动联想补齐"></a>5、自动联想补齐</h1><p>联想补齐主要利用monaco提供的registerCompletionItemProvider API，以SQL为例：</p>
+<p>首先给出SQL语言格式的配置JSON：<br><a href target="_blank">点击下载 sql.ts</a></p>
+<pre><code>import { language } from &#39;./sql&#39;
+
+monaco.languages.registerCompletionItemProvider(&#39;myLanguages&#39;, {
+    // triggerCharacters: [&#39;.&#39;], //触发智能提示关键词
+    provideCompletionItems: (model, position) =&gt; {
+      const textUntilPosition = model.getValueInRange({
+        startLineNumber: position.lineNumber,
+        startColumn: 1,
+        endLineNumber: position.lineNumber,
+        endColumn: position.column
+      })
+
+      const match = textUntilPosition.match(/(\S+)$/)
+
+      const suggestions: monaco.languages.CompletionItem[] = []
+
+      if (match) {
+        const matchStr = match[0].toUpperCase();
+        language.keywords.forEach((item: string) =&gt; {
+          if (item.startsWith(matchStr)) {
+            suggestions.push({
+              label: item,
+              kind: monaco.languages.CompletionItemKind.Keyword,
+              insertText: item
+            } as monaco.languages.CompletionItem)
+          }
+        })
+
+        language.operators.forEach((item: string) =&gt; {
+          if (item.startsWith(matchStr)) {
+            suggestions.push({
+              label: item,
+              kind: monaco.languages.CompletionItemKind.Operator,
+              insertText: item
+            } as monaco.languages.CompletionItem)
+          }
+        })
+
+        language.builtinFunctions.forEach((item: string) =&gt; {
+          if (item.startsWith(matchStr)) {
+            suggestions.push({
+              label: item,
+              kind: monaco.languages.CompletionItemKind.Function,
+              insertText: item
+            } as monaco.languages.CompletionItem)
+          }
+        })
+      }
+
+      return {
+        suggestions: Array.from(new Set(suggestions))
+      }
+    },
+  })</code></pre><p>这样就可以实现SQL语句的自动联想补齐啦～</p>
+<p>如果还需要进一步实现SQL关键字高亮，则只需要改动以下内容：</p>
+<pre><code>import { language } from &#39;./sql&#39;
+
+monaco.languages.setMonarchTokensProvider(&#39;myLanguages&#39;, language as monaco.languages.IMonarchLanguage)</code></pre><h1 id="6、格式化"><a href="#6、格式化" class="headerlink" title="6、格式化"></a>6、格式化</h1><p>仍然以SQL为例：</p>
+<pre><code>import sqlFormatter from &#39;sql-formatter&#39;;
+
+// 格式化 SQL
+monaco.languages.registerDocumentFormattingEditProvider(&#39;sql&#39;, {
+  provideDocumentFormattingEdits(model) {
+    const formatted = sqlFormatter.format(model.getValue());
+    return [{
+      range: model.getFullModelRange(),
+      text: formatted
+    }];
+  }
+});</code></pre><h1 id="7、插入文本"><a href="#7、插入文本" class="headerlink" title="7、插入文本"></a>7、插入文本</h1><p>如果需要将指定文本插入当前光标位置，或用指定文本代替当前选中文本，实现如下：</p>
+<pre><code>  const insertText = value =&gt; {
+    // editor为editorDidMount中获取到的实例
+    const selection = editor.getSelection()
+    const range = new monaco.Range(
+      selection.startLineNumber,
+      selection.startColumn,
+      selection.endLineNumber,
+      selection.endColumn,
+    )
+
+    const id = { major: 1, minor: 1 }
+
+    const op = {
+      identifier: id,
+      range,
+      text: value,
+      forceMoveMarkers: true,
+    }
+
+    editor.executeEdits(&#39;my-source&#39;, [op])
+    editor.focus()
+
+  }</code></pre><h1 id="8、一些辅助插件"><a href="#8、一些辅助插件" class="headerlink" title="8、一些辅助插件"></a>8、一些辅助插件</h1><ul>
+<li><strong>sql-formatter - SQL代码格式化插件</strong></li>
+</ul>
+<pre><code>sqlFormatter.format(***);</code></pre><ul>
+<li><strong>pg-query-emscripten - SQL语法检查插件</strong></li>
+</ul>
+<pre><code>PgQuery.parse(***)</code></pre>
+
+  
+
+  <!---->
+  <!--<div class="post-reward">-->
+    <!--<div id="reward-button">请杯咖啡呗~</div>-->
+    <!--<div id="qr">-->
+      <!--<div class="wrap">-->
+          <!---->
+          <!--<div class="bg-wrap">-->
+            <!--<a href="/images/zhifubao.png" target="_block" class="bg" style="background-image:url('/images/zhifubao.png')"></a>-->
+            <!--支付宝-->
+          <!--</div>-->
+          <!---->
+          <!---->
+          <!--<div class="bg-wrap">-->
+              <!--<a href="/images/weixin.png" target="_block" class="bg" style="background-image:url('/images/weixin.png')"></a>-->
+            <!--微信-->
+          <!--</div>-->
+          <!---->
+      <!--</div>-->
+    <!--</div>-->
+    <!---->
+
+  <!--</div>-->
+
+  <!--<div class="post-copyright">-->
+    <!--<div class="auth">-->
+      <!--本文作者：<a href="http://yoursite.com">shanshan</a>-->
+    <!--</div>-->
+    <!--<div class="link">-->
+      <!--永久链接：<a href="http://yoursite.com/2021/04/18/Monaco不完全使用手册/">http://yoursite.com/2021/04/18/Monaco不完全使用手册/</a>-->
+    <!--</div>-->
+    <!--<div class="declare">-->
+      <!--版权声明：本文首发于<a href="http://yoursite.com">shanshan</a>的博客，转载请注明出处！-->
+    <!--</div>-->
+  <!--</div>-->
+
+    <!-- Comments -->
+    <div class="comments" id="zss">
+        
+            <br><br>
+            
+            <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_shortname = 'shanshan';
+        var disqus_config = function () {
+            this.page.url = 'http://yoursite.com/2021/04/18/Monaco不完全使用手册/';
+            this.page.identifier = '/2021/04/18/Monaco不完全使用手册/';
+        };
+        (function() {
+            var d = document, s = d.createElement('script');
+            s.type = 'text/javascript';
+            s.src = '//'+disqus_shortname+'.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow noopener">comments powered by Disqus.</a></noscript>
+</div>
+
+    <div id="gitment_title" class="gitment_title"></div>
+    <div id="container" style="display:none"></div>
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+      const myTheme = {
+        render(state, instance) {
+          const container = document.createElement('div');
+          container.lang = "en-US";
+          container.className = 'gitment-container gitment-root-container';
+          container.appendChild(instance.renderHeader(state, instance));
+          container.appendChild(instance.renderEditor(state, instance));
+          container.appendChild(instance.renderComments(state, instance));
+          container.appendChild(instance.renderFooter(state, instance));
+          return container;
+        }
+      }
+      function showGitment() {
+        $("#gitment_title").attr("style", "display:none");
+        $("#zss").attr("style", "").addClass("gitment_container");
+        var gitment = new Gitment({
+          id: decodeURI(window.location.pathname),
+          theme: myTheme,
+          owner: 'piggyzss',
+          repo: 'piggyzss.github.io/',
+          oauth: {
+            client_id: '09a2760e2209a8728279',
+            client_secret: '1162d7e456f9c8d3f15f164e63f5d253679445a5'
+          }
+        });
+        gitment.render('zss');
+      }
+      showGitment();
+    </script>
+
+        
+    </div>
+
+  <!--<div id="comment"></div>-->
+
+</article>
+        </div>
+        <footer>
+          <div class="copyright">
+            ©2019 <a href="http://yoursite.com">shanshan</a>. Powered by Hexo &
+            <a href="https://github.com/shixiaohu2206/hexo-theme-huhu">hexo-theme-huhu</a>
+          </div>
+          
+        </footer>
+      </div>
+      <div id="card-wrap">
+        <div class="card">
+          <div class="logo-widget">
+            <div class="author">
+              SecretGarden
+            </div>
+            <!--<div class="logo" style="background-image: url('/images/logo.jpeg')"></div>-->
+          </div>
+          <div class="locate-widget">
+            <div class="city-wrap">
+              <svg class="icon location" aria-hidden="true">
+                <use xlink:href="#icon-fenzu9"/>
+              </svg>
+              <span id="city-name"></span>
+            </div>
+            <div class="weather-wrap">
+              <div id="weather-img">
+                <svg class="icon weather" aria-hidden="true">
+                  <use xlink:href="#icon-qingjiafeng"/>
+                </svg>
+              </div>
+              <div id="weather-detail"></div>
+            </div>
+          </div>
+          <div class="follow-widget">
+            
+            <a href="https://github.com/piggyzss" target="_block">
+              <svg class="icon font" aria-hidden="true">
+                <use xlink:href="#icon-github"/>
+              </svg>
+            </a>
+            
+            <a href="https://www.instagram.com/shi_xiaohu/" target="_block">
+              <svg class="icon font" aria-hidden="true">
+                <use xlink:href="#icon-instagram"/>
+              </svg>
+            </a>
+            
+            <a href="https://weibo.com/u/2447128762?refer_flag=1005055010_" target="_block">
+              <svg class="icon font" aria-hidden="true">
+                <use xlink:href="#icon-weibo"/>
+              </svg>
+            </a>
+             
+            <a href="/atom.xml" target="_block">
+              <svg class="icon font" aria-hidden="true">
+                <use xlink:href="#icon-rss"/>
+              </svg>
+            </a>
+            
+          </div>
+           
+          <div class="toc-widget">
+            <div class="title">
+              <span>Toc</span>
+            </div>
+            <div class="post-toc">
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1、安装"><span class="toc-text">1、安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2、基本使用"><span class="toc-text">2、基本使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3、主题"><span class="toc-text">3、主题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4、自定义高亮"><span class="toc-text">4、自定义高亮</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1、基本语法"><span class="toc-text">4-1、基本语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2、-Monarch"><span class="toc-text">4-2、 Monarch</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-1、-rule-action"><span class="toc-text">4-2-1、 rule-action</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-2、-token-class"><span class="toc-text">4-2-2、 token class</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-3、-cases-guard"><span class="toc-text">4-2-3、 cases-guard</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5、自动联想补齐"><span class="toc-text">5、自动联想补齐</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6、格式化"><span class="toc-text">6、格式化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7、插入文本"><span class="toc-text">7、插入文本</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8、一些辅助插件"><span class="toc-text">8、一些辅助插件</span></a></li></ol>
+            </div>
+          </div>
+           
+          <div class="category-widget">
+            <div class="title">
+              <span>Categories</span>
+              <span><a href="/archives">···</a></span>
+            </div>
+            <div class="list">
+              <ul>
+                 
+                <li>
+                  <a href="/categories/code/">
+                    code
+                  </a>
+                </li>
+                 
+              </ul>
+            </div>
+          </div>
+          <div class="tag-widget">
+            <div class="title">
+              <span>Tag Cloud</span>
+              <span><a href>···</a></span>
+            </div>
+            <div class="tag-cloud">
+              <a href="/tags/React/" style="font-size: 16.5px; color: #4a4a4a">React</a> <a href="/tags/前端/" style="font-size: 20px; color: #4a4a4a">前端</a> <a href="/tags/编辑器/" style="font-size: 13px; color: #4a4a4a">编辑器</a> <a href="/tags/设计模式/" style="font-size: 13px; color: #4a4a4a">设计模式</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WJ7P5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  
+</html>
+<script type="text/javascript">
+  window.THEME_CONFIG = JSON.parse('{"title":"Hexo","subtitle":null,"description":null,"author":"shanshan","language":"en","timezone":null,"url":"http://yoursite.com","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":true,"relative_link":false,"future":true,"highlight":{"enable":false,"auto_detect":false,"line_number":true,"tab_replace":null},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"hexo-theme-huhu","deploy":{"type":"git","repository":"https://github.com/piggyzss/piggyzss.github.io","branch":"master"},"ignore":[],"keywords":null,"highlight_theme":"normal","index_generator":{"per_page":10,"order_by":"-date","path":""},"gitment":{"enable":true,"mint":true,"count":true,"lazy":false,"cleanly":false,"language":null,"github_user":"piggyzss","github_repo":"piggyzss.github.io/","client_id":"09a2760e2209a8728279","client_secret":"1162d7e456f9c8d3f15f164e63f5d253679445a5","proxy_gateway":null,"redirect_protocol":null},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"tag_generator":{"per_page":10},"marked":{"gfm":true,"pedantic":false,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true,"sanitizeUrl":false,"headerIds":true},"server":{"port":4000,"log":false,"compress":false,"header":true},"menu":{"home":"/","archives":"/archives","about":"/about","music":"/music"},"logo":"/images/logo.png","categories_max":5,"tags_max":10,"favicon":"/images/favicon.ico","site_search":true,"rss":"/atom.xml","follow":{"github":"https://github.com/piggyzss","instagram":"https://www.instagram.com/shi_xiaohu/","weibo":"https://weibo.com/u/2447128762?refer_flag=1005055010_"},"search_url":"/search.xml","site_icp":"","site_friends":{"房间里的小猫咪":"http://baidu.com"},"changyan":{"appid":"","conf":""},"valine":{"API_ID":"FjXColpwTL0BsrjJIN8Pmnn0-gzGzoHsz","API_KEY":"Ar7tucPRn3KV7UOidQxESoys"},"busuanzi":true,"share":["weibo","weixin","qqkongjian","QQ","douban","facebook","twitter","google"],"cdn_module":{"av_min":"https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min","jquery":"https://cdn.bootcss.com/jquery/3.4.1/jquery.min","busuanzi":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini","confirm":"https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min","fancybox":"https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"},"google_site_verification":"VQowHv5lAVVWJxjKI9bnAWT7NGdOrfS5KnLF07-B7w0","gtm_id":"GTM-WJ7P5KL","baidu_push":true,"reward":{"weixin":"images/weixin.png","zhifubao":"images/zhifubao.png"},"disqus":{"shortname":"shanshan"},"post":{"date_format":"dddd, MMMM Do YYYY, h:mm a","comments":{"enable":true,"type":"disqus"}}}')
+  window.loadJs = function(d, m, a) {
+    var c = document.getElementsByTagName('head')[0] || document.head || document.documentElement
+    var b = document.createElement('script')
+    b.defer = true
+    b.setAttribute('type', 'text/javascript')
+    b.setAttribute('charset', 'UTF-8')
+    b.setAttribute('async', 'true')
+    b.setAttribute('src', d)
+    m && b.setAttribute('data-main', '/scripts/app')
+    if (typeof a === 'function') {
+      if (window.attachEvent) {
+        b.onreadystatechange = function() {
+          var e = b.readyState
+          if (e === 'loaded' || e === 'complete') {
+            b.onreadystatechange = null
+            a()
+          }
+        }
+      } else {
+        b.onload = a
+      }
+    }
+    c.appendChild(b)
+  }
+  loadJs('https://cdn.bootcss.com/require.js/2.3.6/require.min.js', true, function() {
+    require.config({
+      paths: {
+        // site
+        share: 'share',
+        iconfont: 'iconfont',
+        hodgepodge: 'hodgepodge',
+        valine: ['cdn/Valine.min'],
+
+        // cdn
+        av: ['https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min', 'cdn/av-min'],
+        jquery: ['https://cdn.bootcss.com/jquery/3.4.1/jquery.min', 'cdn/jquery.min'],
+        busuanzi: ['//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini', 'cdn/busuanzi.pure.mini'],
+        confirm: ['https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min', 'cdn/jquery.confirm.min'],
+        fancybox: ['https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min', 'cdn/jquery.fancybox.min']
+      },
+
+      map: {
+        '*': {
+          // css: '/scripts/cdn/css-min.js'
+          css: 'https://cdn.bootcss.com/require-css/0.1.10/css.min.js'
+        }
+      },
+
+      shim: {
+        fancybox: {
+          // deps: ['css!../style/fancybox']
+          deps: ['css!https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css']
+        },
+        confirm: {
+          // deps: ['css!../style/confirm']
+          deps: ['css!https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min.css']
+        }
+      },
+
+      // 加载超时
+      waitSeconds: 3
+    })
+  })
+</script>
+
+<script>
+  ;(function() {
+    var bp = document.createElement('script')
+    var curProtocol = window.location.protocol.split(':')[0]
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+    } else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+    }
+    var s = document.getElementsByTagName('script')[0]
+    s.parentNode.insertBefore(bp, s)
+  })()
+</script>
+

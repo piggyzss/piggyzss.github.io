@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+    <!-- Google Tag Manager -->
+    <script>
+      ;(function(w, d, s, l, i) {
+        w[l] = w[l] || []
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' })
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : ''
+        j.async = true
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl
+        f.parentNode.insertBefore(j, f)
+      })(window, document, 'script', 'dataLayer', 'GTM-WJ7P5KL')
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <!-- 百度统计 -->
+    <script>
+      var _hmt = _hmt || []
+      ;(function() {
+        var hm = document.createElement('script')
+        hm.src = 'https://hm.baidu.com/hm.js?5a0acc897fd96474a2c8f4deac84611a'
+        var s = document.getElementsByTagName('script')[0]
+        s.parentNode.insertBefore(hm, s)
+      })()
+    </script>
+    <!-- 百度统计 -->
+
+    
+    <meta charset="utf-8">
+    <meta name="baidu-site-verification" content="vvVgSQUzPU">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content>
+    
+    <meta name="google-site-verification" content="VQowHv5lAVVWJxjKI9bnAWT7NGdOrfS5KnLF07-B7w0">
+    
+    <meta name="description" content>
+    <title>Hexo - </title>
+
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/style/style.css"><link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+      <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+      <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+      <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+      <script>
+        hljs.initHighlightingOnLoad();
+      </script>
+      <script type="text/javascript" src="https://unpkg.com/minigrid@3.1.1/dist/minigrid.min.js"></script>
+      <link rel="stylesheet" href="../source/photos/photos.css">
+      <script type="text/javascript" src="../source/photos/photo.js"></script>
+  </head>
+  <body>
+    <div id="fixed-menu">
+      <div class="up">
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-fenzu7"/>
+        </svg>
+      </div>
+    </div>
+    <div id="progress">
+      <div class="line"></div>
+    </div>
+    <div id="head">
+      
+      <a href="/" class>
+        Home
+      </a>
+      
+      <a href="/archives" class>
+        Archives
+      </a>
+      
+      <a href="/about" class>
+        About
+      </a>
+      
+      <a href="/music" class>
+        music
+      </a>
+      
+    </div>
+    <div id="container">
+      <div id="main">
+        <div class="navbar">
+          <div class="toggle">
+            <svg class="icon toggle-icon" aria-hidden="true">
+              <use xlink:href="#icon-fenzu3"/>
+            </svg>
+          </div>
+          <div class="search">
+            <div class="input-warp">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-fenzu"/>
+              </svg>
+              <input type="text" name id placeholder="Search Keys">
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <article class="post-entry">
+    <div class="header">
+      <div class="title">NPM知识自查小地图</div>
+        
+        <div class="meta">
+        <span>
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-fenzu4"/>
+          </svg>
+          2021/03/07
+        </span>
+        <span>
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-fenzu14"/>
+          </svg>
+          <span>
+            
+              
+            
+          </span>
+        </span>
+        <span>
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-fenzu15"/>
+          </svg>
+          <span>
+            
+              
+            
+          </span>
+        </span>
+        <span class="leancloud-visitors" id="http://yoursite.com/2021/03/07/NPM知识自查小地图/" data-flag-title="NPM知识自查小地图">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-fenzu6"/>
+          </svg>
+          <span class="leancloud-visitors-count"></span>
+        </span>
+        </div>
+        
+         
+      <div>
+      </div>
+    </div>
+    <h1 id="1、npm-init"><a href="#1、npm-init" class="headerlink" title="1、npm init"></a>1、npm init</h1><p>npm init 命令用来初始化一个简单的 package.json 文件，执行该命令后终端会依次询问 name, version, description 等字段。</p>
+<p>定制 npm init 命令的实现方式也很简单，在 Home 目录创建一个 .npm-init.js 即可，该文件的 module.exports 即为 package.json 配置内容，需要获取用户输入时候，使用 prompt() 方法即可。</p>
+<p>例如： ~/.npm-init.js</p>
+<pre><code class="typescript">const desc = prompt(&#39;description?&#39;, &#39;A new package...&#39;)
+const author = prompt(&#39;author?&#39;, &#39;shanshan&#39;)
+const license = prompt(&#39;license?&#39;, &#39;ISC&#39;)
+module.exports = {
+  key: &#39;value&#39;,
+  foo: {
+    author: author,
+    license: license
+  },
+  name: prompt(&#39;name?&#39;, process.cwd().split(&#39;/&#39;).pop()),
+  version: prompt(&#39;version?&#39;, &#39;0.1.0&#39;),
+  description: desc,
+  main: &#39;index.js&#39;,
+}</code></pre>
+<h1 id="2、npm-install"><a href="#2、npm-install" class="headerlink" title="2、npm install"></a>2、npm install</h1><p>npm install 命令用来安装依赖包</p>
+<h2 id="2-1、安装过程"><a href="#2-1、安装过程" class="headerlink" title="2-1、安装过程"></a>2-1、安装过程</h2><ul>
+<li><p><strong>执行工程自身 preinstall</strong></p>
+</li>
+<li><p><strong>确定首层依赖模块</strong><br>首先需要做的是确定工程中的首层依赖，也就是 dependencies 和 devDependencies 属性中直接指定的模块（假设此时没有添加 npm install 参数）。<br>工程本身是整棵依赖树的根节点，每个首层依赖模块都是根节点下面的一棵子树，npm 会开启多进程从每个首层依赖模块开始逐步寻找更深层级的节点。</p>
+</li>
+<li><p><strong>获取模块</strong><br>获取模块是一个递归的过程，分为以下几步：</p>
+<ol>
+<li><p>获取模块信息。在下载一个模块之前，首先要确定其版本，这是因为 package.json 中往往是 semantic version（semver，语义化版本）。此时如果版本描述文件（npm-shrinkwrap.json 或 package-lock.json）中有该模块信息直接拿即可，如果没有则从仓库获取。如 packaeg.json 中某个包的版本是 ^1.1.0，npm 就会去仓库中获取符合 1.x.x 形式的最新版本。</p>
+</li>
+<li><p>获取模块实体。上一步会获取到模块的压缩包地址（resolved 字段），npm 会用此地址检查本地缓存，缓存中有就直接拿，如果没有则从仓库下载。</p>
+</li>
+<li><p>查找该模块依赖，如果有依赖则回到第1步，如果没有则停止。</p>
+</li>
+</ol>
+</li>
+<li><p><strong>模块扁平化</strong><br>上一步获取到的是一棵完整的依赖树，其中可能包含大量重复模块。比如 A 模块依赖于 loadsh，B 模块同样依赖于 lodash。在 npm3 以前会严格按照依赖树的结构进行安装，因此会造成模块冗余。<br>从 npm3 开始默认加入了一个 npm dedupe 的过程。它会遍历所有节点，逐个将模块放在根节点下面，也就是 node-modules 的第一层。当发现有重复模块时，则将其丢弃。<br>这里需要对重复模块进行一个定义，它指的是模块名相同且 semver 兼容。每个 semver 都对应一段版本允许范围，如果两个模块的版本允许范围存在交集，那么就可以得到一个兼容版本，而不必版本号完全一致，这可以使更多冗余模块在 dedupe 过程中被去掉。</p>
+</li>
+<li><p><strong>安装模块</strong><br>这一步将会更新工程中的 node_modules，并执行模块中的生命周期函数（按照 preinstall、install、postinstall 的顺序）。</p>
+</li>
+<li><p><strong>执行工程自身生命周期</strong><br>当前 npm 工程如果定义了钩子此时会被执行（按照 install、postinstall、prepublish、prepare 的顺序）。</p>
+</li>
+</ul>
+<p>最后一步是生成或更新版本描述文件，npm install 过程完成。</p>
+<h2 id="2-2、dependenices-和-devDependenices"><a href="#2-2、dependenices-和-devDependenices" class="headerlink" title="2-2、dependenices 和 devDependenices"></a>2-2、dependenices 和 devDependenices</h2><ul>
+<li><strong>dependenices</strong></li>
+</ul>
+<p>通过命令npm install/i -S/–save packageName把包装在此依赖项里。</p>
+<p>如果没有指定版本，直接写一个包的名字，则安装当前npm仓库中这个包的最新版本。如果要指定版本的，可以把版本号写在包名后面，比如npm install –save <a href="mailto:react@16.0.0" target="_blank" rel="noopener">react@16.0.0</a>。</p>
+<p>从npm 5.x开始，可以不用手动添加-S/–save指令，直接执行npm i packageName把依赖包添加到dependencies中去。</p>
+<ul>
+<li><strong>devDependenices</strong></li>
+</ul>
+<p>有一些包有可能你只是在开发环境中用到，例如你用于检测代码规范的 eslint，用于进行测试的 jest ，用户使用你的包时即使不安装这些依赖也可以正常运行，反而安装他们会耗费更多的时间和资源。</p>
+<p>可以把这些依赖添加到 devDependencies 中，这些依赖照样会在你本地进行 npm install/i -D/–save-dev  packageName时被安装和管理，但是不会被安装到生产环境。</p>
+<h1 id="3、package-json"><a href="#3、package-json" class="headerlink" title="3、package.json"></a>3、package.json</h1><h2 id="3-1、dependenices-amp-devDependenices"><a href="#3-1、dependenices-amp-devDependenices" class="headerlink" title="3-1、dependenices &amp; devDependenices"></a>3-1、dependenices &amp; devDependenices</h2><p>分别对应通过-S和-D安装的包列表</p>
+<h2 id="3-2、bin"><a href="#3-2、bin" class="headerlink" title="3-2、bin"></a>3-2、bin</h2><p>bin 字段指定了各个内部命令对应的可执行文件的位置。如果全局安装模块包，npm 会使用符号链接把可执行文件链接到 /usr/local/bin，如果项目中安装，会链接到 ./node_modules/.bin/。</p>
+<h2 id="3-3、npm-scripts"><a href="#3-3、npm-scripts" class="headerlink" title="3-3、npm scripts"></a>3-3、npm scripts</h2><p>在生成的 package.json 文件中，有一个 scripts 对象，在这个对象中，npm 允许使用 scripts 字段定义脚本命令。</p>
+<p><strong>【原理】</strong></p>
+<p>每次在运行 scripts 中的一个属性时候，实际系统都会自动新建一个shell(一般是Bash)，在这个shell里面执行指定的脚本命令。</p>
+<p>通过 npm 启动的脚本，会默认把 node_modules/.bin 加到 PATH 环境变量中；执行结束后，再将 PATH 变量恢复原样。</p>
+<p>举个栗子：<br><code>&quot;test&quot;: &quot;jest&quot;</code><br>而不用写成下面这样：<br><code>&quot;test&quot;: &quot;./node_modules/.bin/jest&quot;</code></p>
+<p><strong>【脚本默认值】</strong></p>
+<p>正常情况下，npm 脚本是用户自己定义。但是 npm 本身对两个脚本提供了默认值，这两个脚本不用在 script 属性中定义，可以直接使用</p>
+<pre><code class="typescript">&quot;start&quot;: &quot;node server.js&quot;
+&quot;install&quot;: &quot;node-gyp rebuild&quot;</code></pre>
+<p><strong>【钩子】</strong></p>
+<p>npm 脚本有两个钩子，pre 和 post。</p>
+<p>比如，当执行start脚本时候，start 的钩子就是 prestart 和 poststart。<br>当执行 npm run start 的时候，npm 实际上是按照下面的顺序执行：</p>
+<pre><code>npm run prestart &amp;&amp; npm run start &amp;&amp; npm run poststart</code></pre><p><strong>【脚本参数】</strong></p>
+<p>前面说过，项目中安装模块会链接到 ./node_modules/.bin/。<br>随便拉个node_module路径下  .bin/umi脚本感受一下：</p>
+<pre><code class="typescript">#!/usr/bin/env node
+
+const resolveCwd = require(&#39;resolve-cwd&#39;);
+const { name, bin } = require(&#39;../package.json&#39;);
+
+const localCLI = resolveCwd.silent(`${name}/${bin[&#39;umi&#39;]}`);
+if (!process.env.USE_GLOBAL_UMI &amp;&amp; localCLI &amp;&amp; localCLI !== __filename) {
+  const debug = require(&#39;@umijs/utils&#39;).createDebug(&#39;umi:cli&#39;);
+  debug(&#39;Using local install of umi&#39;);
+  require(localCLI);
+} else {
+  require(&#39;../lib/cli&#39;);
+}</code></pre>
+<p>node 处理 scripts 中的参数，除了属性后面的第一个命令，以空格分割的任何字符串(除特别shell语法)都是参数，并且都能通过 process.argv 属性访问。</p>
+<p>process.argv 属性返回一个数组，数组包含了启动 node 进程时的命令行参数。第一个元素为启动 node 进程的可执行文件的绝对路径名 process.execPath，第二个元素为当前执行的 javascript 文件路径；剩余的元素为其他命令行参数。</p>
+<p>例如：package.json/scripts中定义：</p>
+<pre><code class="typescript">&quot;scripts&quot;: {
+  &quot;start&quot;: &quot;umi dev&quot;,
+}</code></pre>
+<p>当执行 npm run start 命令的时候，process.argv 的具体内容为：</p>
+<pre><code class="typescript">[
+  &#39;/usr/local/bin/node&#39;,
+  &#39;/Users/bytedance/shanshan/practice/demo/node_modules/.bin/umi&#39;,
+  &#39;dev&#39;,
+]</code></pre>
+<p>几个传参方式：</p>
+<pre><code>npm run serve --params  // 参数params将转化成process.env.npm_config_params = true
+npm run serve --params=123 // 参数params将转化成process.env.npm_config_params = 123
+npm run serve -params  // 等同于--params参数
+
+npm run serve -- --params  // 将--params参数添加到process.env.argv数组中
+npm run serve params  // 将params参数添加到process.env.argv数组中
+npm run serve -- params  // 将params参数添加到process.env.argv数组中</code></pre><p><strong>【执行顺序】</strong></p>
+<p>npm 脚本执行多任务分为两种情况</p>
+<p>并行任务(同时的平行执行)，使用&amp;符号<br><code>$ npm run script1.js &amp; npm run script2.js</code></p>
+<p>串行任务(前一个任务成功，才执行下一个任务)，使用 &amp;&amp; 符号<br><code>$ npm run script1.js &amp;&amp; npm run script2.js</code></p>
+<h1 id="4、npm配置"><a href="#4、npm配置" class="headerlink" title="4、npm配置"></a>4、npm配置</h1><p><strong>【npm config】</strong></p>
+<p>可以通过npm config 命令进行 npm 相关配置，通过 npm config ls -l 可查看 npm 的所有配置，包括默认配置。</p>
+<p>常用的配置：</p>
+<ul>
+<li>proxy, https-proxy：指定 npm 使用的代理</li>
+<li>registry： 指定 npm 下载安装包时的源，默认为 <a href="https://registry.npmjs.org/" target="_blank" rel="noopener">https://registry.npmjs.org/</a> 可以指定为私有 Registry 源<br>例如，npm太慢需要置换为淘宝镜像：<br>npm config set registry <a href="https://registry.npm.taobao.org" target="_blank" rel="noopener">https://registry.npm.taobao.org</a><br>恢复使用之前的 npm：<br>npm config set registry <a href="https://registry.npmjs.org" target="_blank" rel="noopener">https://registry.npmjs.org</a></li>
+<li>package-lock ：指定是否默认生成 package-lock 文件，建议保持默认 true</li>
+</ul>
+<p><strong>【env 环境变量】</strong></p>
+<p>如果env环境变量中存在以npm_config_为前缀的环境变量，则会被识别为npm的配置属性。</p>
+<p>比如在env环境变量中设置npm_config_package_lock变量：<br><code>export npm_config_package_lock=false //修改的是内存中的变量，只对当前终端有效</code><br>这时候执行npm install，npm会从环境变量中读取到这个配置项，从而不会生成package-lock.json文件。</p>
+<p>查看某个环境变量：<br><code>echo $NODE_ENV</code></p>
+<p>删除某个环境变量：<br><code>unset NODE_ENV</code></p>
+<p><strong>【npmrc 文件】</strong><br>npmrc 文件也可以修改配置。</p>
+<p>更多内容可参考：<a href="https://docs.npmjs.com/cli/v6/configuring-npm/npmrc" target="_blank" rel="noopener">https://docs.npmjs.com/cli/v6/configuring-npm/npmrc</a></p>
+
+
+  
+
+  <!---->
+  <!--<div class="post-reward">-->
+    <!--<div id="reward-button">请杯咖啡呗~</div>-->
+    <!--<div id="qr">-->
+      <!--<div class="wrap">-->
+          <!---->
+          <!--<div class="bg-wrap">-->
+            <!--<a href="/images/zhifubao.png" target="_block" class="bg" style="background-image:url('/images/zhifubao.png')"></a>-->
+            <!--支付宝-->
+          <!--</div>-->
+          <!---->
+          <!---->
+          <!--<div class="bg-wrap">-->
+              <!--<a href="/images/weixin.png" target="_block" class="bg" style="background-image:url('/images/weixin.png')"></a>-->
+            <!--微信-->
+          <!--</div>-->
+          <!---->
+      <!--</div>-->
+    <!--</div>-->
+    <!---->
+
+  <!--</div>-->
+
+  <!--<div class="post-copyright">-->
+    <!--<div class="auth">-->
+      <!--本文作者：<a href="http://yoursite.com">shanshan</a>-->
+    <!--</div>-->
+    <!--<div class="link">-->
+      <!--永久链接：<a href="http://yoursite.com/2021/03/07/NPM知识自查小地图/">http://yoursite.com/2021/03/07/NPM知识自查小地图/</a>-->
+    <!--</div>-->
+    <!--<div class="declare">-->
+      <!--版权声明：本文首发于<a href="http://yoursite.com">shanshan</a>的博客，转载请注明出处！-->
+    <!--</div>-->
+  <!--</div>-->
+
+    <!-- Comments -->
+    <div class="comments" id="zss">
+        
+            <br><br>
+            
+            <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_shortname = 'shanshan';
+        var disqus_config = function () {
+            this.page.url = 'http://yoursite.com/2021/03/07/NPM知识自查小地图/';
+            this.page.identifier = '/2021/03/07/NPM知识自查小地图/';
+        };
+        (function() {
+            var d = document, s = d.createElement('script');
+            s.type = 'text/javascript';
+            s.src = '//'+disqus_shortname+'.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow noopener">comments powered by Disqus.</a></noscript>
+</div>
+
+    <div id="gitment_title" class="gitment_title"></div>
+    <div id="container" style="display:none"></div>
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+      const myTheme = {
+        render(state, instance) {
+          const container = document.createElement('div');
+          container.lang = "en-US";
+          container.className = 'gitment-container gitment-root-container';
+          container.appendChild(instance.renderHeader(state, instance));
+          container.appendChild(instance.renderEditor(state, instance));
+          container.appendChild(instance.renderComments(state, instance));
+          container.appendChild(instance.renderFooter(state, instance));
+          return container;
+        }
+      }
+      function showGitment() {
+        $("#gitment_title").attr("style", "display:none");
+        $("#zss").attr("style", "").addClass("gitment_container");
+        var gitment = new Gitment({
+          id: decodeURI(window.location.pathname),
+          theme: myTheme,
+          owner: 'piggyzss',
+          repo: 'piggyzss.github.io/',
+          oauth: {
+            client_id: '09a2760e2209a8728279',
+            client_secret: '1162d7e456f9c8d3f15f164e63f5d253679445a5'
+          }
+        });
+        gitment.render('zss');
+      }
+      showGitment();
+    </script>
+
+        
+    </div>
+
+  <!--<div id="comment"></div>-->
+
+</article>
+        </div>
+        <footer>
+          <div class="copyright">
+            ©2019 <a href="http://yoursite.com">shanshan</a>. Powered by Hexo &
+            <a href="https://github.com/shixiaohu2206/hexo-theme-huhu">hexo-theme-huhu</a>
+          </div>
+          
+        </footer>
+      </div>
+      <div id="card-wrap">
+        <div class="card">
+          <div class="logo-widget">
+            <div class="author">
+              SecretGarden
+            </div>
+            <!--<div class="logo" style="background-image: url('/images/logo.jpeg')"></div>-->
+          </div>
+          <div class="locate-widget">
+            <div class="city-wrap">
+              <svg class="icon location" aria-hidden="true">
+                <use xlink:href="#icon-fenzu9"/>
+              </svg>
+              <span id="city-name"></span>
+            </div>
+            <div class="weather-wrap">
+              <div id="weather-img">
+                <svg class="icon weather" aria-hidden="true">
+                  <use xlink:href="#icon-qingjiafeng"/>
+                </svg>
+              </div>
+              <div id="weather-detail"></div>
+            </div>
+          </div>
+          <div class="follow-widget">
+            
+            <a href="https://github.com/piggyzss" target="_block">
+              <svg class="icon font" aria-hidden="true">
+                <use xlink:href="#icon-github"/>
+              </svg>
+            </a>
+            
+            <a href="https://www.instagram.com/shi_xiaohu/" target="_block">
+              <svg class="icon font" aria-hidden="true">
+                <use xlink:href="#icon-instagram"/>
+              </svg>
+            </a>
+            
+            <a href="https://weibo.com/u/2447128762?refer_flag=1005055010_" target="_block">
+              <svg class="icon font" aria-hidden="true">
+                <use xlink:href="#icon-weibo"/>
+              </svg>
+            </a>
+             
+            <a href="/atom.xml" target="_block">
+              <svg class="icon font" aria-hidden="true">
+                <use xlink:href="#icon-rss"/>
+              </svg>
+            </a>
+            
+          </div>
+           
+          <div class="toc-widget">
+            <div class="title">
+              <span>Toc</span>
+            </div>
+            <div class="post-toc">
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1、npm-init"><span class="toc-text">1、npm init</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2、npm-install"><span class="toc-text">2、npm install</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1、安装过程"><span class="toc-text">2-1、安装过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2、dependenices-和-devDependenices"><span class="toc-text">2-2、dependenices 和 devDependenices</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3、package-json"><span class="toc-text">3、package.json</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1、dependenices-amp-devDependenices"><span class="toc-text">3-1、dependenices &amp; devDependenices</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2、bin"><span class="toc-text">3-2、bin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3、npm-scripts"><span class="toc-text">3-3、npm scripts</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4、npm配置"><span class="toc-text">4、npm配置</span></a></li></ol>
+            </div>
+          </div>
+           
+          <div class="category-widget">
+            <div class="title">
+              <span>Categories</span>
+              <span><a href="/archives">···</a></span>
+            </div>
+            <div class="list">
+              <ul>
+                 
+                <li>
+                  <a href="/categories/code/">
+                    code
+                  </a>
+                </li>
+                 
+              </ul>
+            </div>
+          </div>
+          <div class="tag-widget">
+            <div class="title">
+              <span>Tag Cloud</span>
+              <span><a href>···</a></span>
+            </div>
+            <div class="tag-cloud">
+              <a href="/tags/React/" style="font-size: 16.5px; color: #4a4a4a">React</a> <a href="/tags/前端/" style="font-size: 20px; color: #4a4a4a">前端</a> <a href="/tags/编辑器/" style="font-size: 13px; color: #4a4a4a">编辑器</a> <a href="/tags/设计模式/" style="font-size: 13px; color: #4a4a4a">设计模式</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WJ7P5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  
+</html>
+<script type="text/javascript">
+  window.THEME_CONFIG = JSON.parse('{"title":"Hexo","subtitle":null,"description":null,"author":"shanshan","language":"en","timezone":null,"url":"http://yoursite.com","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":true,"relative_link":false,"future":true,"highlight":{"enable":false,"auto_detect":false,"line_number":true,"tab_replace":null},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"hexo-theme-huhu","deploy":{"type":"git","repository":"https://github.com/piggyzss/piggyzss.github.io","branch":"master"},"ignore":[],"keywords":null,"highlight_theme":"normal","index_generator":{"per_page":10,"order_by":"-date","path":""},"gitment":{"enable":true,"mint":true,"count":true,"lazy":false,"cleanly":false,"language":null,"github_user":"piggyzss","github_repo":"piggyzss.github.io/","client_id":"09a2760e2209a8728279","client_secret":"1162d7e456f9c8d3f15f164e63f5d253679445a5","proxy_gateway":null,"redirect_protocol":null},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"tag_generator":{"per_page":10},"marked":{"gfm":true,"pedantic":false,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true,"sanitizeUrl":false,"headerIds":true},"server":{"port":4000,"log":false,"compress":false,"header":true},"menu":{"home":"/","archives":"/archives","about":"/about","music":"/music"},"logo":"/images/logo.png","categories_max":5,"tags_max":10,"favicon":"/images/favicon.ico","site_search":true,"rss":"/atom.xml","follow":{"github":"https://github.com/piggyzss","instagram":"https://www.instagram.com/shi_xiaohu/","weibo":"https://weibo.com/u/2447128762?refer_flag=1005055010_"},"search_url":"/search.xml","site_icp":"","site_friends":{"房间里的小猫咪":"http://baidu.com"},"changyan":{"appid":"","conf":""},"valine":{"API_ID":"FjXColpwTL0BsrjJIN8Pmnn0-gzGzoHsz","API_KEY":"Ar7tucPRn3KV7UOidQxESoys"},"busuanzi":true,"share":["weibo","weixin","qqkongjian","QQ","douban","facebook","twitter","google"],"cdn_module":{"av_min":"https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min","jquery":"https://cdn.bootcss.com/jquery/3.4.1/jquery.min","busuanzi":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini","confirm":"https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min","fancybox":"https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"},"google_site_verification":"VQowHv5lAVVWJxjKI9bnAWT7NGdOrfS5KnLF07-B7w0","gtm_id":"GTM-WJ7P5KL","baidu_push":true,"reward":{"weixin":"images/weixin.png","zhifubao":"images/zhifubao.png"},"disqus":{"shortname":"shanshan"},"post":{"date_format":"dddd, MMMM Do YYYY, h:mm a","comments":{"enable":true,"type":"disqus"}}}')
+  window.loadJs = function(d, m, a) {
+    var c = document.getElementsByTagName('head')[0] || document.head || document.documentElement
+    var b = document.createElement('script')
+    b.defer = true
+    b.setAttribute('type', 'text/javascript')
+    b.setAttribute('charset', 'UTF-8')
+    b.setAttribute('async', 'true')
+    b.setAttribute('src', d)
+    m && b.setAttribute('data-main', '/scripts/app')
+    if (typeof a === 'function') {
+      if (window.attachEvent) {
+        b.onreadystatechange = function() {
+          var e = b.readyState
+          if (e === 'loaded' || e === 'complete') {
+            b.onreadystatechange = null
+            a()
+          }
+        }
+      } else {
+        b.onload = a
+      }
+    }
+    c.appendChild(b)
+  }
+  loadJs('https://cdn.bootcss.com/require.js/2.3.6/require.min.js', true, function() {
+    require.config({
+      paths: {
+        // site
+        share: 'share',
+        iconfont: 'iconfont',
+        hodgepodge: 'hodgepodge',
+        valine: ['cdn/Valine.min'],
+
+        // cdn
+        av: ['https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min', 'cdn/av-min'],
+        jquery: ['https://cdn.bootcss.com/jquery/3.4.1/jquery.min', 'cdn/jquery.min'],
+        busuanzi: ['//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini', 'cdn/busuanzi.pure.mini'],
+        confirm: ['https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min', 'cdn/jquery.confirm.min'],
+        fancybox: ['https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min', 'cdn/jquery.fancybox.min']
+      },
+
+      map: {
+        '*': {
+          // css: '/scripts/cdn/css-min.js'
+          css: 'https://cdn.bootcss.com/require-css/0.1.10/css.min.js'
+        }
+      },
+
+      shim: {
+        fancybox: {
+          // deps: ['css!../style/fancybox']
+          deps: ['css!https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css']
+        },
+        confirm: {
+          // deps: ['css!../style/confirm']
+          deps: ['css!https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min.css']
+        }
+      },
+
+      // 加载超时
+      waitSeconds: 3
+    })
+  })
+</script>
+
+<script>
+  ;(function() {
+    var bp = document.createElement('script')
+    var curProtocol = window.location.protocol.split(':')[0]
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+    } else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+    }
+    var s = document.getElementsByTagName('script')[0]
+    s.parentNode.insertBefore(bp, s)
+  })()
+</script>
+
