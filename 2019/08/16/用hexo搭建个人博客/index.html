@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+    <!-- Google Tag Manager -->
+    <script>
+      ;(function(w, d, s, l, i) {
+        w[l] = w[l] || []
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' })
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : ''
+        j.async = true
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl
+        f.parentNode.insertBefore(j, f)
+      })(window, document, 'script', 'dataLayer', 'GTM-WJ7P5KL')
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <!-- 百度统计 -->
+    <script>
+      var _hmt = _hmt || []
+      ;(function() {
+        var hm = document.createElement('script')
+        hm.src = 'https://hm.baidu.com/hm.js?5a0acc897fd96474a2c8f4deac84611a'
+        var s = document.getElementsByTagName('script')[0]
+        s.parentNode.insertBefore(hm, s)
+      })()
+    </script>
+    <!-- 百度统计 -->
+
+    
+    <meta charset="utf-8">
+    <meta name="baidu-site-verification" content="vvVgSQUzPU">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content>
+    
+    <meta name="google-site-verification" content="VQowHv5lAVVWJxjKI9bnAWT7NGdOrfS5KnLF07-B7w0">
+    
+    <meta name="description" content>
+    <title>Hexo - </title>
+
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/style/style.css"><link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+      <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+      <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+      <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+      <script>
+        hljs.initHighlightingOnLoad();
+      </script>
+      <script type="text/javascript" src="https://unpkg.com/minigrid@3.1.1/dist/minigrid.min.js"></script>
+      <link rel="stylesheet" href="../source/photos/photos.css">
+      <script type="text/javascript" src="../source/photos/photo.js"></script>
+  </head>
+  <body>
+    <div id="fixed-menu">
+      <div class="up">
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-fenzu7"/>
+        </svg>
+      </div>
+    </div>
+    <div id="progress">
+      <div class="line"></div>
+    </div>
+    <div id="head">
+      
+      <a href="/" class>
+        Home
+      </a>
+      
+      <a href="/archives" class>
+        Archives
+      </a>
+      
+      <a href="/about" class>
+        About
+      </a>
+      
+      <a href="/music" class>
+        music
+      </a>
+      
+    </div>
+    <div id="container">
+      <div id="main">
+        <div class="navbar">
+          <div class="toggle">
+            <svg class="icon toggle-icon" aria-hidden="true">
+              <use xlink:href="#icon-fenzu3"/>
+            </svg>
+          </div>
+          <div class="search">
+            <div class="input-warp">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-fenzu"/>
+              </svg>
+              <input type="text" name id placeholder="Search Keys">
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <article class="post-entry">
+    <div class="header">
+      <div class="title">用hexo搭建个人博客</div>
+        
+        <div class="meta">
+        <span>
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-fenzu4"/>
+          </svg>
+          2019/08/16
+        </span>
+        <span>
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-fenzu14"/>
+          </svg>
+          <span>
+            
+              
+            
+          </span>
+        </span>
+        <span>
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-fenzu15"/>
+          </svg>
+          <span>
+            
+              
+            
+          </span>
+        </span>
+        <span class="leancloud-visitors" id="http://yoursite.com/2019/08/16/用hexo搭建个人博客/" data-flag-title="用hexo搭建个人博客">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-fenzu6"/>
+          </svg>
+          <span class="leancloud-visitors-count"></span>
+        </span>
+        </div>
+        
+         
+      <div>
+      </div>
+    </div>
+    <p>这两天一直在捣鼓hexo，它是一款快速、简洁而且高效的博客框架，使用Markdown(或者其他渲染引擎)解析文章，非常适合搭建个人博客。</p>
+<p>上手hexo之前，你需要做的准备工作有：</p>
+<ul>
+<li>node ：<a href="https://nodejs.org/en/" target="_blank" rel="noopener">https://nodejs.org/en/</a></li>
+<li>git</li>
+</ul>
+<p>node和git都安装好之后就可以安装hexo了:<br><code>$ sudo npm install -g hexo</code></p>
+<h1 id="1、初始化"><a href="#1、初始化" class="headerlink" title="1、初始化"></a>1、初始化</h1><p>创建一个目录，在该目录下执行：<br><code>$hexo init</code></p>
+<p>一个hexo项目就初始化好了，他会自动创建网站所需要的文件。</p>
+<p>执行如下命令启动hexo项目：<br><code>$hexo server/hexo s</code></p>
+<p>在浏览器中打开 <a href="http://localhost:4000，" target="_blank" rel="noopener">http://localhost:4000，</a> 能看到博客首页.</p>
+<p>来看下项目目录：</p>
+<ul>
+<li>scaffolds //模板文件夹，当新建文章时，Hexo 会根据 scaffold 来建立文件。模板是指在新建的markdown文件中默认填充的内容。例如，如果您修改scaffold/post.md中的Front-matter内容，那么每次新建一篇文章时都会包含这个修改。</li>
+<li>source //资源文件夹，存放用户资源的地方，除 _posts 文件夹之外，开头命名为 _ (下划线)的文件 / 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析并放到 public 文件</li>
+<li>themes // 主题文件夹，Hexo 会根据主题来生成静态页面。</li>
+<li>_config.yml //网站配置信息</li>
+<li>package.json //HEXO项目依赖</li>
+</ul>
+<h1 id="2、部署到github"><a href="#2、部署到github" class="headerlink" title="2、部署到github"></a>2、部署到github</h1><p>现在的hexo项目只能跑在本地，如果希望别人可以访问，我们需要将项目部署到github上。<br>登陆git，创建仓库，仓库名为用户名.github.io（这个项目名是固定写法）<br>创建好之后，在本地项目中修改_config.yml配置文件为如下：</p>
+<pre><code class="yml">deploy:
+  type: git
+  repository: https://github.com/piggyzss/piggyzss.github.io.git
+  branch: master</code></pre>
+<p>将其中piggyzss修改为自己的github用户名。<br>ps：在配置所有的_config.yml文件时（包括theme中的），在所有的冒号:后边都要加一个空格，否则执行hexo命令会报错</p>
+<p>在blog文件夹目录下执行生成静态页面命令：<br><code>$ hexo generate/hexo g</code></p>
+<p>再执行配置命令：<br><code>$ hexo deploy/hexo d</code></p>
+<p>hexo deploy命令执行成功后，浏览器中打开网址 <a href="https://piggyzss.github.io/" target="_blank" rel="noopener">https://piggyzss.github.io/</a> 能看到和打开 <a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a> 时一样的页面。</p>
+<h1 id="3、发布博客"><a href="#3、发布博客" class="headerlink" title="3、发布博客"></a>3、发布博客</h1><p>进入项目根目录下下，执行如下命令新建文章：<br><code>$ hexo new blogName</code></p>
+<p>目录/blog/source/_posts下会新建名为blogName.md的markdown文件。</p>
+<p>文章编辑完成后，终端cd到blog文件夹下，执行如下命令来发布:</p>
+<pre><code>$ hexo g             //生成静态页面
+$ hexo d            //将文章部署到Github</code></pre><h1 id="4、配置主题"><a href="#4、配置主题" class="headerlink" title="4、配置主题"></a>4、配置主题</h1><p>如果不喜欢默认配置的主题，可以在官网选择自己喜欢的主题：<a href="https://hexo.io/themes/#Material%20Design" target="_blank" rel="noopener">https://hexo.io/themes/#Material%20Design</a></p>
+<p>点击喜欢的主题标题，进入github目录，以如下主题为例：</p>
+<p>执行：<br><code>$ git clone https://github.com/huyingjie/hexo-theme-A-RSnippet</code><br>然后拷贝到themes目录下，并修改_config.yml里theme的名称landscape修改为A-RSnippet（你选择的主题名称），在项目根目录下执行如下命令(每次部署文章的步骤)：</p>
+<pre><code>$ hexo clean           //清除缓存文件 (db.json) 和已生成的静态文件 (public)
+$ hexo g             //生成缓存和静态文件
+$ hexo d             //重新部署到服务器</code></pre><p>主题就更改配置完毕啦，撒花～</p>
+<h1 id="5、绑定个人域名"><a href="#5、绑定个人域名" class="headerlink" title="5、绑定个人域名"></a>5、绑定个人域名</h1><p>后续再补</p>
+<h1 id="6、评论功能"><a href="#6、评论功能" class="headerlink" title="6、评论功能"></a>6、评论功能</h1><p>这里采用了gitment来实现评论功能。</p>
+<h2 id="注册github应用"><a href="#注册github应用" class="headerlink" title="注册github应用"></a>注册github应用</h2><p>首先需要注册一个OAuth Application，地址:<a href="https://github.com/settings/applications/new" target="_blank" rel="noopener">https://github.com/settings/applications/new</a></p>
+<ul>
+<li>Application name 随意就好</li>
+<li>Homepage URL 你的博客地址，例如:<a href="https://piggyzss.github.io/" target="_blank" rel="noopener">https://piggyzss.github.io/</a></li>
+<li>Application description 随意就好</li>
+<li>Authorization callback URL 也是博客地址，例如:<a href="https://piggyzss.github.io/" target="_blank" rel="noopener">https://piggyzss.github.io/</a></li>
+<li>输入完成之后，点击注册就OK了。成功之后就会拿到Client ID和Client Secret。</li>
+</ul>
+<h2 id="修改项目配置文件"><a href="#修改项目配置文件" class="headerlink" title="修改项目配置文件"></a>修改项目配置文件</h2><p>修改项目根目录下_config.yml，添加如下代码：</p>
+<pre><code># Comments
+gitment:
+  enable: true
+  mint: true
+  count: true
+  lazy: false
+  cleanly: false
+  language:
+  github_user: piggyzss
+  github_repo: piggyzss.github.io/
+  client_id: 09a2760e2209a8728279
+  client_secret: 1162d7e456f9c8d3f15f164e63f5d253679445a5
+  proxy_gateway:
+  redirect_protocol:</code></pre><p>将github_user和github_repo换为你自己的git账号和地址，client_id和client_secret换为刚刚生成的Client ID和Client Secret。</p>
+<h2 id="添加样式和layout"><a href="#添加样式和layout" class="headerlink" title="添加样式和layout"></a>添加样式和layout</h2><p>打开当前使用主题的目录，进入layout/_partial/comments/disqus.ejs，在原文件后加入如下代码：</p>
+<pre><code class="ejs">&lt;% if(theme.gitment.enable) { %&gt;
+        &lt;div id=&quot;gitment_title&quot; class=&quot;gitment_title&quot;&gt;&lt;/div&gt;
+        &lt;div id=&quot;container&quot; style=&quot;display:none&quot;&gt;&lt;/div&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;https://imsun.github.io/gitment/style/default.css&quot;&gt;
+        &lt;script src=&quot;https://imsun.github.io/gitment/dist/gitment.browser.js&quot;&gt;&lt;/script&gt;
+        &lt;script src=&quot;https://code.jquery.com/jquery-3.3.1.min.js&quot;&gt;&lt;/script&gt;
+        &lt;script&gt;
+          const myTheme = {
+            render(state, instance) {
+              const container = document.createElement(&#39;div&#39;);
+              container.lang = &quot;en-US&quot;;
+              container.className = &#39;gitment-container gitment-root-container&#39;;
+              container.appendChild(instance.renderHeader(state, instance));
+              container.appendChild(instance.renderEditor(state, instance));
+              container.appendChild(instance.renderComments(state, instance));
+              container.appendChild(instance.renderFooter(state, instance));
+              return container;
+            }
+          }
+          function showGitment() {
+            $(&quot;#gitment_title&quot;).attr(&quot;style&quot;, &quot;display:none&quot;);
+            $(&quot;#container&quot;).attr(&quot;style&quot;, &quot;&quot;).addClass(&quot;gitment_container&quot;);
+            var gitment = new Gitment({
+              id: decodeURI(window.location.pathname),
+              theme: myTheme,
+              owner: &#39;piggyzss&#39;,
+              repo: &#39;piggyzss.github.io/&#39;,
+              oauth: {
+                client_id: &#39;09a2760e2209a8728279&#39;,
+                client_secret: &#39;1162d7e456f9c8d3f15f164e63f5d253679445a5&#39;
+              }
+            });
+            gitment.render(&#39;container&#39;);
+          }
+          showGitment();
+        &lt;/script&gt;
+    &lt;% } %&gt;</code></pre>
+<p>现在，一个带有评论功能的个人博客就完成啦～</p>
+<h1 id="7、相册功能"><a href="#7、相册功能" class="headerlink" title="7、相册功能"></a>7、相册功能</h1>
+
+  
+
+  <!---->
+  <!--<div class="post-reward">-->
+    <!--<div id="reward-button">请杯咖啡呗~</div>-->
+    <!--<div id="qr">-->
+      <!--<div class="wrap">-->
+          <!---->
+          <!--<div class="bg-wrap">-->
+            <!--<a href="/images/zhifubao.png" target="_block" class="bg" style="background-image:url('/images/zhifubao.png')"></a>-->
+            <!--支付宝-->
+          <!--</div>-->
+          <!---->
+          <!---->
+          <!--<div class="bg-wrap">-->
+              <!--<a href="/images/weixin.png" target="_block" class="bg" style="background-image:url('/images/weixin.png')"></a>-->
+            <!--微信-->
+          <!--</div>-->
+          <!---->
+      <!--</div>-->
+    <!--</div>-->
+    <!---->
+
+  <!--</div>-->
+
+  <!--<div class="post-copyright">-->
+    <!--<div class="auth">-->
+      <!--本文作者：<a href="http://yoursite.com">shanshan</a>-->
+    <!--</div>-->
+    <!--<div class="link">-->
+      <!--永久链接：<a href="http://yoursite.com/2019/08/16/用hexo搭建个人博客/">http://yoursite.com/2019/08/16/用hexo搭建个人博客/</a>-->
+    <!--</div>-->
+    <!--<div class="declare">-->
+      <!--版权声明：本文首发于<a href="http://yoursite.com">shanshan</a>的博客，转载请注明出处！-->
+    <!--</div>-->
+  <!--</div>-->
+
+    <!-- Comments -->
+    <div class="comments" id="zss">
+        
+            <br><br>
+            
+            <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_shortname = 'shanshan';
+        var disqus_config = function () {
+            this.page.url = 'http://yoursite.com/2019/08/16/用hexo搭建个人博客/';
+            this.page.identifier = '/2019/08/16/用hexo搭建个人博客/';
+        };
+        (function() {
+            var d = document, s = d.createElement('script');
+            s.type = 'text/javascript';
+            s.src = '//'+disqus_shortname+'.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow noopener">comments powered by Disqus.</a></noscript>
+</div>
+
+    <div id="gitment_title" class="gitment_title"></div>
+    <div id="container" style="display:none"></div>
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+      const myTheme = {
+        render(state, instance) {
+          const container = document.createElement('div');
+          container.lang = "en-US";
+          container.className = 'gitment-container gitment-root-container';
+          container.appendChild(instance.renderHeader(state, instance));
+          container.appendChild(instance.renderEditor(state, instance));
+          container.appendChild(instance.renderComments(state, instance));
+          container.appendChild(instance.renderFooter(state, instance));
+          return container;
+        }
+      }
+      function showGitment() {
+        $("#gitment_title").attr("style", "display:none");
+        $("#zss").attr("style", "").addClass("gitment_container");
+        var gitment = new Gitment({
+          id: decodeURI(window.location.pathname),
+          theme: myTheme,
+          owner: 'piggyzss',
+          repo: 'piggyzss.github.io/',
+          oauth: {
+            client_id: '09a2760e2209a8728279',
+            client_secret: '1162d7e456f9c8d3f15f164e63f5d253679445a5'
+          }
+        });
+        gitment.render('zss');
+      }
+      showGitment();
+    </script>
+
+        
+    </div>
+
+  <!--<div id="comment"></div>-->
+
+</article>
+        </div>
+        <footer>
+          <div class="copyright">
+            ©2019 <a href="http://yoursite.com">shanshan</a>. Powered by Hexo &
+            <a href="https://github.com/shixiaohu2206/hexo-theme-huhu">hexo-theme-huhu</a>
+          </div>
+          
+        </footer>
+      </div>
+      <div id="card-wrap">
+        <div class="card">
+          <div class="logo-widget">
+            <div class="author">
+              SecretGarden
+            </div>
+            <!--<div class="logo" style="background-image: url('/images/logo.jpeg')"></div>-->
+          </div>
+          <div class="locate-widget">
+            <div class="city-wrap">
+              <svg class="icon location" aria-hidden="true">
+                <use xlink:href="#icon-fenzu9"/>
+              </svg>
+              <span id="city-name"></span>
+            </div>
+            <div class="weather-wrap">
+              <div id="weather-img">
+                <svg class="icon weather" aria-hidden="true">
+                  <use xlink:href="#icon-qingjiafeng"/>
+                </svg>
+              </div>
+              <div id="weather-detail"></div>
+            </div>
+          </div>
+          <div class="follow-widget">
+            
+            <a href="https://github.com/piggyzss" target="_block">
+              <svg class="icon font" aria-hidden="true">
+                <use xlink:href="#icon-github"/>
+              </svg>
+            </a>
+            
+            <a href="https://www.instagram.com/shi_xiaohu/" target="_block">
+              <svg class="icon font" aria-hidden="true">
+                <use xlink:href="#icon-instagram"/>
+              </svg>
+            </a>
+            
+            <a href="https://weibo.com/u/2447128762?refer_flag=1005055010_" target="_block">
+              <svg class="icon font" aria-hidden="true">
+                <use xlink:href="#icon-weibo"/>
+              </svg>
+            </a>
+             
+            <a href="/atom.xml" target="_block">
+              <svg class="icon font" aria-hidden="true">
+                <use xlink:href="#icon-rss"/>
+              </svg>
+            </a>
+            
+          </div>
+           
+          <div class="toc-widget">
+            <div class="title">
+              <span>Toc</span>
+            </div>
+            <div class="post-toc">
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1、初始化"><span class="toc-text">1、初始化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2、部署到github"><span class="toc-text">2、部署到github</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3、发布博客"><span class="toc-text">3、发布博客</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4、配置主题"><span class="toc-text">4、配置主题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5、绑定个人域名"><span class="toc-text">5、绑定个人域名</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6、评论功能"><span class="toc-text">6、评论功能</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#注册github应用"><span class="toc-text">注册github应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改项目配置文件"><span class="toc-text">修改项目配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#添加样式和layout"><span class="toc-text">添加样式和layout</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7、相册功能"><span class="toc-text">7、相册功能</span></a></li></ol>
+            </div>
+          </div>
+           
+          <div class="category-widget">
+            <div class="title">
+              <span>Categories</span>
+              <span><a href="/archives">···</a></span>
+            </div>
+            <div class="list">
+              <ul>
+                 
+                <li>
+                  <a href="/categories/code/">
+                    code
+                  </a>
+                </li>
+                 
+              </ul>
+            </div>
+          </div>
+          <div class="tag-widget">
+            <div class="title">
+              <span>Tag Cloud</span>
+              <span><a href>···</a></span>
+            </div>
+            <div class="tag-cloud">
+              <a href="/tags/React/" style="font-size: 16.5px; color: #4a4a4a">React</a> <a href="/tags/前端/" style="font-size: 20px; color: #4a4a4a">前端</a> <a href="/tags/设计模式/" style="font-size: 13px; color: #4a4a4a">设计模式</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WJ7P5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  
+</html>
+<script type="text/javascript">
+  window.THEME_CONFIG = JSON.parse('{"title":"Hexo","subtitle":null,"description":null,"author":"shanshan","language":"en","timezone":null,"url":"http://yoursite.com","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":true,"relative_link":false,"future":true,"highlight":{"enable":false,"auto_detect":false,"line_number":true,"tab_replace":null},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"hexo-theme-huhu","deploy":{"type":"git","repository":"https://github.com/piggyzss/piggyzss.github.io.git","branch":"master"},"ignore":[],"keywords":null,"highlight_theme":"normal","index_generator":{"per_page":10,"order_by":"-date","path":""},"gitment":{"enable":true,"mint":true,"count":true,"lazy":false,"cleanly":false,"language":null,"github_user":"piggyzss","github_repo":"piggyzss.github.io/","client_id":"09a2760e2209a8728279","client_secret":"1162d7e456f9c8d3f15f164e63f5d253679445a5","proxy_gateway":null,"redirect_protocol":null},"category_generator":{"per_page":10},"tag_generator":{"per_page":10},"marked":{"gfm":true,"pedantic":false,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true,"sanitizeUrl":false,"headerIds":true},"server":{"port":4000,"log":false,"compress":false,"header":true},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"menu":{"home":"/","archives":"/archives","about":"/about","music":"/music"},"logo":"/images/logo.png","categories_max":5,"tags_max":10,"favicon":"/images/favicon.ico","site_search":true,"rss":"/atom.xml","follow":{"github":"https://github.com/piggyzss","instagram":"https://www.instagram.com/shi_xiaohu/","weibo":"https://weibo.com/u/2447128762?refer_flag=1005055010_"},"search_url":"/search.xml","site_icp":"","site_friends":{"房间里的小猫咪":"http://baidu.com"},"changyan":{"appid":"","conf":""},"valine":{"API_ID":"FjXColpwTL0BsrjJIN8Pmnn0-gzGzoHsz","API_KEY":"Ar7tucPRn3KV7UOidQxESoys"},"busuanzi":true,"share":["weibo","weixin","qqkongjian","QQ","douban","facebook","twitter","google"],"cdn_module":{"av_min":"https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min","jquery":"https://cdn.bootcss.com/jquery/3.4.1/jquery.min","busuanzi":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini","confirm":"https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min","fancybox":"https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"},"google_site_verification":"VQowHv5lAVVWJxjKI9bnAWT7NGdOrfS5KnLF07-B7w0","gtm_id":"GTM-WJ7P5KL","baidu_push":true,"reward":{"weixin":"images/weixin.png","zhifubao":"images/zhifubao.png"},"disqus":{"shortname":"shanshan"},"post":{"date_format":"dddd, MMMM Do YYYY, h:mm a","comments":{"enable":true,"type":"disqus"}}}')
+  window.loadJs = function(d, m, a) {
+    var c = document.getElementsByTagName('head')[0] || document.head || document.documentElement
+    var b = document.createElement('script')
+    b.defer = true
+    b.setAttribute('type', 'text/javascript')
+    b.setAttribute('charset', 'UTF-8')
+    b.setAttribute('async', 'true')
+    b.setAttribute('src', d)
+    m && b.setAttribute('data-main', '/scripts/app')
+    if (typeof a === 'function') {
+      if (window.attachEvent) {
+        b.onreadystatechange = function() {
+          var e = b.readyState
+          if (e === 'loaded' || e === 'complete') {
+            b.onreadystatechange = null
+            a()
+          }
+        }
+      } else {
+        b.onload = a
+      }
+    }
+    c.appendChild(b)
+  }
+  loadJs('https://cdn.bootcss.com/require.js/2.3.6/require.min.js', true, function() {
+    require.config({
+      paths: {
+        // site
+        share: 'share',
+        iconfont: 'iconfont',
+        hodgepodge: 'hodgepodge',
+        valine: ['cdn/Valine.min'],
+
+        // cdn
+        av: ['https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min', 'cdn/av-min'],
+        jquery: ['https://cdn.bootcss.com/jquery/3.4.1/jquery.min', 'cdn/jquery.min'],
+        busuanzi: ['//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini', 'cdn/busuanzi.pure.mini'],
+        confirm: ['https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min', 'cdn/jquery.confirm.min'],
+        fancybox: ['https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min', 'cdn/jquery.fancybox.min']
+      },
+
+      map: {
+        '*': {
+          // css: '/scripts/cdn/css-min.js'
+          css: 'https://cdn.bootcss.com/require-css/0.1.10/css.min.js'
+        }
+      },
+
+      shim: {
+        fancybox: {
+          // deps: ['css!../style/fancybox']
+          deps: ['css!https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css']
+        },
+        confirm: {
+          // deps: ['css!../style/confirm']
+          deps: ['css!https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min.css']
+        }
+      },
+
+      // 加载超时
+      waitSeconds: 3
+    })
+  })
+</script>
+
+<script>
+  ;(function() {
+    var bp = document.createElement('script')
+    var curProtocol = window.location.protocol.split(':')[0]
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+    } else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+    }
+    var s = document.getElementsByTagName('script')[0]
+    s.parentNode.insertBefore(bp, s)
+  })()
+</script>
+
