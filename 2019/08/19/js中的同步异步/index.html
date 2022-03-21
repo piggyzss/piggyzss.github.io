@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+    <!-- Google Tag Manager -->
+    <script>
+      ;(function(w, d, s, l, i) {
+        w[l] = w[l] || []
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' })
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : ''
+        j.async = true
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl
+        f.parentNode.insertBefore(j, f)
+      })(window, document, 'script', 'dataLayer', 'GTM-WJ7P5KL')
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <!-- 百度统计 -->
+    <script>
+      var _hmt = _hmt || []
+      ;(function() {
+        var hm = document.createElement('script')
+        hm.src = 'https://hm.baidu.com/hm.js?5a0acc897fd96474a2c8f4deac84611a'
+        var s = document.getElementsByTagName('script')[0]
+        s.parentNode.insertBefore(hm, s)
+      })()
+    </script>
+    <!-- 百度统计 -->
+
+    
+    <meta charset="utf-8">
+    <meta name="baidu-site-verification" content="vvVgSQUzPU">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content>
+    
+    <meta name="google-site-verification" content="VQowHv5lAVVWJxjKI9bnAWT7NGdOrfS5KnLF07-B7w0">
+    
+    <meta name="description" content>
+    <title>Hexo - </title>
+
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/style/style.css"><link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+      <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+      <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+      <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+      <script>
+        hljs.initHighlightingOnLoad();
+      </script>
+      <script type="text/javascript" src="https://unpkg.com/minigrid@3.1.1/dist/minigrid.min.js"></script>
+      <link rel="stylesheet" href="../source/photos/photos.css">
+      <script type="text/javascript" src="../source/photos/photo.js"></script>
+  </head>
+  <body>
+    <div id="fixed-menu">
+      <div class="up">
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-fenzu7"/>
+        </svg>
+      </div>
+    </div>
+    <div id="progress">
+      <div class="line"></div>
+    </div>
+    <div id="head">
+      
+      <a href="/" class>
+        Home
+      </a>
+      
+      <a href="/archives" class>
+        Archives
+      </a>
+      
+      <a href="/about" class>
+        About
+      </a>
+      
+      <a href="/music" class>
+        music
+      </a>
+      
+      <a href="/gallery" class>
+        gallery
+      </a>
+      
+    </div>
+    <div id="container">
+      <div id="main">
+        <div class="navbar">
+          <div class="toggle">
+            <svg class="icon toggle-icon" aria-hidden="true">
+              <use xlink:href="#icon-fenzu3"/>
+            </svg>
+          </div>
+          <div class="search">
+            <div class="input-warp">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-fenzu"/>
+              </svg>
+              <input type="text" name id placeholder="Search Keys">
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <article class="post-entry">
+    <div class="header">
+      <div class="title">js中的同步异步</div>
+        
+        <div class="meta">
+        <span>
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-fenzu4"/>
+          </svg>
+          2019/08/19
+        </span>
+        <span>
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-fenzu14"/>
+          </svg>
+          <span>
+            
+              
+                
+                  <a href="/categories/code">code</a>
+                
+              
+            
+          </span>
+        </span>
+        <span>
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-fenzu15"/>
+          </svg>
+          <span>
+            
+              
+                
+                  <a href="/tags/前端">前端</a>
+                
+              
+            
+          </span>
+        </span>
+        <span class="leancloud-visitors" id="http://yoursite.com/2019/08/19/js中的同步异步/" data-flag-title="js中的同步异步">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-fenzu6"/>
+          </svg>
+          <span class="leancloud-visitors-count"></span>
+        </span>
+        </div>
+        
+         
+      <div>
+      </div>
+    </div>
+    <h1 id="1、进程和线程"><a href="#1、进程和线程" class="headerlink" title="1、进程和线程"></a>1、进程和线程</h1><p>进程是cpu资源分配的最小单位（是能拥有资源和独立运行的最小单位）<br>线程是cpu调度的最小单位（线程是建立在进程的基础上的一次程序运行单位，一个进程中可以有多个线程）</p>
+<p><strong>Tips：浏览器是多进程的</strong></p>
+<ul>
+<li>浏览器是多进程的</li>
+<li>浏览器之所以能够运行，是因为系统给它的进程分配了资源（cpu、内存）</li>
+<li>简单点理解，每打开一个Tab页，就相当于创建了一个独立的浏览器进程</li>
+</ul>
+<p>注意：浏览器应该也有自己的优化机制，有时候打开多个tab页后，可以在Chrome任务管理器中看到，有些进程被合并了（所以每一个Tab标签对应一个进程并不一定是绝对的）</p>
+<p><strong>Tips：浏览器的内核机制</strong><br>一个浏览器一般包括以下进程：</p>
+<ul>
+<li>Browser进程：浏览器的主进程（负责协调、主控），只有一个</li>
+<li>第三方插件进程：每种类型的插件对应一个进程，仅当使用该插件时才创建</li>
+<li>GPU进程：最多一个，用于3D绘制</li>
+<li>浏览器渲染进程（内核）：默认每个Tab页面一个进程，互不影响，控制页面渲染，脚本执行，事件处理等（有时候会优化，如多个空白tab会合并成一个进程）<br>进程是多线程的，它有几大类子线程：</li>
+<li>javascript引擎：是基于事件驱动单线程执行的，JS引擎一直等待着任务队列中任务的到来，然后加以处理，浏览器无论什么时候都只有一个JS线程在运行JS程序。</li>
+<li>GUI渲染线程：负责渲染浏览器界面，当界面需要重排、重绘或由于某种操作引发回流时,该线程就会执行。但需要注意 GUI渲染线程与JS引擎是互斥的，当JS引擎执行时GUI线程会被挂起，GUI更新会被保存在一个队列中等到JS引擎空闲时立即被执行。</li>
+<li>事件触发线程：当一个事件被触发时该线程会把事件添加到待处理队列的队尾，等待JS引擎的处理。这些事件可来自JavaScript引擎当前执行的代码块如setTimeOut、也可来自浏览器内核的其他线程如鼠标点击、AJAX异步请求等，但由于JS的单线程关系所有这些事件都得排队等待JS引擎处理。</li>
+</ul>
+<h1 id="2、为什么JS是单线程"><a href="#2、为什么JS是单线程" class="headerlink" title="2、为什么JS是单线程"></a>2、为什么JS是单线程</h1><p>JavaScript的单线程，与它的用途有关。<br>引用阮一峰老师的解答：</p>
+<blockquote>
+<p>作为浏览器脚本语言，JavaScript的主要用途是与用户互动，以及操作DOM。这决定了它只能是单线程，否则会带来很复杂的同步问题。比如，假定JavaScript同时有两个线程，一个线程在某个DOM节点上添加内容，另一个线程删除了这个节点，这时浏览器应该以哪个线程为准？<br>所以，为了避免复杂性，从一诞生，JavaScript就是单线程，这已经成了这门语言的核心特征，将来也不会改变。<br>为了利用多核CPU的计算能力，HTML5提出Web Worker标准，允许JavaScript脚本创建多个线程，但是子线程完全受主线程控制，且不得操作DOM。所以，这个新标准并没有改变JavaScript单线程的本质。</p>
+</blockquote>
+<h1 id="3、单线程怎样实现异步"><a href="#3、单线程怎样实现异步" class="headerlink" title="3、单线程怎样实现异步"></a>3、单线程怎样实现异步</h1><p>单线程就意味着，浏览器只分配给js一个主线程用来执行任务（函数），但一次只能执行一个任务，这些任务形成一个任务队列排队等候执行，前一个任务结束，才会执行后一个任务，这类任务被称作同步任务。<br>但前端的某些任务是非常耗时的，比如网络请求，定时器和事件监听，如果前一个任务耗时很长，后一个任务就不得不一直等着。这样执行效率会很低，甚至导致页面的假死，这样的任务叫做同步任务。<br>因此，我们需要异步任务来解决这个难题。</p>
+<p>Javascript有一个主线程(main thread)和一个调用栈，调用栈用于处理同步任务。当在执行过程中遇到一些类似于setTimeout等异步操作的时候，会交给浏览器的其他模块(以webkit为例，是webcore模块)进行处理，当到达setTimeout指定的延时执行的时间之后，task(回调函数)会放入到任务队列之中。<br>一般不同的异步任务的回调函数会放入不同的任务队列之中。<br>等到调用栈中所有task执行完毕之后，接着去执行任务队列中的任务(回调函数)。</p>
+<p>异步任务是指，不进入主线程、而进入”任务队列”（task queue）的任务，只有”任务队列”通知主线程，某个异步任务可以执行了，该任务才会进入主线程执行。</p>
+<p>这里有几个概念：</p>
+<ul>
+<li>任务队列（task queue）：“任务队列”是一个先进先出的事件队列（也可以理解成消息的队列），IO设备完成一项任务，就在”任务队列”中添加一个事件，表示相关的异步任务可以进入”执行栈”了。主线程读取”任务队列”，就是读取里面有哪些事件。<br>“任务队列”中的事件，除了IO设备的事件以外，还包括一些用户产生的事件（比如鼠标点击、页面滚动等等）。只要指定过回调函数，这些事件发生时就会进入”任务队列”，等待主线程读取。</li>
+<li>回调函数（callback）：就是那些会被主线程挂起来的代码。异步任务必须指定回调函数，当主线程开始执行异步任务，就是执行对应的回调函数。</li>
+<li>事件循环（Event Loop）：事件循环是指主线程重复从消息队列中取消息、执行的过程。由于这个过程是循环不断的，因此整个的这种运行机制称为Event Loop（事件循环）。</li>
+</ul>
+<p>因此，任务处理过程可以总结为以下几步：<br><strong>1）</strong>所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）。<br><strong>2）</strong>主线程之外，还存在一个”任务队列”。只要异步任务有了运行结果，就在”任务队列”之中放置一个事件。<br><strong>3）</strong>一旦”执行栈”中的所有同步任务执行完毕，系统就会读取”任务队列”，看看里面有哪些事件。那些对应的异步任务结束等待状态，进入执行栈，开始执行。<br><strong>4）</strong>主线程不断重复上面的第三步（事件循环）</p>
+<p>总结起来就是：Javascript的事件分为同步任务和异步任务，遇到同步任务就放在调用栈中执行，而碰到异步任务就放到任务队列之中，等到执行栈执行完毕之后再去执行任务队列之中的事件。</p>
+<p>例如：调用栈中遇到DOM操作、ajax请求以及setTimeout等WebAPIs的时候就会交给浏览器内核的其他模块进行处理，webkit内核在Javasctipt执行引擎之外，有一个重要的模块是webcore模块。对于图中WebAPIs提到的三种API，webcore分别提供了DOM Binding、network、timer模块来处理底层实现。<br>等到这些模块处理完这些操作的时候将回调函数放入任务队列中，之后等栈中的task执行完之后再去执行任务队列之中的回调函数。</p>
+<h1 id="4、定时器"><a href="#4、定时器" class="headerlink" title="4、定时器"></a>4、定时器</h1><p>除了放置异步任务的事件，”任务队列”还可以放置定时事件，即指定某些代码在多少时间之后执行。这叫做”定时器”（timer）功能，也就是定时执行的代码。</p>
+<p>定时器功能主要由setTimeout()和setInterval()这两个函数来完成，它们的内部运行机制完全一样，区别在于setTimeout只执行一次，后者则为反复执行。以下主要讨论setTimeout()。</p>
+<p>setTimeout()接受两个参数，第一个是回调函数，第二个是推迟执行的毫秒数。<br>返回一个 ID（数字），这个ID作为这个定时器的唯一标识，可以传递给 clearTimeout() 来取消执行。</p>
+<pre><code class="javascript">console.log(1);
+setTimeout(function(){console.log(2);}, 0);
+console.log(3);</code></pre>
+<p>上面代码的执行结果是1，3，2，也就是说，当前代码执行完（执行栈清空）以后，立即执行（0毫秒间隔）指定的回调函数。</p>
+<p>HTML5标准规定了setTimeout()的第二个参数的最小值（最短间隔），不得低于4毫秒，如果低于这个值，就会自动增加。在此之前，老版本的浏览器都将最短间隔设为10毫秒。</p>
+<p>需要注意的是，setTimeout()只是将事件插入了”任务队列”，必须等到当前代码（执行栈）执行完，主线程才会去执行它指定的回调函数。要是当前代码耗时很长，有可能要等很久，所以并没有办法保证，回调函数一定会在setTimeout()指定的时间执行。</p>
+<h1 id="5、处理异步的几种方法"><a href="#5、处理异步的几种方法" class="headerlink" title="5、处理异步的几种方法"></a>5、处理异步的几种方法</h1><h2 id="（1）回调函数callback"><a href="#（1）回调函数callback" class="headerlink" title="（1）回调函数callback"></a>（1）回调函数callback</h2><p>A callback is a function that is passed as an argument to another function and is executed after its parent function has completed.<br>回调是一个函数被作为一个参数传递到另一个函数里，在那个函数执行完后再执行。（ 也即：B函数被作为参数传递到A函数里，在A函数执行完后再执行B ）</p>
+<pre><code class="javascript">function foo(callback){//定义函数的时候将另一个函数（回调函数）作为参数传入定义的函数中。
+    $ajax({
+        //...
+        success:callback//异步操作执行完毕后，再执行该回调函数，确保回调在异步操作之后执行。
+    });
+}
+function func(result){
+    //...
+}
+foo(func);</code></pre>
+<p>回调函数是异步编程最基本的方法<br>优点：比较容易理解<br>缺点：</p>
+<ul>
+<li>高耦合，嵌套层次深，维护困难，回调地狱<pre><code>setTimeout(function(){
+  console.log(&#39;HELLO 1&#39;),
+  setTimeout(function(){
+    console.log(&#39;HELLO 2&#39;),
+    setTimeout(function(){
+      console.log(&#39;HELLO 3&#39;)
+    }, 2000)
+  }, 2000)
+}, 2000)</code></pre></li>
+<li>每个任务只能指定一个回调函数</li>
+<li>如果几个异步操作之间并没有顺序之分，同样也要等待上一个操作执行结束再进行下一个操作。下图回调地狱</li>
+</ul>
+<p>tips:回调并不一定就是异步</p>
+<h2 id="（2）事件监听"><a href="#（2）事件监听" class="headerlink" title="（2）事件监听"></a>（2）事件监听</h2><pre><code>document.getElementById(&#39;#start&#39;).addEventListener(
+  &#39;click&#39;,
+  function(){
+    // 响应事件，进行相应的操作
+  },
+  false
+);</code></pre><p>优点：比较容易理解，可以绑定多个事件，每一个事件可以指定多个回调函数，而且可以去耦合，有利于实现模块化<br>缺点：整个程序都要变成事件驱动型，运行流程会变得不清晰</p>
+<h2 id="（3）promise"><a href="#（3）promise" class="headerlink" title="（3）promise"></a>（3）promise</h2><p>promise对象是commonJS工作组提出的一种规范，目的是为了异步编程提供统一接口<br>可以把promise看成一个状态机。初始是pending状态，可以通过函数resolve和reject，将状态转变为resolved或者rejected状态，状态一旦改变就不能再次变化。<br>Promise代表了一个异步操作，可以将异步对象和回调函数脱离开来，通过.then方法在这个异步操作上绑定回调函数，Promise可以让我们通过链式调用的方法去解决回调嵌套的问题，而且由于promise.all这样的方法存在，可以让同时执行多个操作变得简单。</p>
+<p>promise对象的三个状态</p>
+<ul>
+<li>Fulfilled—has-resolution，reslove(成功时)，调用onFulfilled</li>
+<li>Rejected—has-rejection，reject(失败时)，调用Rejected</li>
+<li>Pending—unresolve，Pending，既不是resolve也不是reject状态，也就是Promise刚刚被创建后的初始化状态。<br>Promise的状态只会从Pending变为Fulfilled或者Rejected，不可逆。</li>
+</ul>
+<p>promise对象的两个重要方法：resolve/reject<br><strong>1）</strong>resolve方法可以使Promise对象的状态改变为成功，同时传递一个参数用于后续成功后的操作。<br><strong>2）</strong>reject方法可以将Promise对象的状态改变为失败，同时将错误信息传递到后续错误处理的操作。</p>
+<p>.then可以使用链式调用，原因在于：每一次执行该方法时总会返回一个Promise对象。<br>另外，在then的函数当中的返回值，可以作为后续操作的参数</p>
+<p>例如，上面那个例子可以写成这样：</p>
+<pre><code>var p1 = function() {
+  return new Promise(function(resolve, reject){
+    setTimeout(function(){
+      console.log(&#39;HELLO 1&#39;)
+      resolve()
+    }, 2000)
+  })
+}
+var p2 = function() {
+  return new Promise(function(resolve, reject){
+    setTimeout(function(){
+      console.log(&#39;HELLO 2&#39;)
+      resolve()
+    }, 2000)
+  })
+}
+var p3 = function() {
+  return new Promise(function(resolve, reject){
+    setTimeout(function(){
+      console.log(&#39;HELLO 3&#39;)
+      resolve()
+    }, 2000)
+  })
+}
+
+p1().then(function(){
+  return p2()
+}).then(function(){
+  return p3()
+})</code></pre><p>优点：<br>回调函数写成了链式写法，程序的流程可以看得很清楚，而且有一整套的配套方法，可以实现很多强大的功能。</p>
+<h2 id="（4）async-await"><a href="#（4）async-await" class="headerlink" title="（4）async/await"></a>（4）async/await</h2><p>未完待续</p>
+
+
+  
+
+  <!---->
+  <!--<div class="post-reward">-->
+    <!--<div id="reward-button">请杯咖啡呗~</div>-->
+    <!--<div id="qr">-->
+      <!--<div class="wrap">-->
+          <!---->
+          <!--<div class="bg-wrap">-->
+            <!--<a href="/images/zhifubao.png" target="_block" class="bg" style="background-image:url('/images/zhifubao.png')"></a>-->
+            <!--支付宝-->
+          <!--</div>-->
+          <!---->
+          <!---->
+          <!--<div class="bg-wrap">-->
+              <!--<a href="/images/weixin.png" target="_block" class="bg" style="background-image:url('/images/weixin.png')"></a>-->
+            <!--微信-->
+          <!--</div>-->
+          <!---->
+      <!--</div>-->
+    <!--</div>-->
+    <!---->
+
+  <!--</div>-->
+
+  <!--<div class="post-copyright">-->
+    <!--<div class="auth">-->
+      <!--本文作者：<a href="http://yoursite.com">shanshan</a>-->
+    <!--</div>-->
+    <!--<div class="link">-->
+      <!--永久链接：<a href="http://yoursite.com/2019/08/19/js中的同步异步/">http://yoursite.com/2019/08/19/js中的同步异步/</a>-->
+    <!--</div>-->
+    <!--<div class="declare">-->
+      <!--版权声明：本文首发于<a href="http://yoursite.com">shanshan</a>的博客，转载请注明出处！-->
+    <!--</div>-->
+  <!--</div>-->
+
+    <!-- Comments -->
+    <div class="comments" id="zss">
+        
+            <br><br>
+            
+            <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_shortname = 'shanshan';
+        var disqus_config = function () {
+            this.page.url = 'http://yoursite.com/2019/08/19/js中的同步异步/';
+            this.page.identifier = '/2019/08/19/js中的同步异步/';
+        };
+        (function() {
+            var d = document, s = d.createElement('script');
+            s.type = 'text/javascript';
+            s.src = '//'+disqus_shortname+'.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow noopener">comments powered by Disqus.</a></noscript>
+</div>
+
+    <div id="gitment_title" class="gitment_title"></div>
+    <div id="container" style="display:none"></div>
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+      const myTheme = {
+        render(state, instance) {
+          const container = document.createElement('div');
+          container.lang = "en-US";
+          container.className = 'gitment-container gitment-root-container';
+          container.appendChild(instance.renderHeader(state, instance));
+          container.appendChild(instance.renderEditor(state, instance));
+          container.appendChild(instance.renderComments(state, instance));
+          container.appendChild(instance.renderFooter(state, instance));
+          return container;
+        }
+      }
+      function showGitment() {
+        $("#gitment_title").attr("style", "display:none");
+        $("#zss").attr("style", "").addClass("gitment_container");
+        var gitment = new Gitment({
+          id: decodeURI(window.location.pathname),
+          theme: myTheme,
+          owner: 'piggyzss',
+          repo: 'piggyzss.github.io/',
+          oauth: {
+            client_id: '09a2760e2209a8728279',
+            client_secret: '1162d7e456f9c8d3f15f164e63f5d253679445a5'
+          }
+        });
+        gitment.render('zss');
+      }
+      showGitment();
+    </script>
+
+        
+    </div>
+
+  <!--<div id="comment"></div>-->
+
+</article>
+        </div>
+        <footer>
+          <div class="copyright">
+            ©2019 <a href="http://yoursite.com">shanshan</a>. Powered by Hexo &
+            <a href="https://github.com/shixiaohu2206/hexo-theme-huhu">hexo-theme-huhu</a>
+          </div>
+          
+        </footer>
+      </div>
+      <div id="card-wrap">
+        <div class="card">
+          <div class="logo-widget">
+            <div class="author">
+              SecretGarden
+            </div>
+            <!--<div class="logo" style="background-image: url('/images/logo.jpeg')"></div>-->
+          </div>
+          <div class="locate-widget">
+            <div class="city-wrap">
+              <svg class="icon location" aria-hidden="true">
+                <use xlink:href="#icon-fenzu9"/>
+              </svg>
+              <span id="city-name"></span>
+            </div>
+            <div class="weather-wrap">
+              <div id="weather-img">
+                <svg class="icon weather" aria-hidden="true">
+                  <use xlink:href="#icon-qingjiafeng"/>
+                </svg>
+              </div>
+              <div id="weather-detail"></div>
+            </div>
+          </div>
+          <div class="follow-widget">
+            
+            <a href="https://github.com/piggyzss" target="_block">
+              <svg class="icon font" aria-hidden="true">
+                <use xlink:href="#icon-github"/>
+              </svg>
+            </a>
+            
+            <a href="https://www.instagram.com/shi_xiaohu/" target="_block">
+              <svg class="icon font" aria-hidden="true">
+                <use xlink:href="#icon-instagram"/>
+              </svg>
+            </a>
+            
+            <a href="https://weibo.com/u/2447128762?refer_flag=1005055010_" target="_block">
+              <svg class="icon font" aria-hidden="true">
+                <use xlink:href="#icon-weibo"/>
+              </svg>
+            </a>
+             
+            <a href="/atom.xml" target="_block">
+              <svg class="icon font" aria-hidden="true">
+                <use xlink:href="#icon-rss"/>
+              </svg>
+            </a>
+            
+          </div>
+           
+          <div class="toc-widget">
+            <div class="title">
+              <span>Toc</span>
+            </div>
+            <div class="post-toc">
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1、进程和线程"><span class="toc-text">1、进程和线程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2、为什么JS是单线程"><span class="toc-text">2、为什么JS是单线程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3、单线程怎样实现异步"><span class="toc-text">3、单线程怎样实现异步</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4、定时器"><span class="toc-text">4、定时器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5、处理异步的几种方法"><span class="toc-text">5、处理异步的几种方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#（1）回调函数callback"><span class="toc-text">（1）回调函数callback</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#（2）事件监听"><span class="toc-text">（2）事件监听</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#（3）promise"><span class="toc-text">（3）promise</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#（4）async-await"><span class="toc-text">（4）async/await</span></a></li></ol></li></ol>
+            </div>
+          </div>
+           
+          <div class="category-widget">
+            <div class="title">
+              <span>Categories</span>
+              <span><a href="/archives">···</a></span>
+            </div>
+            <div class="list">
+              <ul>
+                 
+                <li>
+                  <a href="/categories/code/">
+                    code
+                  </a>
+                </li>
+                 
+              </ul>
+            </div>
+          </div>
+          <div class="tag-widget">
+            <div class="title">
+              <span>Tag Cloud</span>
+              <span><a href>···</a></span>
+            </div>
+            <div class="tag-cloud">
+              <a href="/tags/React/" style="font-size: 16.5px; color: #4a4a4a">React</a> <a href="/tags/前端/" style="font-size: 20px; color: #4a4a4a">前端</a> <a href="/tags/设计模式/" style="font-size: 13px; color: #4a4a4a">设计模式</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WJ7P5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  
+</html>
+<script type="text/javascript">
+  window.THEME_CONFIG = JSON.parse('{"title":"Hexo","subtitle":null,"description":null,"author":"shanshan","language":"en","timezone":null,"url":"http://yoursite.com","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":true,"relative_link":false,"future":true,"highlight":{"enable":false,"auto_detect":false,"line_number":true,"tab_replace":null},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"hexo-theme-huhu","deploy":{"type":"git","repository":"https://github.com/piggyzss/piggyzss.github.io.git","branch":"master"},"ignore":[],"keywords":null,"highlight_theme":"normal","index_generator":{"per_page":10,"order_by":"-date","path":""},"gitment":{"enable":true,"mint":true,"count":true,"lazy":false,"cleanly":false,"language":null,"github_user":"piggyzss","github_repo":"piggyzss.github.io/","client_id":"09a2760e2209a8728279","client_secret":"1162d7e456f9c8d3f15f164e63f5d253679445a5","proxy_gateway":null,"redirect_protocol":null},"category_generator":{"per_page":10},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"marked":{"gfm":true,"pedantic":false,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true,"sanitizeUrl":false,"headerIds":true},"tag_generator":{"per_page":10},"server":{"port":4000,"log":false,"compress":false,"header":true},"menu":{"home":"/","archives":"/archives","about":"/about","music":"/music","gallery":"/gallery"},"logo":"/images/logo.png","gallery":{"title":"光影流年","icon":"fa","icon2":"fa"},"categories_max":5,"tags_max":10,"favicon":"/images/favicon.ico","site_search":true,"rss":"/atom.xml","follow":{"github":"https://github.com/piggyzss","instagram":"https://www.instagram.com/shi_xiaohu/","weibo":"https://weibo.com/u/2447128762?refer_flag=1005055010_"},"search_url":"/search.xml","site_icp":"","site_friends":{"房间里的小猫咪":"http://baidu.com"},"changyan":{"appid":"","conf":""},"valine":{"API_ID":"FjXColpwTL0BsrjJIN8Pmnn0-gzGzoHsz","API_KEY":"Ar7tucPRn3KV7UOidQxESoys"},"share":["weibo","weixin","qqkongjian","QQ","douban","facebook","twitter","google"],"cdn_module":{"av_min":"https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min","jquery":"https://cdn.bootcss.com/jquery/3.4.1/jquery.min","busuanzi":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini","confirm":"https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min","fancybox":"https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"},"google_site_verification":"VQowHv5lAVVWJxjKI9bnAWT7NGdOrfS5KnLF07-B7w0","gtm_id":"GTM-WJ7P5KL","baidu_push":true,"reward":{"weixin":"images/weixin.png","zhifubao":"images/zhifubao.png"},"disqus":{"shortname":"shanshan"},"post":{"date_format":"dddd, MMMM Do YYYY, h:mm a","comments":{"enable":true,"type":"disqus"}}}')
+  window.loadJs = function(d, m, a) {
+    var c = document.getElementsByTagName('head')[0] || document.head || document.documentElement
+    var b = document.createElement('script')
+    b.defer = true
+    b.setAttribute('type', 'text/javascript')
+    b.setAttribute('charset', 'UTF-8')
+    b.setAttribute('async', 'true')
+    b.setAttribute('src', d)
+    m && b.setAttribute('data-main', '/scripts/app')
+    if (typeof a === 'function') {
+      if (window.attachEvent) {
+        b.onreadystatechange = function() {
+          var e = b.readyState
+          if (e === 'loaded' || e === 'complete') {
+            b.onreadystatechange = null
+            a()
+          }
+        }
+      } else {
+        b.onload = a
+      }
+    }
+    c.appendChild(b)
+  }
+  loadJs('https://cdn.bootcss.com/require.js/2.3.6/require.min.js', true, function() {
+    require.config({
+      paths: {
+        // site
+        share: 'share',
+        iconfont: 'iconfont',
+        hodgepodge: 'hodgepodge',
+        valine: ['cdn/Valine.min'],
+
+        // cdn
+        av: ['https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min', 'cdn/av-min'],
+        jquery: ['https://cdn.bootcss.com/jquery/3.4.1/jquery.min', 'cdn/jquery.min'],
+        busuanzi: ['//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini', 'cdn/busuanzi.pure.mini'],
+        confirm: ['https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min', 'cdn/jquery.confirm.min'],
+        fancybox: ['https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min', 'cdn/jquery.fancybox.min']
+      },
+
+      map: {
+        '*': {
+          // css: '/scripts/cdn/css-min.js'
+          css: 'https://cdn.bootcss.com/require-css/0.1.10/css.min.js'
+        }
+      },
+
+      shim: {
+        fancybox: {
+          // deps: ['css!../style/fancybox']
+          deps: ['css!https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css']
+        },
+        confirm: {
+          // deps: ['css!../style/confirm']
+          deps: ['css!https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min.css']
+        }
+      },
+
+      // 加载超时
+      waitSeconds: 3
+    })
+  })
+</script>
+
+<script>
+  ;(function() {
+    var bp = document.createElement('script')
+    var curProtocol = window.location.protocol.split(':')[0]
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+    } else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+    }
+    var s = document.getElementsByTagName('script')[0]
+    s.parentNode.insertBefore(bp, s)
+  })()
+</script>
+

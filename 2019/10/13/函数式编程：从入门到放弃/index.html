@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+    <!-- Google Tag Manager -->
+    <script>
+      ;(function(w, d, s, l, i) {
+        w[l] = w[l] || []
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' })
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : ''
+        j.async = true
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl
+        f.parentNode.insertBefore(j, f)
+      })(window, document, 'script', 'dataLayer', 'GTM-WJ7P5KL')
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <!-- 百度统计 -->
+    <script>
+      var _hmt = _hmt || []
+      ;(function() {
+        var hm = document.createElement('script')
+        hm.src = 'https://hm.baidu.com/hm.js?5a0acc897fd96474a2c8f4deac84611a'
+        var s = document.getElementsByTagName('script')[0]
+        s.parentNode.insertBefore(hm, s)
+      })()
+    </script>
+    <!-- 百度统计 -->
+
+    
+    <meta charset="utf-8">
+    <meta name="baidu-site-verification" content="vvVgSQUzPU">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content>
+    
+    <meta name="google-site-verification" content="VQowHv5lAVVWJxjKI9bnAWT7NGdOrfS5KnLF07-B7w0">
+    
+    <meta name="description" content>
+    <title>Hexo - </title>
+
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/style/style.css"><link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+      <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+      <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+      <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+      <script>
+        hljs.initHighlightingOnLoad();
+      </script>
+      <script type="text/javascript" src="https://unpkg.com/minigrid@3.1.1/dist/minigrid.min.js"></script>
+      <link rel="stylesheet" href="../source/photos/photos.css">
+      <script type="text/javascript" src="../source/photos/photo.js"></script>
+  </head>
+  <body>
+    <div id="fixed-menu">
+      <div class="up">
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-fenzu7"/>
+        </svg>
+      </div>
+    </div>
+    <div id="progress">
+      <div class="line"></div>
+    </div>
+    <div id="head">
+      
+      <a href="/" class>
+        Home
+      </a>
+      
+      <a href="/archives" class>
+        Archives
+      </a>
+      
+      <a href="/about" class>
+        About
+      </a>
+      
+      <a href="/music" class>
+        music
+      </a>
+      
+      <a href="/gallery" class>
+        gallery
+      </a>
+      
+    </div>
+    <div id="container">
+      <div id="main">
+        <div class="navbar">
+          <div class="toggle">
+            <svg class="icon toggle-icon" aria-hidden="true">
+              <use xlink:href="#icon-fenzu3"/>
+            </svg>
+          </div>
+          <div class="search">
+            <div class="input-warp">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-fenzu"/>
+              </svg>
+              <input type="text" name id placeholder="Search Keys">
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <article class="post-entry">
+    <div class="header">
+      <div class="title">函数式编程：从入门到放弃</div>
+        
+        <div class="meta">
+        <span>
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-fenzu4"/>
+          </svg>
+          2019/10/13
+        </span>
+        <span>
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-fenzu14"/>
+          </svg>
+          <span>
+            
+              
+            
+          </span>
+        </span>
+        <span>
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-fenzu15"/>
+          </svg>
+          <span>
+            
+              
+            
+          </span>
+        </span>
+        <span class="leancloud-visitors" id="http://yoursite.com/2019/10/13/函数式编程：从入门到放弃/" data-flag-title="函数式编程：从入门到放弃">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-fenzu6"/>
+          </svg>
+          <span class="leancloud-visitors-count"></span>
+        </span>
+        </div>
+        
+         
+      <div>
+      </div>
+    </div>
+    <h1 id="一、基础概念"><a href="#一、基础概念" class="headerlink" title="一、基础概念"></a>一、基础概念</h1><h2 id="1、什么是函数？"><a href="#1、什么是函数？" class="headerlink" title="1、什么是函数？"></a>1、什么是函数？</h2><p>f(X) = Y<br>包含了几个关键点 :</p>
+<ul>
+<li>函数必须总是接受一个参数</li>
+<li>函数必须总是返回 一个值</li>
+<li>函数应该依据接收到的参数(例如 X)而不是外部环境运行</li>
+<li>对于一个给定的 X，只会输出唯一的一个 Y</li>
+</ul>
+<h2 id="2、什么是函数式编程？"><a href="#2、什么是函数式编程？" class="headerlink" title="2、什么是函数式编程？"></a>2、什么是函数式编程？</h2><p>函数式编程是一种范式，我们能够以此创建仅依赖输入就可以完成自身逻辑的函数。这保证了当函数被多次调用时仍然返回相同的结果(即满足引用透明性)。函数不会改变任何外部环境的变量 ，这将产生可缓存、可测试的代码库。</p>
+<p>函数式编程主张以抽象的方式创建函数，这些函数能够在代码其他部分被重用。</p>
+<p><strong>ps：命令式和函数式区别</strong><br>    用命令式方法遍历数组</p>
+<pre><code>var array= (1,2,3]
+for(i=O ; i&lt;array.length ; i++)
+  console.log(array[i]) //打印 1, 2, 3</code></pre><p>为了解决问题，我们精确地告诉程序应该 “如何”做。<br>我们在告诉编译器“获得数组长度，循环数组，用索引获取每一个数组元素，等等。” 我们将之称为“命令式”解决方案。命令式编程主张告诉编译器“如何”做。<br>在声明式编程中 ，我们要告诉编译器做“什么”，而不是“如何”做。“如何”做的部分将被抽象到普通函数中(这些函数被称为高阶函数)。</p>
+<pre><code>const array = [1,2,3]
+array.forEach((element) =&gt; console.log(element)) // 打印 1, 2, 3</code></pre><p>上面的代码片段打印了与代码相同的输出 。但是我们移除 了“如何”做的部分，比如“获得数组长度，循环数组，用索引获取每 一个数组元素等等。”我们使用了一个处理“如何”做的抽象函数， 如此可以让开发者只需要关心手头的问题(做“什么”的部分) 。这非常棒! 贯穿本书，我们都将创建这样的内置函数。<br>函数式编程主张以抽象的方式创建函数，这些函数能够在代码 的其他部分被重用。</p>
+<h1 id="二、理解函数式编程是什么"><a href="#二、理解函数式编程是什么" class="headerlink" title="二、理解函数式编程是什么"></a>二、理解函数式编程是什么</h1><p>函数式编程有时候被认为是一系列可以补充或替代的其他编程范式的技术，例如:</p>
+<ul>
+<li>函数是一等公民</li>
+<li>高阶函数</li>
+<li>闭包</li>
+<li>柯里化（Currying）</li>
+<li>管道与组合</li>
+<li>纯函数</li>
+<li>惰性求值</li>
+</ul>
+<h2 id="1、函数是一等公民"><a href="#1、函数是一等公民" class="headerlink" title="1、函数是一等公民"></a>1、函数是一等公民</h2><p>概念：当一门语言允许函数作为任何其他数据类型使用时，函数被称为一等公民(First Class Citizens)。也就是说，函数可被赋值给变量，作为参数传递，也可被其他函数返回。<br><strong>–存储函数</strong></p>
+<pre><code>let fn = () =&gt; {)（匿名函数）</code></pre><p>fn就是一个指向函数数据类型的变量，他是上述函数的引用，因此可以这样调用它<br>fn()<br>上面的代码将执行 fn指向的函数。<br><strong>–传递函数</strong></p>
+<pre><code>let argFun = () =&gt; {
+  console.log(&#39;hello,wolrd&#39;)
+}
+let fn = (arg) =&gt; {
+  arg()
+}
+fn(argFun)</code></pre><p><strong>–返回函数</strong></p>
+<pre><code>let fn = () =&gt; {
+let innerFn = () =&gt; {console.log(&#39;hello,wolrd&#39;)}
+return innerFn
+}
+fn()()</code></pre><p>上面例子：使用 APlforEach 的用户不需要理解 forEach是如何实现遍历的，如此问题就被抽象出来了。</p>
+<p><strong>–高阶函数</strong><br>概念：接受函数作为参数并且/或者返回函数作为输出的函数.<br>用途：抽象通用的问题</p>
+<p>上面例子：使用 APlforEach 的用 户不需要理解 forEach是如何实现遍历的，如此问题就被抽象出来了。</p>
+<h2 id="2、高阶函数"><a href="#2、高阶函数" class="headerlink" title="2、高阶函数"></a>2、高阶函数</h2><p>高阶函数（High-Order Function）是函数式编程思维中的重要条件，而满足该条件的编程语言则需要将函数作为该语言的一等公民来看待。<br>概念：接受函数作为参数并且/或者返回函数作为输出的函数.<br>用途：抽象通用的问题</p>
+<pre><code>const a = value =&gt; fn =&gt; {
+  typeof fn === &#39;function&#39; &amp;&amp; fn(value)
+  console.log(`the args is : ${value}`)
+}
+
+const a = (value, fn) =&gt; {
+  typeof fn === &#39;function&#39; &amp;&amp; fn(value)
+  console.log(`the args is : ${value}`)
+}</code></pre><p>应用：一些内置的高阶函数</p>
+<h3 id="（1）map"><a href="#（1）map" class="headerlink" title="（1）map"></a>（1）map</h3><p>得到一个新数组，数组中每个值都是原有数组值通过一定计算后得到的值<br>不使用高阶：</p>
+<pre><code>const a = [1,2,3]
+const b = []
+for(let i = 0; i &lt; a.length; i++) {
+  b.push(a[i] * 2)
+}</code></pre><p>使用高阶：</p>
+<pre><code>const c = a.map((item) =&gt; item*2)</code></pre><h3 id="（2）filter"><a href="#（2）filter" class="headerlink" title="（2）filter"></a>（2）filter</h3><p>得到一个新数组，包含所有通过校验的元素<br>不使用高阶：</p>
+<pre><code>const fruit = [
+  {name: &#39;apple&#39;, count: 18},
+  {name: &#39;banana&#39;, count: 14},
+  {name: &#39;watermelon&#39;, count: 16},
+  {name: &#39;cherry&#39;, count: 22}
+]
+const fruitFilter = []
+for(let i = 0; i &lt; fruit.length; i++) {
+  if(fruit[i].count &gt; 14) {
+    fruitFilter.push(fruit[i])
+  }
+}</code></pre><p>使用高阶：</p>
+<pre><code>const fruitFilter = fruit.filter(ele =&gt; ele.count &gt; 14)</code></pre><h3 id="（3）reduce"><a href="#（3）reduce" class="headerlink" title="（3）reduce"></a>（3）reduce</h3><p>得到一个输出，该输出是对数组每个成员执行相应处理函数的值的累积<br>如计算阶乘<br>不使用高阶：</p>
+<pre><code>const arr = [1,2,3,4,5]
+let result = 1
+for(let i = 0; i &lt; arr.length; i++) {
+  result *= arr[i]
+}</code></pre><p>使用高阶：</p>
+<pre><code>const result = arr.reduce((accumulator, curValue) =&gt; accumulator*curValue)</code></pre><p>自己实现一个完成reduce作用的高阶函数：</p>
+<pre><code>const reduce = (array, fn) =&gt; {
+  let acc = 0
+  for(const value of array) {
+    acc = fn(acc, value)
+  }
+  return acc
+}</code></pre><p>优化：</p>
+<pre><code>const reduce = (array, fn， initial) =&gt; {
+  let acc = 0
+  if (initial !== undefined) {
+    acc = initial
+  } else {
+    acc = array[0]
+  }
+  for (const value of array) {
+    acc = fn(acc, value)
+  }
+  return acc
+}
+reduce([1,2,3], (acc, value) =&gt; acc*value, 1)</code></pre><h2 id="3、闭包"><a href="#3、闭包" class="headerlink" title="3、闭包"></a>3、闭包</h2><p>概念：函数 A 返回了一个内部函数 B，并且函数 B 中使用了函数 A 的变量，内部函数 B 就被称为闭包。<br>判定准则：执行时是否在内部定义的函数中访问了上层作用域的变量。<br>闭包（Closure）是函数式编程的重要特性，它是缓存函数内部作用域，并且对外暴露的过程；是模块化编程的基石。这部分主要探讨这几个问题：</p>
+<ul>
+<li>JavaScript 作用域和作用域链</li>
+<li>闭包实现</li>
+<li>闭包应用</li>
+</ul>
+<h2 id="4、柯里化（Currying）"><a href="#4、柯里化（Currying）" class="headerlink" title="4、柯里化（Currying）"></a>4、柯里化（Currying）</h2><p>一元函数/二元函数/变参函数（接受可变数量参数的函数）<br>概念：简单理解就是，柯里化是把一个多参数函数转换为一个嵌套的一元函数的过程</p>
+<p>一个简单的栗子：</p>
+<pre><code>const add= (x,y) =&gt; x + y</code></pre><p>这是一个简单的函数，调用该函数 add(l, 1)，将得到结果2<br>下面我们对这个函数做一些改造，得到它的柯里化版本：</p>
+<pre><code>const addCurried = x =&gt; y =&gt; x + y</code></pre><p>在这个函数里，只传递给函数一部分参数来调用它，让它返回一个函数去处理剩下的参数。</p>
+<p>柯里化的用途：<br>（1）参数复用<br>函数封装后</p>
+<pre><code>const check = (reg, txt) =&gt; {
+    return reg.test(txt)
+}
+check(/^.*(?=.{8,18})(?=.*\d)(?=.*[A-Za-z]{1,})(?=.*[-_!@#$%^&amp;*?\(\)]).*$/g, &#39;test_123&#39;)  // 密码
+check(/^[\u4e00-\u9fa5]{2,4}$/g, &#39;赵珊珊&#39;)    // 用户名</code></pre><p>柯里化后</p>
+<pre><code>const curryingCheck = (reg) =&gt; (txt) =&gt; reg.test(txt)
+
+const checkPassword = curryingCheck(/^.*(?=.{8,18})(?=.*\d)(?=.*[A-Za-z]{1,})(?=.*[-_!@#$%^&amp;*?\(\)]).*$/g)
+const checkName = curryingCheck(/^[\u4e00-\u9fa5]{2,4}$/g)
+checkPassword(&#39;test_123&#39;)
+checkName(&#39;赵珊珊&#39;)</code></pre><p>（2）延迟运行<br>js中经常使用的bind，实现的机制就是Currying</p>
+<pre><code>Function.prototype.bind = function (context) {
+    var _this = this
+    var args = Array.prototype.slice.call(arguments, 1)
+    return function() {
+        return _this.apply(context, args)
+    }
+}</code></pre><p>bind和call/apply一样，都可以改变函数运行时的上下文，不同处在于bind()方法不会立即执行，而是会创建一个新函数，从而达到延迟运行的目的。<br>（3）提前确认<br>这一特性经常是用来对浏览器的兼容性做出一些判断并初始化api<br>封装兼容现代浏览器和 IE 浏览器的事件监听的方法，正常情况下封装是这样的:</p>
+<pre><code>const addEvent = (el, type, fn, capture) =&gt; {
+  if (window.addEventListener) {
+    el.addEventListener(
+      type,
+      e =&gt; {
+        fn.call(el, e)
+      },
+      capture
+    )
+  } else {
+    el.attachEvent(&#39;on&#39; + type, e =&gt; {
+      fn.call(el, e)
+    })
+  }
+}</code></pre><p>该封装的方法存在的不足是，每次写监听事件的时候调用 addEvent 函数，都会进行 if else 的兼容性判断。事实上在代码中只需要执行一次兼容性判断就可以了，后续的事件监听就不需要再去判断兼容性了。那么用函数柯里化优化这个封装函数:</p>
+<pre><code>const addEvent = (() =&gt; {
+  if(window.addEventListener) {
+    return (el, type, fn, capture) =&gt; {
+      el.addEventListener(type, e =&gt; {
+        fn.call(el, e)
+      }, capture)
+    }
+  }else {
+    return (el, type, fn) =&gt; {
+      el.attachEvent(`on${type}`, e =&gt; {
+        fn.call(el, e);
+      })
+    }
+  }
+})()</code></pre><p>js 引擎在执行该段代码的时候就会进行兼容性判断，并且返回需要使用的事件监听封装函数。</p>
+<p>通用的封装方法：</p>
+<pre><code>function progressCurrying(fn, args) {
+
+    var _this = this
+    var len = fn.length;
+    var args = args || [];
+
+    return function() {
+        var _args = Array.prototype.slice.call(arguments);
+        Array.prototype.push.apply(args, _args);
+
+        // 如果参数个数小于最初的fn.length，则递归调用，继续收集参数
+        if (_args.length &lt; len) {
+            return progressCurrying.call(_this, fn, _args);
+        }
+
+        // 参数收集完毕，则执行fn
+        return fn.apply(this, _args);
+    }
+}</code></pre><p>总结起来就是：接收单一参数，使得调用过程变得更加单纯</p>
+<p>柯里化的性能问题：<br>存取arguments对象通常要比存取命名参数要慢一点<br>一些老版本的浏览器在arguments.length的实现上是相当慢的<br>使用fn.apply( … ) 和 fn.call( … )通常比直接调用fn( … ) 稍微慢点<br>创建大量嵌套作用域和闭包函数会带来花销，无论是在内存还是速度上</p>
+<p>js的性能瓶颈是在操作DOM节点上，相比较而言柯里化的性能问题就不是问题了，可以放心使用。</p>
+<p>一个小题目：<br>// 实现一个add方法，使计算结果能够满足如下预期：<br>add(1)(2)(3) = 6;<br>add(1, 2, 3)(4) = 10;<br>add(1)(2)(3)(4)(5) = 15;</p>
+<p>普通版</p>
+<pre><code>function curry(fn, args) {
+    var length = fn.length;
+    var args = args || [];
+    return function(){
+        newArgs = args.concat(Array.prototype.slice.call(arguments));
+        if(newArgs.length &lt; length){
+            return curry.call(this,fn,newArgs);
+        }else{
+            return fn.apply(this,newArgs);
+        }
+    }
+}
+function multiFn(a, b, c) {
+    return a * b * c;
+}
+var multi = curry(multiFn);
+multi(2)(3)(4);
+multi(2,3,4);
+multi(2)(3,4);
+multi(2,3)(4);</code></pre><p>优化版</p>
+<pre><code>function multi() {
+    var args = Array.prototype.slice.call(arguments);
+    var fn = function() {
+        var newArgs = args.concat(Array.prototype.slice.call(arguments));
+        return multi.apply(this, newArgs);
+    }
+    fn.toString = function() {
+        return args.reduce(function(a, b) {
+            return a * b;
+        })
+    }
+    return fn;
+}
+
+or
+function add() {
+    // 第一次执行时，定义一个数组专门用来存储所有的参数
+    var _args = Array.prototype.slice.call(arguments);
+
+    // 在内部声明一个函数，利用闭包的特性保存_args并收集所有的参数值
+    var _adder = function() {
+        _args.push(...arguments);
+        return _adder;
+    };
+
+    // 利用toString隐式转换的特性，当最后执行时隐式转换，并计算最终的值返回
+    _adder.toString = function () {
+        return _args.reduce(function (a, b) {
+            return a + b;
+        });
+    }
+    return _adder;
+}</code></pre><h2 id="5、管道与组合"><a href="#5、管道与组合" class="headerlink" title="5、管道与组合"></a>5、管道与组合</h2><p>UNIX和Linux平台有很多用于日常任务的命令。例如，cat用于打印文件内容，grep用于搜索文件，WC用于计算行数等。这些命令的确一次只解决一个问题。但是我们可以用组合或管道来完成复杂的任务。<br>cat package.json | grep babel<br>上述命令中，符号“|”被称为管道符号。它九许我们通过组合一些函数去创建一 个能够解 决问题的新函数!大致来说，“|”将最左侧的函数输出作为输 入发送给最右侧的函数!从技术上讲，该处理过程称为管道。<br>cat package.json | grep babel | wc<br>文件的行数为、单词数、字节数<br>在函数式编程中，函数就是一个管道（pipe），输入一个确定的值即可输出一个确定的新值，没有其他副作用。<br>我们通过构建自己的compose 函数，来完成完成“|”在 Unix/Linux 中的工作。<br>组合两个函数：</p>
+<pre><code>const compose =(f,g) =&gt; {
+  return x =&gt; {
+    return f(g(x))
+  }
+}</code></pre><p>一个简单的例子：</p>
+<pre><code>const strToUpper = str =&gt; {
+  return str.toUpperCase()
+}
+const prefixStr = str =&gt; {
+  return `THE RESULT IS ${str}`
+}
+const composeStr = compose(prefixStr, strToUpper)</code></pre><p>在 compose 的定义中，g 将先于 f 执行，因此就创建了一个从右到左的数据流。这样做的可读性远远高于嵌套一大堆的函数调用，如果不用组合，shout 函数将会是这样的：</p>
+<pre><code>const composeStr = x =&gt; {
+  return prefixStr(strToUpper(x))
+}</code></pre><p>组合多个函数：<br>const compose = (…fns) =&gt; (value) =&gt; reduce (fns .reverse (), (acc , fn) =&gt; fn(acc), value)</p>
+<pre><code>const compose = (...args) =&gt; x =&gt; args.reduceRight((res,cb) =&gt; cb(res) , x)</code></pre><p>compose 的数据流是从右至左 的，因为最右侧的函数首先执行，将数据 传递给下一个函数，以此类推 …… 最左侧的函数最后执行<br>而管道的数据流是 从左至右的，实现一个管道函数：</p>
+<pre><code>const pipe = (...args) =&gt; x =&gt; args.reduce((res,cb) =&gt; cb(res) , x);</code></pre><p>管道和组合的区别：在往下一个管道符传递的时候已经完成了求值，而函数组合实际上生成了新的函数，最后一步传入实际的参数才会完成求值。</p>
+<h2 id="6、纯函数"><a href="#6、纯函数" class="headerlink" title="6、纯函数"></a>6、纯函数</h2><p>纯函数应该被设计为只做一件事。只做一件事并把它做到完美是 UNIX 的哲学，我们在实现纯函数时也将遵循这一原则。<br>纯函数的定义：</p>
+<ul>
+<li>对于同一参数，返回同一结果</li>
+<li>该函数结果值不依赖任何隐藏信息或程序执行处理可能改变的状态或在程序的两个不同的执行</li>
+<li>完全取决于传入的参数</li>
+<li>不会产生副作用</li>
+</ul>
+<p>纯函数的条件之一是不产生副作用。副作用是指函数对其外部世界产生影响，包括：</p>
+<ul>
+<li>发出 HTTP 调用</li>
+<li>改变外部状态</li>
+<li>检索今天的日期</li>
+<li>Math.random()</li>
+<li>向控制台输出消息</li>
+<li>向数据库中添加数据</li>
+</ul>
+<p>纯函数优点：</p>
+<ul>
+<li>更易测试：纯函数本质上就是模块化的，这使它更容易被测试。由于当参数相同时，纯函数总是产⽣相同的结果，你不必担⼼应用其他部分的数据受到影响。在调试期间，这将给予明确定义的额外控制点。</li>
+<li>更好维护：纯函数不会产生副作用。这意味着你在重构应用时，纯函数不会对其外部内容产生任何不利影响。</li>
+<li>可缓存：纯函数总是为给定的输入返回相同的输出，那么我们就能够缓存函数的输出</li>
+</ul>
+<h2 id="7、惰性求值"><a href="#7、惰性求值" class="headerlink" title="7、惰性求值"></a>7、惰性求值</h2><p>惰性求值，也叫做非严格求值，它会按需调用并推迟执行，它是一种直到需要时才计算函数结果的求值策略， 这对函数式编程特别有用。比如有行代码是 x = func()，调用这个func()函数得到的返回值会赋值给x。 但是x等于什么一开始并不重要，直到需要用到x的时候。等到需要用x的时候才调用func()就是惰性求值。这一策略可以让性能明显增强，他让无限序列成为可能。因为在它实在无法继续延迟之前，什么都不需要被真正计算出来。<br>惰性函数模式是一种将对函数或请求的处理延迟到真正需要结果时进行的通用概念，很多应用程序都采用了这种概念。从惰性编程的角度来思考问题，可以帮助消除代码中不必要的计算。</p>
+<p>ES6中提供了Generator，返回多个遍历器对象，通过这个对象可以访问到Generator函数内部的多个状态。</p>
+<pre><code>function* helloWorldGenerator () {
+  yield &#39;hello&#39;
+  yield &#39;world&#39;
+  return &#39;ending&#39;
+}
+
+&lt;script&gt;alert(1)&lt;/script&gt;
+
+var test = helloWorldGenerator()</code></pre><p>yield表达式后面的表达式，只有当调用next方法，内部指针指向该语句时才会执行，相当于JavaScript提供了手动的“惰性求值”语法功能。<br>console.log(hw.next())<br>//第一次调用，Generator函数开始执行，直到遇到yield表达式为止。next方法返回一个对象，它的value属性就是当前yield语句后面表达式的值hello，done属性为false，表示遍历还没有结束<br>console.log(hw.next())<br>//第二次调用，Generator函数从上次yield表达式停下的地方，一直执行到下一个yield表达式。next方法返回的对象的value属性就是当前yield语句后面表达式的值world，done属性值为false，表示遍历还没有结束。<br>console.log(hw.next())<br>//第三次调用，Generator函数从上次yield表达式停下的地方，一直执行到return语句（如果没有return语句，则value属性为undefined），done属性为true，表示遍历已经执行结束</p>
+<p>js实现惰性求值：</p>
+<pre><code>const range = function* (from, to) {
+  for(let i = from; i &lt; to; i++) {
+    console.log(&#39;range\t&#39;, i);
+    yield i;
+  }
+}
+
+const map = function* (flow, transform) {
+  for(const data of flow) {
+    console.log(&#39;map\t&#39;, data);
+    yield(transform(data));
+  }
+}
+
+const filter = function* (flow, condition) {
+  for(const data of flow) {
+    console.log(&#39;filter\t&#39;, data);
+    if (condition(data)) {
+      yield data;
+    }
+  }
+}
+
+const stop = function*(flow, condition) {
+  for(const data of flow) {
+    yield data;
+    if (condition(data)) {
+      break;
+    }
+  }
+}
+
+const take = function (flow, number) {
+  let count = 0;
+  const _filter = function (data) {
+    count ++
+    return count &gt;= number;
+  }
+  return stop(flow, _filter);
+}
+还得加上链式调用才算是完成了。
+class _Lazy{
+  constructor() {
+    this.iterator = null;
+  }
+
+  range(...args) {
+    this.iterator = range(...args);
+    return this;
+  }
+
+  map(...args) {
+    this.iterator = map(this.iterator, ...args);
+    return this;
+  }
+
+  filter(...args) {
+    this.iterator = filter(this.iterator, ...args);
+    return this;
+  }
+
+  take(...args) {
+    this.iterator = take(this.iterator, ...args);
+    return this;
+  }
+
+  [Symbol.iterator]() {
+    return this.iterator;
+  }
+
+}
+
+function lazy () {
+  return new _Lazy();
+}</code></pre><h1 id="二、函数式编程的优势"><a href="#二、函数式编程的优势" class="headerlink" title="二、函数式编程的优势"></a>二、函数式编程的优势</h1><ul>
+<li>函数式程序更加易于推断，因为他们有确定性。确定的输入会有确定的输出，在许多情况下可以证明程序是正确的，而不是在大量测试后仍然无法确定程序是否会在意外情况下出错。</li>
+<li>函数式程序更加易于测试。没有副作用，所以不需要那些经常用于在测试里隔离程序及外界的mock。</li>
+<li>函数式程序更加模块化，值关心输入和输出，不用去处理异常，处理副作用，不用关心上下文变化，并发等。</li>
+<li>函数式编程让符合和重新符合更加简单。基础函数组成高级别函数，因为要用骨头吗，所以无须修改就可以为其他程序所重用——例如编写了一个求和函数，A程序可以用，B程序也可以用。</li>
+<li>函数式程序总是线程安全的，因为防止了共享状态的变化。并不意外这所有数据都不需要改变，只有共享数据才需要。</li>
+</ul>
+<h1 id="三、函数式编程的应用"><a href="#三、函数式编程的应用" class="headerlink" title="三、函数式编程的应用"></a>三、函数式编程的应用</h1><h2 id="1、react"><a href="#1、react" class="headerlink" title="1、react"></a>1、react</h2><h2 id="2、redux"><a href="#2、redux" class="headerlink" title="2、redux"></a>2、redux</h2><h1 id="四、函数式编程在js中使用的注意点"><a href="#四、函数式编程在js中使用的注意点" class="headerlink" title="四、函数式编程在js中使用的注意点"></a>四、函数式编程在js中使用的注意点</h1><ul>
+<li>JavaScript不像Haskell这样的语言，他并不能算是严格意义上的函数式语言，很多函数式编程的特性并没有。比如上文说的数组的惰性链求值。为了实现它就得上工具库，或者自己封装实现，提高了代码编写成本。</li>
+<li>跟过程式相比，它其实并没有提高性能。有些时候还可能会降低性能</li>
+<li>学习成本较高，代码相对较难理解</li>
+<li>函数式编程用的说法是”隔离副作用”, 而不是说”去掉”副作用，实际应用中的JS是要接触到ajax、DOM操作，NodeJS环境中读写文件、网络操作这些对于外部环境强依赖，有明显副作用的工作。</li>
+</ul>
+
+
+  
+
+  <!---->
+  <!--<div class="post-reward">-->
+    <!--<div id="reward-button">请杯咖啡呗~</div>-->
+    <!--<div id="qr">-->
+      <!--<div class="wrap">-->
+          <!---->
+          <!--<div class="bg-wrap">-->
+            <!--<a href="/images/zhifubao.png" target="_block" class="bg" style="background-image:url('/images/zhifubao.png')"></a>-->
+            <!--支付宝-->
+          <!--</div>-->
+          <!---->
+          <!---->
+          <!--<div class="bg-wrap">-->
+              <!--<a href="/images/weixin.png" target="_block" class="bg" style="background-image:url('/images/weixin.png')"></a>-->
+            <!--微信-->
+          <!--</div>-->
+          <!---->
+      <!--</div>-->
+    <!--</div>-->
+    <!---->
+
+  <!--</div>-->
+
+  <!--<div class="post-copyright">-->
+    <!--<div class="auth">-->
+      <!--本文作者：<a href="http://yoursite.com">shanshan</a>-->
+    <!--</div>-->
+    <!--<div class="link">-->
+      <!--永久链接：<a href="http://yoursite.com/2019/10/13/函数式编程：从入门到放弃/">http://yoursite.com/2019/10/13/函数式编程：从入门到放弃/</a>-->
+    <!--</div>-->
+    <!--<div class="declare">-->
+      <!--版权声明：本文首发于<a href="http://yoursite.com">shanshan</a>的博客，转载请注明出处！-->
+    <!--</div>-->
+  <!--</div>-->
+
+    <!-- Comments -->
+    <div class="comments" id="zss">
+        
+            <br><br>
+            
+            <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_shortname = 'shanshan';
+        var disqus_config = function () {
+            this.page.url = 'http://yoursite.com/2019/10/13/函数式编程：从入门到放弃/';
+            this.page.identifier = '/2019/10/13/函数式编程：从入门到放弃/';
+        };
+        (function() {
+            var d = document, s = d.createElement('script');
+            s.type = 'text/javascript';
+            s.src = '//'+disqus_shortname+'.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow noopener">comments powered by Disqus.</a></noscript>
+</div>
+
+    <div id="gitment_title" class="gitment_title"></div>
+    <div id="container" style="display:none"></div>
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+      const myTheme = {
+        render(state, instance) {
+          const container = document.createElement('div');
+          container.lang = "en-US";
+          container.className = 'gitment-container gitment-root-container';
+          container.appendChild(instance.renderHeader(state, instance));
+          container.appendChild(instance.renderEditor(state, instance));
+          container.appendChild(instance.renderComments(state, instance));
+          container.appendChild(instance.renderFooter(state, instance));
+          return container;
+        }
+      }
+      function showGitment() {
+        $("#gitment_title").attr("style", "display:none");
+        $("#zss").attr("style", "").addClass("gitment_container");
+        var gitment = new Gitment({
+          id: decodeURI(window.location.pathname),
+          theme: myTheme,
+          owner: 'piggyzss',
+          repo: 'piggyzss.github.io/',
+          oauth: {
+            client_id: '09a2760e2209a8728279',
+            client_secret: '1162d7e456f9c8d3f15f164e63f5d253679445a5'
+          }
+        });
+        gitment.render('zss');
+      }
+      showGitment();
+    </script>
+
+        
+    </div>
+
+  <!--<div id="comment"></div>-->
+
+</article>
+        </div>
+        <footer>
+          <div class="copyright">
+            ©2019 <a href="http://yoursite.com">shanshan</a>. Powered by Hexo &
+            <a href="https://github.com/shixiaohu2206/hexo-theme-huhu">hexo-theme-huhu</a>
+          </div>
+          
+        </footer>
+      </div>
+      <div id="card-wrap">
+        <div class="card">
+          <div class="logo-widget">
+            <div class="author">
+              SecretGarden
+            </div>
+            <!--<div class="logo" style="background-image: url('/images/logo.jpeg')"></div>-->
+          </div>
+          <div class="locate-widget">
+            <div class="city-wrap">
+              <svg class="icon location" aria-hidden="true">
+                <use xlink:href="#icon-fenzu9"/>
+              </svg>
+              <span id="city-name"></span>
+            </div>
+            <div class="weather-wrap">
+              <div id="weather-img">
+                <svg class="icon weather" aria-hidden="true">
+                  <use xlink:href="#icon-qingjiafeng"/>
+                </svg>
+              </div>
+              <div id="weather-detail"></div>
+            </div>
+          </div>
+          <div class="follow-widget">
+            
+            <a href="https://github.com/piggyzss" target="_block">
+              <svg class="icon font" aria-hidden="true">
+                <use xlink:href="#icon-github"/>
+              </svg>
+            </a>
+            
+            <a href="https://www.instagram.com/shi_xiaohu/" target="_block">
+              <svg class="icon font" aria-hidden="true">
+                <use xlink:href="#icon-instagram"/>
+              </svg>
+            </a>
+            
+            <a href="https://weibo.com/u/2447128762?refer_flag=1005055010_" target="_block">
+              <svg class="icon font" aria-hidden="true">
+                <use xlink:href="#icon-weibo"/>
+              </svg>
+            </a>
+             
+            <a href="/atom.xml" target="_block">
+              <svg class="icon font" aria-hidden="true">
+                <use xlink:href="#icon-rss"/>
+              </svg>
+            </a>
+            
+          </div>
+           
+          <div class="toc-widget">
+            <div class="title">
+              <span>Toc</span>
+            </div>
+            <div class="post-toc">
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、基础概念"><span class="toc-text">一、基础概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、什么是函数？"><span class="toc-text">1、什么是函数？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、什么是函数式编程？"><span class="toc-text">2、什么是函数式编程？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、理解函数式编程是什么"><span class="toc-text">二、理解函数式编程是什么</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、函数是一等公民"><span class="toc-text">1、函数是一等公民</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、高阶函数"><span class="toc-text">2、高阶函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）map"><span class="toc-text">（1）map</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）filter"><span class="toc-text">（2）filter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（3）reduce"><span class="toc-text">（3）reduce</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、闭包"><span class="toc-text">3、闭包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、柯里化（Currying）"><span class="toc-text">4、柯里化（Currying）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、管道与组合"><span class="toc-text">5、管道与组合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、纯函数"><span class="toc-text">6、纯函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、惰性求值"><span class="toc-text">7、惰性求值</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、函数式编程的优势"><span class="toc-text">二、函数式编程的优势</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、函数式编程的应用"><span class="toc-text">三、函数式编程的应用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、react"><span class="toc-text">1、react</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、redux"><span class="toc-text">2、redux</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、函数式编程在js中使用的注意点"><span class="toc-text">四、函数式编程在js中使用的注意点</span></a></li></ol>
+            </div>
+          </div>
+           
+          <div class="category-widget">
+            <div class="title">
+              <span>Categories</span>
+              <span><a href="/archives">···</a></span>
+            </div>
+            <div class="list">
+              <ul>
+                 
+                <li>
+                  <a href="/categories/code/">
+                    code
+                  </a>
+                </li>
+                 
+              </ul>
+            </div>
+          </div>
+          <div class="tag-widget">
+            <div class="title">
+              <span>Tag Cloud</span>
+              <span><a href>···</a></span>
+            </div>
+            <div class="tag-cloud">
+              <a href="/tags/React/" style="font-size: 16.5px; color: #4a4a4a">React</a> <a href="/tags/前端/" style="font-size: 20px; color: #4a4a4a">前端</a> <a href="/tags/设计模式/" style="font-size: 13px; color: #4a4a4a">设计模式</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WJ7P5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  
+</html>
+<script type="text/javascript">
+  window.THEME_CONFIG = JSON.parse('{"title":"Hexo","subtitle":null,"description":null,"author":"shanshan","language":"en","timezone":null,"url":"http://yoursite.com","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":true,"relative_link":false,"future":true,"highlight":{"enable":false,"auto_detect":false,"line_number":true,"tab_replace":null},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"hexo-theme-huhu","deploy":{"type":"git","repository":"https://github.com/piggyzss/piggyzss.github.io.git","branch":"master"},"ignore":[],"keywords":null,"highlight_theme":"normal","index_generator":{"per_page":10,"order_by":"-date","path":""},"gitment":{"enable":true,"mint":true,"count":true,"lazy":false,"cleanly":false,"language":null,"github_user":"piggyzss","github_repo":"piggyzss.github.io/","client_id":"09a2760e2209a8728279","client_secret":"1162d7e456f9c8d3f15f164e63f5d253679445a5","proxy_gateway":null,"redirect_protocol":null},"category_generator":{"per_page":10},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"marked":{"gfm":true,"pedantic":false,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true,"sanitizeUrl":false,"headerIds":true},"tag_generator":{"per_page":10},"server":{"port":4000,"log":false,"compress":false,"header":true},"menu":{"home":"/","archives":"/archives","about":"/about","music":"/music","gallery":"/gallery"},"logo":"/images/logo.png","gallery":{"title":"光影流年","icon":"fa","icon2":"fa"},"categories_max":5,"tags_max":10,"favicon":"/images/favicon.ico","site_search":true,"rss":"/atom.xml","follow":{"github":"https://github.com/piggyzss","instagram":"https://www.instagram.com/shi_xiaohu/","weibo":"https://weibo.com/u/2447128762?refer_flag=1005055010_"},"search_url":"/search.xml","site_icp":"","site_friends":{"房间里的小猫咪":"http://baidu.com"},"changyan":{"appid":"","conf":""},"valine":{"API_ID":"FjXColpwTL0BsrjJIN8Pmnn0-gzGzoHsz","API_KEY":"Ar7tucPRn3KV7UOidQxESoys"},"share":["weibo","weixin","qqkongjian","QQ","douban","facebook","twitter","google"],"cdn_module":{"av_min":"https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min","jquery":"https://cdn.bootcss.com/jquery/3.4.1/jquery.min","busuanzi":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini","confirm":"https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min","fancybox":"https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"},"google_site_verification":"VQowHv5lAVVWJxjKI9bnAWT7NGdOrfS5KnLF07-B7w0","gtm_id":"GTM-WJ7P5KL","baidu_push":true,"reward":{"weixin":"images/weixin.png","zhifubao":"images/zhifubao.png"},"disqus":{"shortname":"shanshan"},"post":{"date_format":"dddd, MMMM Do YYYY, h:mm a","comments":{"enable":true,"type":"disqus"}}}')
+  window.loadJs = function(d, m, a) {
+    var c = document.getElementsByTagName('head')[0] || document.head || document.documentElement
+    var b = document.createElement('script')
+    b.defer = true
+    b.setAttribute('type', 'text/javascript')
+    b.setAttribute('charset', 'UTF-8')
+    b.setAttribute('async', 'true')
+    b.setAttribute('src', d)
+    m && b.setAttribute('data-main', '/scripts/app')
+    if (typeof a === 'function') {
+      if (window.attachEvent) {
+        b.onreadystatechange = function() {
+          var e = b.readyState
+          if (e === 'loaded' || e === 'complete') {
+            b.onreadystatechange = null
+            a()
+          }
+        }
+      } else {
+        b.onload = a
+      }
+    }
+    c.appendChild(b)
+  }
+  loadJs('https://cdn.bootcss.com/require.js/2.3.6/require.min.js', true, function() {
+    require.config({
+      paths: {
+        // site
+        share: 'share',
+        iconfont: 'iconfont',
+        hodgepodge: 'hodgepodge',
+        valine: ['cdn/Valine.min'],
+
+        // cdn
+        av: ['https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min', 'cdn/av-min'],
+        jquery: ['https://cdn.bootcss.com/jquery/3.4.1/jquery.min', 'cdn/jquery.min'],
+        busuanzi: ['//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini', 'cdn/busuanzi.pure.mini'],
+        confirm: ['https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min', 'cdn/jquery.confirm.min'],
+        fancybox: ['https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min', 'cdn/jquery.fancybox.min']
+      },
+
+      map: {
+        '*': {
+          // css: '/scripts/cdn/css-min.js'
+          css: 'https://cdn.bootcss.com/require-css/0.1.10/css.min.js'
+        }
+      },
+
+      shim: {
+        fancybox: {
+          // deps: ['css!../style/fancybox']
+          deps: ['css!https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css']
+        },
+        confirm: {
+          // deps: ['css!../style/confirm']
+          deps: ['css!https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min.css']
+        }
+      },
+
+      // 加载超时
+      waitSeconds: 3
+    })
+  })
+</script>
+
+<script>
+  ;(function() {
+    var bp = document.createElement('script')
+    var curProtocol = window.location.protocol.split(':')[0]
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+    } else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+    }
+    var s = document.getElementsByTagName('script')[0]
+    s.parentNode.insertBefore(bp, s)
+  })()
+</script>
+
