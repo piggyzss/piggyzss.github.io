@@ -178,7 +178,7 @@
 <p>将其中piggyzss修改为自己的github用户名。<br>ps：在配置所有的_config.yml文件时（包括theme中的），在所有的冒号:后边都要加一个空格，否则执行hexo命令会报错</p>
 <p>在blog文件夹目录下执行生成静态页面命令：<br><code>$ hexo generate/hexo g</code></p>
 <p>再执行配置命令：<br><code>$ hexo deploy/hexo d</code></p>
-<p>hexo deploy命令执行成功后，浏览器中打开网址 <a href="https://piggyzss.github.io/" target="_blank" rel="noopener">https://piggyzss.github.io/</a> 能看到和打开 <a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a> 时一样的页面。</p>
+<p>hexo deploy命令执行成功后，浏览器中打开网址 <a href="https://piggyzss.github.io/">https://piggyzss.github.io/</a> 能看到和打开 <a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a> 时一样的页面。</p>
 <h1 id="3、发布博客"><a href="#3、发布博客" class="headerlink" title="3、发布博客"></a>3、发布博客</h1><p>进入项目根目录下下，执行如下命令新建文章：<br><code>$ hexo new blogName</code></p>
 <p>目录/blog/source/_posts下会新建名为blogName.md的markdown文件。</p>
 <p>文章编辑完成后，终端cd到blog文件夹下，执行如下命令来发布:</p>
@@ -194,9 +194,9 @@ $ hexo d             //重新部署到服务器</code></pre><p>主题就更改�
 <h2 id="注册github应用"><a href="#注册github应用" class="headerlink" title="注册github应用"></a>注册github应用</h2><p>首先需要注册一个OAuth Application，地址:<a href="https://github.com/settings/applications/new" target="_blank" rel="noopener">https://github.com/settings/applications/new</a></p>
 <ul>
 <li>Application name 随意就好</li>
-<li>Homepage URL 你的博客地址，例如:<a href="https://piggyzss.github.io/" target="_blank" rel="noopener">https://piggyzss.github.io/</a></li>
+<li>Homepage URL 你的博客地址，例如:<a href="https://piggyzss.github.io/">https://piggyzss.github.io/</a></li>
 <li>Application description 随意就好</li>
-<li>Authorization callback URL 也是博客地址，例如:<a href="https://piggyzss.github.io/" target="_blank" rel="noopener">https://piggyzss.github.io/</a></li>
+<li>Authorization callback URL 也是博客地址，例如:<a href="https://piggyzss.github.io/">https://piggyzss.github.io/</a></li>
 <li>输入完成之后，点击注册就OK了。成功之后就会拿到Client ID和Client Secret。</li>
 </ul>
 <h2 id="修改项目配置文件"><a href="#修改项目配置文件" class="headerlink" title="修改项目配置文件"></a>修改项目配置文件</h2><p>修改项目根目录下_config.yml，添加如下代码：</p>
